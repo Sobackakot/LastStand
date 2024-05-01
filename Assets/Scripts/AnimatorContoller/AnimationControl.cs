@@ -7,66 +7,31 @@ public class AnimationControl : MonoBehaviour
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator anim;
 
-    private bool isSquat = false;
-    private bool isFighting = false;  
-     
+    public float agentMoveStanding = 10f;
+    public float agentMoveSitting = 3.5f;
     private void Update()
     {
-        if (isSquat)
-            AnimationSquatWalk();
-        else if (isFighting)
-            AnimationFighting();
-        else
-            AnimationRun();
-    }  
-    private void CheckKayDown()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isSquat = false;
-            isFighting = false;
-        } 
-        else if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            isFighting = false;
-            isSquat = true;
-        } 
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            isFighting =true;
-            isSquat = false;
-        }
+        AnimatorUpdate();
     }
-
-    private void AnimationRun()
+    public void AnimatorUpdate()
     {
-        anim.SetBool("isFighting", false);
+        float speedAnimator = agent.velocity.sqrMagnitude > 0 ? SpeedCalculate() : 0f;
+        anim.SetFloat("MoveSitting", speedAnimator, 0.1f, Time.deltaTime);
+        anim.SetFloat("MoveStanding", speedAnimator, 0.1f, Time.deltaTime);
+    }
+    public void WalkSittingAnim()
+    {
+        agent.speed = agentMoveSitting;
+        anim.SetBool("isSquat", true); 
+    }
+    public void MoveStandingAnim()
+    {
+        agent.speed = agentMoveStanding;
         anim.SetBool("isSquat", false);
-        agent.speed = 10f; 
-        anim.SetFloat("SpeedMove", SpeedCalculate(), 0.1f, Time.deltaTime); 
-    }
-
-    private void AnimationSquatWalk()
-    {
-        anim.SetBool("isFighting", false);
-        anim.SetBool("isSquat", true);
-        agent.speed = 3.5f; 
-        anim.SetFloat("SquatMove", SpeedCalculate(), 0.1f, Time.deltaTime); 
-    }
-    private void AnimationFighting()
-    {
-        anim.SetBool("isSquat", false);
-        anim.SetBool("isFighting", true);
-        agent.speed = 5f;  
     }
     private float SpeedCalculate()
     {
-        CheckKayDown();
         return agent.velocity.magnitude / agent.speed; 
-    }
-    public void Fite()
-    {
-        anim.SetBool("Kick", true);
     }
     
 }

@@ -71,6 +71,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""CtrlButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""70f8a4f9-efde-4c29-9014-cfd4fe68f07e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpaceButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""02786148-0a1d-4aa4-ace9-3b2eb2900d90"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,6 +146,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""MiddleMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03b6e8fe-3a76-40a4-9000-fb9a6754ce68"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CtrlButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5eb4ad00-eb76-473d-ae57-a536e751e445"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpaceButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +181,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_MiddleMouseButton = m_ActionMaps.FindAction("MiddleMouseButton", throwIfNotFound: true);
         m_ActionMaps_LookMouseDelta = m_ActionMaps.FindAction("LookMouseDelta", throwIfNotFound: true);
         m_ActionMaps_ScrollMouse = m_ActionMaps.FindAction("ScrollMouse", throwIfNotFound: true);
+        m_ActionMaps_CtrlButton = m_ActionMaps.FindAction("CtrlButton", throwIfNotFound: true);
+        m_ActionMaps_SpaceButton = m_ActionMaps.FindAction("SpaceButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -207,6 +249,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_MiddleMouseButton;
     private readonly InputAction m_ActionMaps_LookMouseDelta;
     private readonly InputAction m_ActionMaps_ScrollMouse;
+    private readonly InputAction m_ActionMaps_CtrlButton;
+    private readonly InputAction m_ActionMaps_SpaceButton;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -216,6 +260,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @MiddleMouseButton => m_Wrapper.m_ActionMaps_MiddleMouseButton;
         public InputAction @LookMouseDelta => m_Wrapper.m_ActionMaps_LookMouseDelta;
         public InputAction @ScrollMouse => m_Wrapper.m_ActionMaps_ScrollMouse;
+        public InputAction @CtrlButton => m_Wrapper.m_ActionMaps_CtrlButton;
+        public InputAction @SpaceButton => m_Wrapper.m_ActionMaps_SpaceButton;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -240,6 +286,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ScrollMouse.started += instance.OnScrollMouse;
             @ScrollMouse.performed += instance.OnScrollMouse;
             @ScrollMouse.canceled += instance.OnScrollMouse;
+            @CtrlButton.started += instance.OnCtrlButton;
+            @CtrlButton.performed += instance.OnCtrlButton;
+            @CtrlButton.canceled += instance.OnCtrlButton;
+            @SpaceButton.started += instance.OnSpaceButton;
+            @SpaceButton.performed += instance.OnSpaceButton;
+            @SpaceButton.canceled += instance.OnSpaceButton;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -259,6 +311,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ScrollMouse.started -= instance.OnScrollMouse;
             @ScrollMouse.performed -= instance.OnScrollMouse;
             @ScrollMouse.canceled -= instance.OnScrollMouse;
+            @CtrlButton.started -= instance.OnCtrlButton;
+            @CtrlButton.performed -= instance.OnCtrlButton;
+            @CtrlButton.canceled -= instance.OnCtrlButton;
+            @SpaceButton.started -= instance.OnSpaceButton;
+            @SpaceButton.performed -= instance.OnSpaceButton;
+            @SpaceButton.canceled -= instance.OnSpaceButton;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -283,5 +341,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMiddleMouseButton(InputAction.CallbackContext context);
         void OnLookMouseDelta(InputAction.CallbackContext context);
         void OnScrollMouse(InputAction.CallbackContext context);
+        void OnCtrlButton(InputAction.CallbackContext context);
+        void OnSpaceButton(InputAction.CallbackContext context);
     }
 }
