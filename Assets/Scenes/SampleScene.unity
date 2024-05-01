@@ -279,6 +279,8 @@ MonoBehaviour:
   minAngle: -45
   maxAngle: 65
   zoomSpeed: 5
+  minZoom: 2
+  maxZoom: 25
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08c68282130838f41a2f78df640c6cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onLeftMouseClick:
+  onLeftMouseButton:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 964704888}
@@ -595,10 +597,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  onRightMouseClick:
+  onRightMouseButton:
     m_PersistentCalls:
       m_Calls: []
-  onLookMouse:
+  onLookMouseDelta:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 330585548}
@@ -850,7 +852,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 5dc938894b60e624e95068f02488ac8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

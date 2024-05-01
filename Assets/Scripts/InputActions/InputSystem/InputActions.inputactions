@@ -6,7 +6,7 @@
             "id": "89318a0d-5fac-4bae-8a45-e1864cd3f3dc",
             "actions": [
                 {
-                    "name": "LeftMouse",
+                    "name": "LeftMouseButton",
                     "type": "Button",
                     "id": "052ac51d-9e48-42c0-8677-53b73711a6cc",
                     "expectedControlType": "Button",
@@ -15,7 +15,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightMouse",
+                    "name": "RightMouseButton",
                     "type": "Button",
                     "id": "76d3468f-5202-440f-aae7-29a8af6c07aa",
                     "expectedControlType": "Button",
@@ -24,7 +24,16 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LookMouse",
+                    "name": "MiddleMouseButton",
+                    "type": "Button",
+                    "id": "e621fafb-20ac-4e54-b9da-fd3865281073",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LookMouseDelta",
                     "type": "Value",
                     "id": "5c59092f-4892-4e0a-9f46-0eef74f7ac1f",
                     "expectedControlType": "Vector2",
@@ -50,7 +59,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftMouse",
+                    "action": "LeftMouseButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -61,7 +70,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RightMouse",
+                    "action": "RightMouseButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -72,7 +81,7 @@
                     "interactions": "",
                     "processors": "ScaleVector2",
                     "groups": "",
-                    "action": "LookMouse",
+                    "action": "LookMouseDelta",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -84,6 +93,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ScrollMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0731ef01-32a8-48ff-ae81-69726013f1fd",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MiddleMouseButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
