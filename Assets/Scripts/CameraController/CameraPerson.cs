@@ -1,7 +1,7 @@
  
 using UnityEngine; 
 
-public class CameraPerson : MonoBehaviour
+public class CameraPerson : MonoBehaviour  
 {
     [SerializeField] private Vector3 offset;
     [SerializeField] private Transform lookPoint;
@@ -25,17 +25,21 @@ public class CameraPerson : MonoBehaviour
     }
     public void LateUpdate()
     {
+        PositionUpdate();
+    }
+    public virtual void PositionUpdate()
+    {
         transform.position = transform.localRotation * offset + lookPoint.position; //обновление позии камеры при вращении
         transform.position = lookPoint.position - transform.forward * scrollDelta; //обновление позиции камеры при зууме
     }
-    public void RotateCamera(Vector2 deltaMouse)
+    public virtual void RotateCamera(Vector2 deltaMouse)
     {
         deltaX += deltaMouse.x * sensitivity; // получаем дельту вращения по X
         deltaY -= deltaMouse.y * sensitivity; // получаем дельту вращения по Y
         deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // ограничение вращения по Y
         transform.localEulerAngles = new Vector3(deltaY, deltaX, 0); // инициализация вращения камеры толко с зажатой кнопкой
     }
-    public void ZoomCamera(Vector2 scrollMouse)
+    public virtual void ZoomCamera(Vector2 scrollMouse)
     {   
         scrollDelta-= scrollMouse.y * zoomSpeed * Time.deltaTime; // получаем значения Zoom камеры вперед/назад
         scrollDelta = Mathf.Clamp(scrollDelta, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // ограничения Zoom 

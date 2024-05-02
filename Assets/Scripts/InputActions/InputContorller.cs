@@ -1,10 +1,10 @@
- 
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputContorller : MonoBehaviour
-{
+{   
     [Header("Input Mouse Button")]
 
     [SerializeField] private UnityEvent onLeftMouseButton;
@@ -20,10 +20,13 @@ public class InputContorller : MonoBehaviour
     [SerializeField] private UnityEvent onCtrlButton;
     [SerializeField] private UnityEvent onSpaceButton;
 
+    [SerializeField] private CameraRayPointMove rayPointMove;
+
     private InputActions inputActions;
+    
 
-    private bool isPressedMiddleMouseButton = false; 
-
+    private bool isPressedMiddleMouseButton = false;
+    
     private void OnEnable()
     {
         inputActions = new InputActions();
@@ -37,12 +40,19 @@ public class InputContorller : MonoBehaviour
 
         inputActions.ActionMaps.CtrlButton.performed += ctx => CtrlButton_performed(ctx);
         inputActions.ActionMaps.SpaceButton.performed += ctx => SpaceButton_performed(ctx);
+        rayPointMove.onInputGetAxis += RayPointMove_onInputGetAxis;
     }
+     
+
     private void OnDisable()
     {
         inputActions.Disable();
-    } 
-    
+    }
+    public Vector2 RayPointMove_onInputGetAxis()
+    {
+        Vector2 inputAxis = inputActions.ActionMaps.GetAxisDirectionMove.ReadValue<Vector2>();
+        return inputAxis;
+    }
     private void LeftMouse_performed(InputAction.CallbackContext context)
     {   
         if(context.performed)
@@ -78,5 +88,5 @@ public class InputContorller : MonoBehaviour
     {
         if (context.performed)
             onSpaceButton.Invoke();
-    }
+    } 
 }

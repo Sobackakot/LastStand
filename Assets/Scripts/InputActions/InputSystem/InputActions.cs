@@ -89,6 +89,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GetAxisDirectionMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""62aa50ca-70e1-449c-adcc-9c4af55776e3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -168,6 +177,61 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""SpaceButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""28834a12-610f-453a-856c-063c6c33d7c0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetAxisDirectionMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""afef63cc-1887-49b3-9f90-df0caa45833c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetAxisDirectionMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""e89963c2-3e13-4df6-832b-6cd13b23757b"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetAxisDirectionMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""501bb761-5e5c-4798-bb5f-8fbed9c679d2"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetAxisDirectionMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""a124aaab-aa23-491a-81c3-ff7c885232de"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetAxisDirectionMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -183,6 +247,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_ScrollMouse = m_ActionMaps.FindAction("ScrollMouse", throwIfNotFound: true);
         m_ActionMaps_CtrlButton = m_ActionMaps.FindAction("CtrlButton", throwIfNotFound: true);
         m_ActionMaps_SpaceButton = m_ActionMaps.FindAction("SpaceButton", throwIfNotFound: true);
+        m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +316,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_ScrollMouse;
     private readonly InputAction m_ActionMaps_CtrlButton;
     private readonly InputAction m_ActionMaps_SpaceButton;
+    private readonly InputAction m_ActionMaps_GetAxisDirectionMove;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -262,6 +328,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @ScrollMouse => m_Wrapper.m_ActionMaps_ScrollMouse;
         public InputAction @CtrlButton => m_Wrapper.m_ActionMaps_CtrlButton;
         public InputAction @SpaceButton => m_Wrapper.m_ActionMaps_SpaceButton;
+        public InputAction @GetAxisDirectionMove => m_Wrapper.m_ActionMaps_GetAxisDirectionMove;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -292,6 +359,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @SpaceButton.started += instance.OnSpaceButton;
             @SpaceButton.performed += instance.OnSpaceButton;
             @SpaceButton.canceled += instance.OnSpaceButton;
+            @GetAxisDirectionMove.started += instance.OnGetAxisDirectionMove;
+            @GetAxisDirectionMove.performed += instance.OnGetAxisDirectionMove;
+            @GetAxisDirectionMove.canceled += instance.OnGetAxisDirectionMove;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -317,6 +387,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @SpaceButton.started -= instance.OnSpaceButton;
             @SpaceButton.performed -= instance.OnSpaceButton;
             @SpaceButton.canceled -= instance.OnSpaceButton;
+            @GetAxisDirectionMove.started -= instance.OnGetAxisDirectionMove;
+            @GetAxisDirectionMove.performed -= instance.OnGetAxisDirectionMove;
+            @GetAxisDirectionMove.canceled -= instance.OnGetAxisDirectionMove;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -343,5 +416,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnScrollMouse(InputAction.CallbackContext context);
         void OnCtrlButton(InputAction.CallbackContext context);
         void OnSpaceButton(InputAction.CallbackContext context);
+        void OnGetAxisDirectionMove(InputAction.CallbackContext context);
     }
 }
