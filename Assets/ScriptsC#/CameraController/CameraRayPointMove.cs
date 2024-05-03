@@ -8,7 +8,7 @@ public class CameraRayPointMove : MonoBehaviour
     [SerializeField] private Transform mainCamera;
 
     [Header("Target Look Point")]
-    [SerializeField] private Transform lookPoint; // таргет за кем слудует камера
+    [SerializeField] private Transform lookFreePoint; // таргет за кем слудует камера
 
     [Header("Terrane Layer Mask")]
     [SerializeField] private LayerMask terraLayerMask; // слой Маска поверхности 
@@ -51,7 +51,7 @@ public class CameraRayPointMove : MonoBehaviour
         Ray ray = new Ray(transform.position, -Vector3.up);// создаем луч в направлении сверху в низ
         if (Physics.Raycast(ray, out RaycastHit hit, verticalRayDistance, terraLayerMask))// проверем столкновение луча с поверхностью
         {
-            lookPoint.position = hit.point;// перемещяем объект Target LookPoint камеры в позицию пересечения луча с поверхностью
+            lookFreePoint.position = hit.point;// перемещяем объект Target LookPoint камеры в позицию пересечения луча с поверхностью
         } 
     }
     private void MoveRay()

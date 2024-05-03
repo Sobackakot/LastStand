@@ -5,22 +5,23 @@ using UnityEngine.InputSystem;
 
 public class InputContorller : MonoBehaviour
 {   
-    [Header("Input Mouse Button")]
+    [Header("Input Mouse Button MoveAgentHitPoint")]
 
     [SerializeField] private UnityEvent onLeftMouseButton;
-    [SerializeField] private UnityEvent onRightMouseButton;
+    [SerializeField] private UnityEvent onRightMouseButton; //MoveAgent()
 
-    [Header("Rotate Mouse and Zoom")]
+    [Header("Rotate and Zoom CameraPerson")]
 
-    [SerializeField] private UnityEvent<Vector2> onRotateMouse;
-    [SerializeField] private UnityEvent<Vector2> onScrollMouse;
+    [SerializeField] private UnityEvent<Vector2> onRotateMouse; //RotateCamera(Vector2 deltaMouse)
+    [SerializeField] private UnityEvent<Vector2> onScrollMouse; //ZoomCamera(Vector2 scrollMouse)
 
-    [Header("Input Keyboard")]
+    [Header("Input Keyboard AnimationControl")]
 
-    [SerializeField] private UnityEvent onCtrlButton;
-    [SerializeField] private UnityEvent onSpaceButton;
+    [SerializeField] private UnityEvent onCtrlButton; //WalkSittingAnim()
+    [SerializeField] private UnityEvent onSpaceButton; //MoveStandingAnim()
 
-    [SerializeField] private CameraRayPointMove rayPointMove;
+    //Event from class CameraRayPointMove
+    [SerializeField] private CameraRayPointMove rayPointMove; //SetInputAxisMove(Vector2 inputAxis) 
 
     private InputActions inputActions;
     
