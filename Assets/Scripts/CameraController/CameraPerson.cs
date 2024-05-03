@@ -3,20 +3,26 @@ using UnityEngine;
 
 public class CameraPerson : MonoBehaviour  
 {
+    [Header("Current Camera position")]
     [SerializeField] private Vector3 offset;
+
+    [Header("Target Look Person point")]
     [SerializeField] private Transform lookPoint;
 
-    [SerializeField] private float sensitivity = 0.5f;
-    [SerializeField] private float minAngle = -45f;
-    [SerializeField] private float maxAngle = 65f;
+    [Header("Mouse Rotate Camera")]
+    [SerializeField, Range(0.3f,3)] private float sensitivity = 0.5f;
+    [SerializeField, Range(-65, 0)] private float minAngle = -45f;
+    [SerializeField, Range(0, 65)] private float maxAngle = 65f;
 
-    [SerializeField] private float zoomSpeed = 6f;
-    [SerializeField] private float minZoom = 2f;
-    [SerializeField] private float maxZoom = 100f;
+    [Header("Mouse Zoom Camera")]
+    [SerializeField, Range(1,30)] private float currentScrollPoint = 6f;
+    [SerializeField, Range(1, 10)] private float zoomSpeed = 6f;
+    [SerializeField, Range(1, 6)] private float minZoom = 2f;
+    [SerializeField, Range(25, 500)] private float maxZoom = 100f;
     
-    private float scrollDelta = 3f;  
-    private float deltaX = 0f;
-    private float deltaY = 0f; 
+      
+    private float deltaX;
+    private float deltaY; 
 
     private void Start()
     {
@@ -30,7 +36,7 @@ public class CameraPerson : MonoBehaviour
     public virtual void PositionUpdate()
     {
         transform.position = transform.localRotation * offset + lookPoint.position; //обновление позии камеры при вращении
-        transform.position = lookPoint.position - transform.forward * scrollDelta; //обновление позиции камеры при зууме
+        transform.position = lookPoint.position - transform.forward * currentScrollPoint; //обновление позиции камеры при зууме
     }
     public virtual void RotateCamera(Vector2 deltaMouse)
     {
@@ -41,7 +47,7 @@ public class CameraPerson : MonoBehaviour
     }
     public virtual void ZoomCamera(Vector2 scrollMouse)
     {   
-        scrollDelta-= scrollMouse.y * zoomSpeed * Time.deltaTime; // получаем значения Zoom камеры вперед/назад
-        scrollDelta = Mathf.Clamp(scrollDelta, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // ограничения Zoom 
+        currentScrollPoint-= scrollMouse.y * zoomSpeed * Time.deltaTime; // получаем значения Zoom камеры вперед/назад
+        currentScrollPoint = Mathf.Clamp(currentScrollPoint, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // ограничения Zoom 
     } 
 }
