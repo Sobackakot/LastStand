@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6438931214592192379}
   - component: {fileID: 1788862850266967575}
   - component: {fileID: 5962541816612799467}
+  - component: {fileID: 8706071533712485701}
   m_Layer: 0
   m_Name: PersonCamera
   m_TagString: MainCamera
@@ -151,10 +152,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 2.85, z: -3.05}
-  lookPoint: {fileID: 0}
-  sensitivity: 0.5
+  lookPersonPoint: {fileID: 0}
+  lookFreePoint: {fileID: 0}
+  sensitivity: 0.3
   minAngle: -45
-  maxAngle: 65
+  maxAngle: 75
+  currentScrollPoint: 6
   zoomSpeed: 5
   minZoom: 2
   maxZoom: 25
+--- !u!114 &8706071533712485701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396365093253637521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0

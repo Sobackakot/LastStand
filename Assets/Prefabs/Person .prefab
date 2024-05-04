@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5875168791148720732}
   - component: {fileID: 8984317968085989956}
   - component: {fileID: 6603612861164635218}
+  - component: {fileID: 8743811736682093820}
   m_Layer: 0
   m_Name: 'Person '
   m_TagString: Untagged
@@ -83,7 +84,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -106,10 +107,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.19633308
+  m_Radius: 0.24405098
   m_Height: 1.8105738
   m_Direction: 1
-  m_Center: {x: -0.005867958, y: 0.9085847, z: -0.0073349625}
+  m_Center: {x: 0.013976097, y: 0.9085847, z: -0.0005941391}
 --- !u!114 &8984317968085989956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 4276336633959298467}
-  anim: {fileID: 2911897509416161000}
+  animatorPerson: {fileID: 2911897509416161000}
   agentMoveStanding: 10
   agentMoveSitting: 3.5
 --- !u!114 &6603612861164635218
@@ -140,6 +141,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   agentMove: {fileID: 4276336633959298467}
+  rayDistance: 500
+--- !u!114 &8743811736682093820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979978968027931991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c58a70e7a8b2f4190e7378fbf35ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  personData: {fileID: 11400000, guid: f6e100c25afa735428261136beb4a5d8, type: 2}
+  personsDataList: []
+  personsUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &7989481627455057463
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4132716623619309938}
   m_Layer: 0
-  m_Name: LookPoint
+  m_Name: LookPersonPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
