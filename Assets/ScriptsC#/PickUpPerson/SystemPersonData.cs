@@ -1,4 +1,4 @@
- 
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,10 +7,13 @@ public class SystemPersonData : MonoBehaviour
 {
     public static SystemPersonData Instance;
 
+    [Header("List person UI and current amoutn PickUpPerson")]
     [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>();
-    [SerializeField] private List<PickUpPerson> personsObj = new List<PickUpPerson>();
-    public UnityEvent<bool, PickUpPerson> onSetFocusCamera; // This Event for calss CameraLookTarget
+    [SerializeField] private List<PickUpPerson> personsObjs = new List<PickUpPerson>();
 
+    [Header("Reset camera look target")]
+    public UnityEvent<bool, PickUpPerson> onSetFocusCamera; // This Event for calss CameraLookTarget
+      
     public void Awake()
     {
         if(Instance != null)
@@ -23,7 +26,7 @@ public class SystemPersonData : MonoBehaviour
     }
     public void AddPersonList(PickUpPerson personObj) // Add new person my group
     {
-        personsObj.Add(personObj);
+        personsObjs.Add(personObj);
     }
     public void SetDataPerson(PersonDataScript dataScript) // set new first data person 
     {
@@ -40,17 +43,18 @@ public class SystemPersonData : MonoBehaviour
     }
     public void SetFocusCamera(string id) //set focus camera pickup person
     {
-        foreach (PickUpPerson pers in personsObj)
+        foreach (PickUpPerson pers in personsObjs)
         {
             if (pers.id == id)
-            {
+            { 
                 onSetFocusCamera.Invoke(false, pers); // ResetLookPoint
-            }
+                break;
+            } 
         }
-    }
+    } 
     private void ActivePersonUI(PickUpPersonUI uiSlot) //Active new person my ui slot group
     {
         uiSlot.gameObject.SetActive(true);
     } 
-    
+
 }

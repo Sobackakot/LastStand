@@ -1,10 +1,15 @@
  
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private PersonDataScript personData;
+
+    //[Header("Enable and Disable InputContoller")]
+    //[SerializeField] private UnityEvent onEnableInputController; // This Event for calss InputController
+    //[SerializeField] private UnityEvent onDisableInputController; // This Event for calss InputController
 
     private bool isInitialized = false;
 

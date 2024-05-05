@@ -19,8 +19,7 @@ public class InputContorller : MonoBehaviour
 
     [SerializeField] private UnityEvent onCtrlButton; //This Event for calss CharacterAnimatorController
     [SerializeField] private UnityEvent onSpaceButton;//This Event for calss CharacterAnimatorController
-
-
+      
     [SerializeField] private RaycastPointFollow rayPointMove;  
 
     private InputActions inputActions;
@@ -43,11 +42,18 @@ public class InputContorller : MonoBehaviour
         inputActions.ActionMaps.SpaceButton.performed += ctx => SpaceButton_performed(ctx);
         rayPointMove.onInputGetAxis += RayPointMove_onInputGetAxis; //SetInputAxisMove(Vector2 inputAxis)
     }
-     
-
+    
     private void OnDisable()
     {
         inputActions.Disable();
+    }
+    public void EnableInputController()
+    {
+        enabled = true;
+    }
+    public void DisableInputController()
+    {
+        enabled = false;
     }
     public Vector2 RayPointMove_onInputGetAxis() //coll from calss RaycastPointFollow
     {
@@ -89,5 +95,5 @@ public class InputContorller : MonoBehaviour
     {
         if (context.performed)
             onSpaceButton.Invoke(); //MoveStandingAnim()
-    } 
+    }  
 }

@@ -35,5 +35,4 @@ public class CharacterAnimatorControl : MonoBehaviour
     {
         return agent.velocity.magnitude / agent.speed; 
     }
-    
 }

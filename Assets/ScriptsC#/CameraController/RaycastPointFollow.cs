@@ -34,7 +34,8 @@ public class RaycastPointFollow : MonoBehaviour
         GetDirectionCamera();
         SetRaycastPoint();
         MoveRay();
-        SetInputAxisMove(onInputGetAxis.Invoke()); // RayPointMove_onInputGetAxis()
+        if(onInputGetAxis != null)
+            SetInputAxisMove(onInputGetAxis.Invoke()); // RayPointMove_onInputGetAxis()
     }
     private void SetInputAxisMove(Vector2 inputAxis)  
     {   
@@ -64,7 +65,7 @@ public class RaycastPointFollow : MonoBehaviour
             onSetFocusCamera.Invoke(true, null); //ResetLookPoint
             transform.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
         }    
-    }
+    } 
 }
      
 

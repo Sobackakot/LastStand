@@ -1,6 +1,7 @@
  
 using TMPro; 
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     [SerializeField] private Image perImage;
     [SerializeField] private TextMeshProUGUI namePerson;
     [SerializeField] private PersonDataScript personDataUI;
-
+     
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.5f;
     private bool _hasData = false;

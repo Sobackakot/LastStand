@@ -40,8 +40,13 @@ public class CameraLookTarget : MonoBehaviour
     { 
         // либо камера следует за выбранным из списка персонажем или свободно следует за точкой
         if (isFreeCamera)
+        {
             currentLookPoint = lookFreePoint;
-        else currentLookPoint = person.transform;
+        } 
+        else
+        {
+            currentLookPoint = person.transform;
+        }
     }
     public virtual void PositionUpdate()
     { 

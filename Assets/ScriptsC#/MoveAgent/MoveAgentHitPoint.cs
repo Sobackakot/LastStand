@@ -7,7 +7,20 @@ public class MoveAgentHitPoint : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private NavMeshAgent agentMove;
     [SerializeField, Range(100, 1000)] private float rayDistance = 150f;
-    
+    private void OnEnable()
+    {
+    }
+    private void OnDisable()
+    {
+    }
+    public void EnableMoveAgent()
+    {
+        enabled = true;
+    }
+    public void DisableMoveAgent()
+    {
+        enabled = false;
+    }
     public void MoveAgent()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -16,5 +29,5 @@ public class MoveAgentHitPoint : MonoBehaviour
         {
             agentMove.SetDestination(hit.point);
         }
-    }
+    } 
 } 
