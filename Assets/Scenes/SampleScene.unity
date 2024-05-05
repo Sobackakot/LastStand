@@ -156,6 +156,25 @@ MonoBehaviour:
   - {fileID: 786628260}
   - {fileID: 1329357385}
   - {fileID: 506103744}
+  personsObj:
+  - {fileID: 1846382060}
+  - {fileID: 1279068221}
+  - {fileID: 1526199055}
+  onSetFocusCamera:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2029986944}
+        m_TargetAssemblyTypeName: CameraLookTarget, Assembly-CSharp
+        m_MethodName: ResetLookPoint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &51737706
 Transform:
   m_ObjectHideFlags: 0
@@ -254,6 +273,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &66778116 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3396365093253637521, guid: 7ad4463b45841c04da0de2d98a85ed54,
+    type: 3}
+  m_PrefabInstance: {fileID: 7166093947692530666}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &196373482
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +290,7 @@ GameObject:
   - component: {fileID: 196373487}
   - component: {fileID: 196373486}
   - component: {fileID: 196373485}
-  - component: {fileID: 196373483}
+  - component: {fileID: 196373488}
   m_Layer: 0
   m_Name: RayPoint
   m_TagString: Untagged
@@ -273,25 +298,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &196373483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 196373482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58401acf583dac943b33c2b99eeb5c0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 2029986940}
-  lookFreePoint: {fileID: 55243897}
-  terraLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  verticalRayDistance: 2000
-  speedMoveRay: 15
 --- !u!23 &196373485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -357,24 +363,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &196373488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196373482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 808dcbe895f43c546a82cf6f93fdfb7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 2029986940}
+  lookFreePoint: {fileID: 55243897}
+  terraLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  verticalRayDistance: 2000
+  speedMoveRay: 15
+  onSetFocusCamera:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2029986944}
+        m_TargetAssemblyTypeName: CameraLookTarget, Assembly-CSharp
+        m_MethodName: ResetLookPoint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!20 &330585545 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8847350122379099946, guid: 7ad4463b45841c04da0de2d98a85ed54,
     type: 3}
   m_PrefabInstance: {fileID: 7166093947692530666}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &330585548 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5962541816612799467, guid: 7ad4463b45841c04da0de2d98a85ed54,
-    type: 3}
-  m_PrefabInstance: {fileID: 7166093947692530666}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32591bfe0b2b4594c8dfafbe0e393761, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &352933659
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +747,7 @@ MonoBehaviour:
   perImage: {fileID: 506103742}
   namePerson: {fileID: 2138354542}
   personDataUI: {fileID: 11400000, guid: 39b7d442c694aae47af3630fe85a028a, type: 2}
-  _hasData: 0
+  id: 
 --- !u!1 &786628256
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +840,7 @@ MonoBehaviour:
   perImage: {fileID: 786628258}
   namePerson: {fileID: 352933661}
   personDataUI: {fileID: 11400000, guid: a8e13e2f0e7fe3a44b2e945bed5983c3, type: 2}
-  _hasData: 0
+  id: 
 --- !u!1 &825960475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,7 +1074,7 @@ MonoBehaviour:
   onRotateMouse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraPerson, Assembly-CSharp
         m_MethodName: RotateCamera
         m_Mode: 0
@@ -1061,7 +1089,7 @@ MonoBehaviour:
   onScrollMouse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraPerson, Assembly-CSharp
         m_MethodName: ZoomCamera
         m_Mode: 0
@@ -1103,7 +1131,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  rayPointMove: {fileID: 196373483}
+  rayPointMove: {fileID: 196373488}
 --- !u!4 &943106419
 Transform:
   m_ObjectHideFlags: 0
@@ -1247,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personData: {fileID: 11400000, guid: a013503c1dd8d2d43bd641add003be42, type: 2}
+  id: 
 --- !u!1 &1329357379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1368,7 @@ MonoBehaviour:
   perImage: {fileID: 1329357383}
   namePerson: {fileID: 825960477}
   personDataUI: {fileID: 11400000, guid: 33d3cb76f8a98814c96e66ade3e6ec53, type: 2}
-  _hasData: 0
+  id: 
 --- !u!1 &1410957289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,7 +1431,7 @@ PrefabInstance:
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.998
+      value: -2.61
       objectReference: {fileID: 0}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -1669,6 +1698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personData: {fileID: 11400000, guid: a26e5585b24026144b88d0643d6491f1, type: 2}
+  id: 
 --- !u!1 &1810419644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1914,6 +1944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personData: {fileID: 11400000, guid: 225543d2a1ae15d48bb408a7c712590f, type: 2}
+  id: 
 --- !u!1001 &1865548983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1940,7 +1971,7 @@ PrefabInstance:
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.01
+      value: -8.32
       objectReference: {fileID: 0}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -2380,6 +2411,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7166093947692530666}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2029986944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 66778116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522e11190e8a57c4493d096fad8bd06d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 2.85, z: -32.08}
+  lookFreePoint: {fileID: 55243897}
+  sensitivity: 0.5
+  minAngle: -45
+  maxAngle: 75
+  currentScrollPoint: 6
+  zoomSpeed: 6
+  minZoom: 2
+  maxZoom: 100
 --- !u!1 &2138354540
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,7 +2592,7 @@ PrefabInstance:
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.167
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -2871,10 +2923,15 @@ PrefabInstance:
       propertyPath: lookPersonPoint
       value: 
       objectReference: {fileID: 55243897}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5962541816612799467, guid: 7ad4463b45841c04da0de2d98a85ed54, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3396365093253637521, guid: 7ad4463b45841c04da0de2d98a85ed54,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2029986944}
   m_SourcePrefab: {fileID: 100100000, guid: 7ad4463b45841c04da0de2d98a85ed54, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

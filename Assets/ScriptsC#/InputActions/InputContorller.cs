@@ -7,21 +7,21 @@ public class InputContorller : MonoBehaviour
 {   
     [Header("Input Mouse Button MoveAgentHitPoint")]
 
-    [SerializeField] private UnityEvent onLeftMouseButton;
-    [SerializeField] private UnityEvent onRightMouseButton; //MoveAgent()
+    [SerializeField] private UnityEvent onLeftMouseButton; //This Event for calss MoveAgentHitPoint
+    [SerializeField] private UnityEvent onRightMouseButton; //This Event for calss MoveAgentHitPoint
 
-    [Header("Rotate and Zoom CameraPerson")]
+    [Header("Rotate and Zoom CameraLookTarget")]
 
-    [SerializeField] private UnityEvent<Vector2> onRotateMouse; //RotateCamera(Vector2 deltaMouse)
-    [SerializeField] private UnityEvent<Vector2> onScrollMouse; //ZoomCamera(Vector2 scrollMouse)
+    [SerializeField] private UnityEvent<Vector2> onRotateMouse; //This Event for calss CameraLookTarget
+    [SerializeField] private UnityEvent<Vector2> onScrollMouse; //This Event for calss CameraLookTarget
 
-    [Header("Input Keyboard AnimationControl")]
+    [Header("Input Keyboard CharacterAnimatorControl")]
 
-    [SerializeField] private UnityEvent onCtrlButton; //WalkSittingAnim()
-    [SerializeField] private UnityEvent onSpaceButton; //MoveStandingAnim()
+    [SerializeField] private UnityEvent onCtrlButton; //This Event for calss CharacterAnimatorController
+    [SerializeField] private UnityEvent onSpaceButton;//This Event for calss CharacterAnimatorController
 
-    //Event from class CameraRayPointMove
-    [SerializeField] private CameraRayPointMove rayPointMove; //SetInputAxisMove(Vector2 inputAxis) 
+
+    [SerializeField] private RaycastPointFollow rayPointMove;  
 
     private InputActions inputActions;
     
@@ -41,7 +41,7 @@ public class InputContorller : MonoBehaviour
 
         inputActions.ActionMaps.CtrlButton.performed += ctx => CtrlButton_performed(ctx);
         inputActions.ActionMaps.SpaceButton.performed += ctx => SpaceButton_performed(ctx);
-        rayPointMove.onInputGetAxis += RayPointMove_onInputGetAxis;
+        rayPointMove.onInputGetAxis += RayPointMove_onInputGetAxis; //SetInputAxisMove(Vector2 inputAxis)
     }
      
 
@@ -49,7 +49,7 @@ public class InputContorller : MonoBehaviour
     {
         inputActions.Disable();
     }
-    public Vector2 RayPointMove_onInputGetAxis()
+    public Vector2 RayPointMove_onInputGetAxis() //coll from calss RaycastPointFollow
     {
         Vector2 inputAxis = inputActions.ActionMaps.GetAxisDirectionMove.ReadValue<Vector2>();
         return inputAxis;
@@ -62,14 +62,14 @@ public class InputContorller : MonoBehaviour
     private void RightMouse_performed(InputAction.CallbackContext context)
     {   
         if(context.performed)
-            onRightMouseButton.Invoke();
+            onRightMouseButton.Invoke();//MoveAgent()
     } 
     private void LookMouseDelta_performed(InputAction.CallbackContext context)
     {
         if (isPressedMiddleMouseButton && context.performed)
         {   
             Vector2 deltaMouse = inputActions.ActionMaps.LookMouseDelta.ReadValue<Vector2>();
-            onRotateMouse.Invoke(deltaMouse);
+            onRotateMouse.Invoke(deltaMouse); //RotateCamera(Vector2 deltaMouse)
         } 
     }
     private void ScrollMouse_performed(InputAction.CallbackContext context)
@@ -77,17 +77,17 @@ public class InputContorller : MonoBehaviour
         if (context.performed)
         {
             Vector2 scrollMouse = inputActions.ActionMaps.ScrollMouse.ReadValue<Vector2>();
-            onScrollMouse.Invoke(scrollMouse);
+            onScrollMouse.Invoke(scrollMouse);//ZoomCamera(Vector2 scrollMouse)
         } 
     } 
     private void CtrlButton_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onCtrlButton.Invoke();
+            onCtrlButton.Invoke(); //WalkSittingAnim()
     }
     private void SpaceButton_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onSpaceButton.Invoke();
+            onSpaceButton.Invoke(); //MoveStandingAnim()
     } 
 }

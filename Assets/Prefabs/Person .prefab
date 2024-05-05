@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 5875168791148720732}
   - component: {fileID: 8984317968085989956}
   - component: {fileID: 6603612861164635218}
-  - component: {fileID: 8743811736682093820}
+  - component: {fileID: 701345186078337446}
+  - component: {fileID: 895259138759393137}
   m_Layer: 0
   m_Name: 'Person '
   m_TagString: Untagged
@@ -142,7 +143,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   agentMove: {fileID: 4276336633959298467}
   rayDistance: 500
---- !u!114 &8743811736682093820
+--- !u!114 &701345186078337446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,30 +152,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 5979978968027931991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c58a70e7a8b2f4190e7378fbf35ee0, type: 3}
+  m_Script: {fileID: 11500000, guid: 585c29c9cfe422543922add656d336f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personData: {fileID: 11400000, guid: f6e100c25afa735428261136beb4a5d8, type: 2}
-  personsDataList: []
-  personsUI:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  personData: {fileID: 0}
+  id: 
+--- !u!114 &895259138759393137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979978968027931991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c68282130838f41a2f78df640c6cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onLeftMouseButton:
+    m_PersistentCalls:
+      m_Calls: []
+  onRightMouseButton:
+    m_PersistentCalls:
+      m_Calls: []
+  onRotateMouse:
+    m_PersistentCalls:
+      m_Calls: []
+  onScrollMouse:
+    m_PersistentCalls:
+      m_Calls: []
+  onCtrlButton:
+    m_PersistentCalls:
+      m_Calls: []
+  onSpaceButton:
+    m_PersistentCalls:
+      m_Calls: []
+  rayPointMove: {fileID: 0}
 --- !u!1 &7989481627455057463
 GameObject:
   m_ObjectHideFlags: 0

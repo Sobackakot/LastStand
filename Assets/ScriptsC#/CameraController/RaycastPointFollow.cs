@@ -1,8 +1,9 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class CameraRayPointMove : MonoBehaviour
+public class RaycastPointFollow : MonoBehaviour
 {
     [Header("Camera Person")]
     [SerializeField] private Transform mainCamera;
@@ -16,7 +17,9 @@ public class CameraRayPointMove : MonoBehaviour
     [Header("Settings Point Ray")]
     [SerializeField,Range(500,2000)] private float verticalRayDistance = 2000f; // длина луча
     [SerializeField, Range(1,50)] private float speedMoveRay = 15f;
-     
+
+    [SerializeField] private UnityEvent<bool, PickUpPerson> onSetFocusCamera;
+    //This Event for class InputController
     public event Func<Vector2> onInputGetAxis; //событие для получения направления движения по оси X.Z
 
     private Vector3 directionX; // текущее направление камеры  
@@ -31,9 +34,9 @@ public class CameraRayPointMove : MonoBehaviour
         GetDirectionCamera();
         SetRaycastPoint();
         MoveRay();
-        SetInputAxisMove(onInputGetAxis.Invoke());
+        SetInputAxisMove(onInputGetAxis.Invoke()); // RayPointMove_onInputGetAxis()
     }
-    private void SetInputAxisMove(Vector2 inputAxis) 
+    private void SetInputAxisMove(Vector2 inputAxis)  
     {   
         inputAxisX = inputAxis.x;
         inputAxisZ = inputAxis.y; 
@@ -56,8 +59,11 @@ public class CameraRayPointMove : MonoBehaviour
     }
     private void MoveRay()
     { 
-        if (newDirectionMove.sqrMagnitude > 0) 
+        if (newDirectionMove.sqrMagnitude > 0)
+        {
+            onSetFocusCamera.Invoke(true, null); //ResetLookPoint
             transform.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
+        }    
     }
 }
      

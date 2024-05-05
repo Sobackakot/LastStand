@@ -12,7 +12,9 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
 
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.5f;
-    private bool _hasData = false; 
+    private bool _hasData = false;
+
+    [HideInInspector] public string id;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -20,25 +22,25 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
             HandleClick();
         }
     } 
-    public void SetDataPersonUI(PersonDataScript data)
+    public void SetDataPersonUI(PersonDataScript data) // first set new person data in Ui slot
     {
         personDataUI = data;
         perImage.sprite = personDataUI.sprite;
         namePerson.text = personDataUI.Name;
         _hasData = true; 
     } 
-    public bool HasData()
+    public bool HasData() // check has data in ui person slot
     {
         return _hasData;
     } 
-    private void HandleClick()
+    private void HandleClick() // check double click slot person ui
     {
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
         {
-            Debug.Log("DoubleClick");
+            id = personDataUI.Id;
+            SystemPersonData.Instance?.SetFocusCamera(id);
         } 
         lastClickTime = Time.time;
-        Debug.Log("Click");
     } 
 }

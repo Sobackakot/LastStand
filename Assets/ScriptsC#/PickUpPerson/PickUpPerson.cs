@@ -8,6 +8,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 
     private bool isInitialized = false;
 
+    [HideInInspector]public string id;
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -15,7 +16,9 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
             if (!isInitialized)
             { 
                 isInitialized = true;
-                SystemPersonData.Instance?.SetDataPerson(personData); 
+                SystemPersonData.Instance?.SetDataPerson(personData);
+                SystemPersonData.Instance?.AddPersonList(this);
+                id = personData.Id;
             } 
         }
     }

@@ -1,13 +1,12 @@
- 
+
 using UnityEngine; 
 
-public class CameraPerson : MonoBehaviour  
+public class CameraLookTarget : MonoBehaviour  
 {
     [Header("Current Camera position")]
     [SerializeField] private Vector3 offset;
 
     [Header("Target Look Point")]
-    [SerializeField] private Transform lookPersonPoint; 
     [SerializeField] private Transform lookFreePoint;
 
     [Header("Mouse Rotate Camera")]
@@ -20,31 +19,34 @@ public class CameraPerson : MonoBehaviour
     [SerializeField, Range(1, 10)] private float zoomSpeed = 6f;
     [SerializeField, Range(1, 6)] private float minZoom = 2f;
     [SerializeField, Range(25, 500)] private float maxZoom = 100f;
-
-
+     
     private Transform currentLookPoint; // тукущая точка следования камеры 
-    private float deltaX;
-    private float deltaY; 
 
+    private float deltaX;
+    private float deltaY;
+     
     private void Start()
-    {
-        offset = transform.position - lookPersonPoint.position; // получаем стартовую позицию камеры от таргета
+    { 
+        currentLookPoint = lookFreePoint;
+        offset = transform.position - currentLookPoint.position; // получаем стартовую позицию камеры от таргета 
         //Cursor.lockState = CursorLockMode.Locked;
     }
     public void LateUpdate()
     {
         PositionUpdate();
     }
-    public void ResetLookPoint(bool isFreeCamera) // смена точки следования для камеры, либо камера следует за выбранным из списка персонажем или свободно следует за точкой
-    {
-        if(isFreeCamera)
+     
+    public void ResetLookPoint(bool isFreeCamera, PickUpPerson person=null) //call from SystemPersonData
+    { 
+        // либо камера следует за выбранным из списка персонажем или свободно следует за точкой
+        if (isFreeCamera)
             currentLookPoint = lookFreePoint;
-        else currentLookPoint = lookPersonPoint;
+        else currentLookPoint = person.transform;
     }
     public virtual void PositionUpdate()
-    {
-        transform.position = transform.localRotation * offset + lookPersonPoint.position; //обновление позии камеры при вращении
-        transform.position = lookPersonPoint.position - transform.forward * currentScrollPoint; //обновление позиции камеры при зууме
+    { 
+        transform.position = transform.localRotation * offset + currentLookPoint.position; //обновление позии камеры при вращении
+        transform.position = currentLookPoint.position - transform.forward * currentScrollPoint; //обновление позиции камеры при зууме
     }
     public virtual void RotateCamera(Vector2 deltaMouse)
     {
