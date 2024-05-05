@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65e8e7ce3dfeb754ca9a7ce585baef9f, type: 3}
-  m_Name: New Entity
+  m_Name: obj
   m_EditorClassIdentifier: 
   Name: qwe
   Id: 
