@@ -11,7 +11,7 @@ public class InputControlPerson : MonoBehaviour
 
     //Input Keyboard CharacterAnimatorControl
     public event Action onCtrlButton; //This Event for calss CharacterAnimatorController
-    public event Action onSpaceButton;//This Event for calss CharacterAnimatorController
+    public event Action onSpaceButton;//This Event for calss CharacterAnimatorController 
 
     private InputActions inputActions;
 

@@ -5,9 +5,11 @@ public class CameraLookTarget : MonoBehaviour
 {
     [Header("EventSystem Camera Input Contoller")]
     [SerializeField] private InputContorlCamera inputContorlCamera;
-    [Header("Target Look Point")]
-    [SerializeField] private Transform lookFreePoint;
+    [Header("EventSystem RaycastPointFollow")]
+    [SerializeField] private RaycastPointFollow raycastPointFollow;
 
+    [Header("Transform: Target Look Point")]
+    [SerializeField] private Transform lookFreePoint; 
     [Header("Current Camera position")]
     [SerializeField] private Vector3 offset; 
 
@@ -33,11 +35,13 @@ public class CameraLookTarget : MonoBehaviour
     {
         inputContorlCamera.onRotateMouse += RotateCamera;
         inputContorlCamera.onScrollMouse += ZoomCamera;
+        raycastPointFollow.onResetTargetLookPoint += ResetLookPoint;
     }
     private void OnDisable()
     {
         inputContorlCamera.onRotateMouse -= RotateCamera;
         inputContorlCamera.onScrollMouse -= ZoomCamera;
+        raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;
     }
     private void Start()
     { 
@@ -48,9 +52,8 @@ public class CameraLookTarget : MonoBehaviour
     public void LateUpdate()
     {
         PositionUpdate();
-    }
-     
-    public void ResetLookPoint(bool isFreeCamera, PickUpPerson person=null) //call from SystemPersonData
+    } 
+    public void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from SystemPersonData
     { 
         // либо камера следует за выбранным из списка персонажем или свободно следует за точкой
         if (isFreeCamera)
@@ -58,7 +61,7 @@ public class CameraLookTarget : MonoBehaviour
             currentLookPoint = lookFreePoint;
         } 
         else
-        {
+        { 
             currentLookPoint = person.transform;
         }
     }

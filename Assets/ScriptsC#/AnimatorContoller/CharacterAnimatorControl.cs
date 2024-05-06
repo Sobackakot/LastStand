@@ -27,6 +27,14 @@ public class CharacterAnimatorControl : MonoBehaviour
     {
         AnimatorUpdate();
     }
+    public void EnableAnimator()
+    {
+        enabled = true;
+    }
+    public void DisableAnimator()
+    {
+        enabled = false;
+    }
     public void AnimatorUpdate()
     {
         float speedAnimator = agent.velocity.sqrMagnitude > 0 ? SpeedCalculate() : 0f;

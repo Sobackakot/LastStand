@@ -9,7 +9,7 @@ public class InputContorlCamera : MonoBehaviour
     public event Action<Vector2> onRotateMouse; //This Event for calss CameraLookTarget
     public event Action<Vector2> onScrollMouse; //This Event for calss CameraLookTarget
     public event Action<Vector2> onInputGetAxis;//This Event for  calss RaycastPointFollow 
-
+      
     private InputActions inputActions;
 
     private bool isPressedMiddleMouseButton = false;  

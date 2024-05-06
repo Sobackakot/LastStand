@@ -19,10 +19,11 @@ public class RaycastPointFollow : MonoBehaviour
     [Header("Settings Point Ray")]
     [SerializeField,Range(500,2000)] private float verticalRayDistance = 2000f; // длина луча
     [SerializeField, Range(1,50)] private float speedMoveRay = 15f;
-
-    [SerializeField] private UnityEvent<bool, PickUpPerson> onSetFocusCamera;
+     
     //This Event for class InputController
     public event Func<Vector2> onInputGetAxis; //событие для получения направления движения по оси X.Z
+
+    public event Action<bool, PickUpPerson> onResetTargetLookPoint;//this Event for class CameraLookTarget
 
     private Vector3 directionX; // текущее направление камеры  
     private Vector3 directionZ; // текущее направление камеры  
@@ -47,7 +48,8 @@ public class RaycastPointFollow : MonoBehaviour
     private void SetInputAxisMove(Vector2 inputAxis)  
     {   
         inputAxisX = inputAxis.x;
-        inputAxisZ = inputAxis.y; 
+        inputAxisZ = inputAxis.y;
+        onResetTargetLookPoint.Invoke(true, null); 
     }
     private void GetDirectionCamera()
     {
@@ -68,8 +70,7 @@ public class RaycastPointFollow : MonoBehaviour
     private void MoveRay()
     { 
         if (newDirectionMove.sqrMagnitude > 0)
-        {
-            onSetFocusCamera.Invoke(true, null); //ResetLookPoint
+        { 
             transform.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
         }    
     } 

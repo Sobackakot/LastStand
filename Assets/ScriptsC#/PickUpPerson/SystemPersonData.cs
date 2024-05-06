@@ -8,8 +8,8 @@ public class SystemPersonData : MonoBehaviour
     public static SystemPersonData Instance;
 
     [Header("List person UI and current amoutn PickUpPerson")]
-    [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>();
-    [SerializeField] private List<PickUpPerson> personsObjs = new List<PickUpPerson>();
+    [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>(30);
+    [SerializeField] private List<PickUpPerson> personsObjs = new List<PickUpPerson>(30);
 
     [Header("Reset camera look target")]
     public UnityEvent<bool, PickUpPerson> onSetFocusCamera; // This Event for calss CameraLookTarget
