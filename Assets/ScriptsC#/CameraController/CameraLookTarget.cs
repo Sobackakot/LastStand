@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class CameraLookTarget : MonoBehaviour  
 {
-    [Header("Current Camera position")]
-    [SerializeField] private Vector3 offset;
-
+    [Header("EventSystem Camera Input Contoller")]
+    [SerializeField] private InputContorlCamera inputContorlCamera;
     [Header("Target Look Point")]
     [SerializeField] private Transform lookFreePoint;
+
+    [Header("Current Camera position")]
+    [SerializeField] private Vector3 offset; 
 
     [Header("Mouse Rotate Camera")]
     [SerializeField, Range(0.3f,3)] private float sensitivity = 0.5f;
@@ -19,12 +21,24 @@ public class CameraLookTarget : MonoBehaviour
     [SerializeField, Range(1, 10)] private float zoomSpeed = 6f;
     [SerializeField, Range(1, 6)] private float minZoom = 2f;
     [SerializeField, Range(25, 500)] private float maxZoom = 100f;
-     
+
+   
+
     private Transform currentLookPoint; // тукущая точка следования камеры 
 
     private float deltaX;
     private float deltaY;
-     
+
+    private void OnEnable()
+    {
+        inputContorlCamera.onRotateMouse += RotateCamera;
+        inputContorlCamera.onScrollMouse += ZoomCamera;
+    }
+    private void OnDisable()
+    {
+        inputContorlCamera.onRotateMouse -= RotateCamera;
+        inputContorlCamera.onScrollMouse -= ZoomCamera;
+    }
     private void Start()
     { 
         currentLookPoint = lookFreePoint;

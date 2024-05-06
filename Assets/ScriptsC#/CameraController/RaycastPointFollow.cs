@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class RaycastPointFollow : MonoBehaviour
 {
+    [Header("EventSystem Input Controller Camera")]
+    [SerializeField] private InputContorlCamera inputControlCamera;
     [Header("Camera Person")]
     [SerializeField] private Transform mainCamera;
 
@@ -28,14 +30,19 @@ public class RaycastPointFollow : MonoBehaviour
       
     private float inputAxisX;
     private float inputAxisZ;
-    
+    private void OnEnable()
+    {
+        inputControlCamera.onInputGetAxis += SetInputAxisMove;
+    }
+    private void OnDisable()
+    {
+        inputControlCamera.onInputGetAxis -= SetInputAxisMove;
+    }
     private void Update()
     {
         GetDirectionCamera();
         SetRaycastPoint();
         MoveRay();
-        if(onInputGetAxis != null)
-            SetInputAxisMove(onInputGetAxis.Invoke()); // RayPointMove_onInputGetAxis()
     }
     private void SetInputAxisMove(Vector2 inputAxis)  
     {   
