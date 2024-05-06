@@ -36,20 +36,20 @@ public class InputContorlCamera : MonoBehaviour
     private void RayPointMove_onInputGetAxis(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onInputGetAxis.Invoke(context.ReadValue<Vector2>());//SetInputAxisMove(Vector2 inputAxis)
-        else onInputGetAxis.Invoke(Vector2.zero); 
+            onInputGetAxis?.Invoke(context.ReadValue<Vector2>());//SetInputAxisMove(Vector2 inputAxis)
+        else onInputGetAxis?.Invoke(Vector2.zero); 
     }
     
     private void LookMouseDelta_performed(InputAction.CallbackContext context)
     {
         if (isPressedMiddleMouseButton && context.performed)
-            onRotateMouse.Invoke(context.ReadValue<Vector2>()); //RotateCamera(Vector2 deltaMouse)
-        else onRotateMouse.Invoke(Vector2.zero);
+            onRotateMouse?.Invoke(context.ReadValue<Vector2>()); //RotateCamera(Vector2 deltaMouse)
+        else onRotateMouse?.Invoke(Vector2.zero);
     }
     private void ScrollMouse_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onScrollMouse.Invoke(context.ReadValue<Vector2>());//ZoomCamera(Vector2 scrollMouse)
-        else onScrollMouse.Invoke(Vector2.zero);
+            onScrollMouse?.Invoke(context.ReadValue<Vector2>());//ZoomCamera(Vector2 scrollMouse)
+        else onScrollMouse?.Invoke(Vector2.zero);
     }
 }

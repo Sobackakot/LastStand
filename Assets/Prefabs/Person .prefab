@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c27b25a0bb1c2a45b84dd2b9c206206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputControlPerson: {fileID: 0}
   agent: {fileID: 4276336633959298467}
   animatorPerson: {fileID: 2911897509416161000}
   agentMoveStanding: 10
@@ -139,6 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de27d007d8db454685604d59b49dcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputControllerPerson: {fileID: 0}
   mainCamera: {fileID: 0}
   agentMove: {fileID: 4276336633959298467}
   rayDistance: 500
@@ -154,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585c29c9cfe422543922add656d336f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personData: {fileID: 0}
+  personData: {fileID: 11400000, guid: 225543d2a1ae15d48bb408a7c712590f, type: 2}
   id: 
 --- !u!1 &7989481627455057463
 GameObject:

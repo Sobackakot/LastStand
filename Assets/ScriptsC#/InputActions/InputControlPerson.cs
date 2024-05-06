@@ -40,21 +40,21 @@ public class InputControlPerson : MonoBehaviour
     private void LeftMouse_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onLeftMouseButton.Invoke();
+            onLeftMouseButton?.Invoke();
     }
     private void RightMouse_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onRightMouseButton.Invoke();//MoveAgent()
+            onRightMouseButton?.Invoke();//MoveAgent()
     }
     private void CtrlButton_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onCtrlButton.Invoke(); //WalkSittingAnim()
+            onCtrlButton?.Invoke(); //WalkSittingAnim()
     }
     private void SpaceButton_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onSpaceButton.Invoke(); //MoveStandingAnim()
+            onSpaceButton?.Invoke(); //MoveStandingAnim()
     }
 }

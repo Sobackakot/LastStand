@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class CharacterAnimatorControl : MonoBehaviour
 {
+
+    [SerializeField] private InputControlPerson inputControlPerson;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animatorPerson;
 
@@ -11,6 +13,16 @@ public class CharacterAnimatorControl : MonoBehaviour
     [SerializeField,Range(1,50)] private float agentMoveStanding = 10f;
     [SerializeField,Range(1,25)] private float agentMoveSitting = 3.5f;
 
+    private void OnEnable()
+    {
+        inputControlPerson.onCtrlButton += WalkSittingAnim;
+        inputControlPerson.onSpaceButton += MoveStandingAnim;
+    }
+    private void OnDisable()
+    {
+        inputControlPerson.onCtrlButton -= WalkSittingAnim;
+        inputControlPerson.onSpaceButton -= MoveStandingAnim;
+    }
     private void Update()
     {
         AnimatorUpdate();
