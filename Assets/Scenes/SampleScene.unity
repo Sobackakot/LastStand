@@ -418,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 808dcbe895f43c546a82cf6f93fdfb7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputControlCamera: {fileID: 1039033670}
   mainCamera: {fileID: 2029986940}
   lookFreePoint: {fileID: 55243897}
   terraLayerMask:
@@ -1103,6 +1104,50 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2553463961350281022}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1039033669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1039033671}
+  - component: {fileID: 1039033670}
+  m_Layer: 0
+  m_Name: InputContollerCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1039033670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039033669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c68282130838f41a2f78df640c6cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1039033671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039033669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.1599543, y: 0.42518806, z: -25.1475}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199347013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2519,18 +2564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c27b25a0bb1c2a45b84dd2b9c206206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1846382065 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 895259138759393137, guid: 0ef2132312a3adf488b716038c0b0c1d,
-    type: 3}
-  m_PrefabInstance: {fileID: 2553463961350281022}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002145221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c68282130838f41a2f78df640c6cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1887805539
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,7 +2832,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onEnableInputController.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1846382065}
+      objectReference: {fileID: 0}
     - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: onEnableInputController.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -2809,7 +2842,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onDisableInputController.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1846382065}
+      objectReference: {fileID: 0}
     - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: onDisableInputController.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -3375,6 +3408,11 @@ PrefabInstance:
       propertyPath: lookFreePoint
       value: 
       objectReference: {fileID: 55243897}
+    - target: {fileID: 4318120693312194363, guid: 7ad4463b45841c04da0de2d98a85ed54,
+        type: 3}
+      propertyPath: inputContorlCamera
+      value: 
+      objectReference: {fileID: 1039033670}
     - target: {fileID: 4990101580047417563, guid: 7ad4463b45841c04da0de2d98a85ed54,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3445,4 +3483,5 @@ SceneRoots:
   - {fileID: 196373487}
   - {fileID: 1810419648}
   - {fileID: 51737706}
+  - {fileID: 1039033671}
   - {fileID: 1887805542}
