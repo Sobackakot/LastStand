@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 5875168791148720732}
   - component: {fileID: 8984317968085989956}
   - component: {fileID: 6603612861164635218}
-  - component: {fileID: 701345186078337446}
   - component: {fileID: 4736641695933056650}
+  - component: {fileID: 701345186078337446}
   m_Layer: 0
   m_Name: 'Person '
   m_TagString: Untagged
@@ -142,6 +142,18 @@ MonoBehaviour:
   inputControllerPerson: {fileID: 4736641695933056650}
   mainCamera: {fileID: 0}
   agentMove: {fileID: 4276336633959298467}
+--- !u!114 &4736641695933056650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979978968027931991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b7c8dc15c8dd144c90e89f3f4af4e57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &701345186078337446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,19 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personData: {fileID: 11400000, guid: a013503c1dd8d2d43bd641add003be42, type: 2}
+  isActive: 0
   id: 
---- !u!114 &4736641695933056650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5979978968027931991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b7c8dc15c8dd144c90e89f3f4af4e57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7989481627455057463
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,9 @@
 
+using System; 
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterAnimatorControl : MonoBehaviour, ICharacterComponent
+public class CharacterAnimatorControl : MonoBehaviour
 {
 
     [SerializeField] private InputControlPerson inputControlPerson;
@@ -20,19 +21,11 @@ public class CharacterAnimatorControl : MonoBehaviour, ICharacterComponent
     private void OnDisable()
     {
         inputControlPerson.onCtrlButton -= WalkSittingAnim;
-        inputControlPerson.onSpaceButton -= MoveStandingAnim;
+        inputControlPerson.onSpaceButton -= MoveStandingAnim; 
     }
     private void LateUpdate()
     {
         AnimatorUpdate();
-    }
-    public void EnableAnimator()
-    {
-        enabled = true;
-    }
-    public void DisableAnimator()
-    {
-        enabled = false;
     }
     public void AnimatorUpdate()
     {
@@ -54,19 +47,13 @@ public class CharacterAnimatorControl : MonoBehaviour, ICharacterComponent
     {
         return agent.velocity.magnitude / agent.speed; 
     }
-
-    public ICharacterComponent GetComponent()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnEnableComponent()
     {
-        throw new System.NotImplementedException();
+        enabled = true;
     }
 
     public void OnDisableComponent()
     {
-        throw new System.NotImplementedException();
+        enabled = false;
     }
 }

@@ -28,7 +28,13 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         perImage.sprite = personDataUI.sprite;
         namePerson.text = personDataUI.Name;
         _hasData = true; 
-    } 
+    }
+    public void ÑlearDataPersonUI() // clear person data in Ui slot ...
+    {
+        personDataUI = null;
+        perImage.sprite = null;
+        namePerson.text = null; 
+    }
     public bool HasData() // check has data in ui person slot
     {
         return _hasData;
@@ -39,7 +45,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         if(timeSinceLastClick <= doubleClickThreshold)
         {
             id = personDataUI.Id;
-            SystemPersonData.Instance?.SetFocusCamera(id);
+            CharacterSwitchingSystem.Instance?.SetFocusCamera(id);
         } 
         lastClickTime = Time.time;
     } 

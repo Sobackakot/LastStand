@@ -3,15 +3,15 @@ using System;
 using UnityEngine; 
 using UnityEngine.InputSystem;
 
-public class InputControlPerson : MonoBehaviour, ICharacterComponent
+public class InputControlPerson : MonoBehaviour
 {
-    //Input Mouse Button MoveAgentHitPoint
-    public event Action onLeftMouseButton; //This Event for calss MoveAgentHitPoint
-    public event Action onRightMouseButton; //This Event for calss MoveAgentHitPoint
+    //Input Mouse Button PersonMoveControl
+    public event Action onLeftMouseButton; //This Event for calss PersonMoveControl
+    public event Action onRightMouseButton; //This Event for calss PersonMoveControl
 
     //Input Keyboard CharacterAnimatorControl
     public event Action onCtrlButton; //This Event for calss CharacterAnimatorController
-    public event Action onSpaceButton;//This Event for calss CharacterAnimatorController 
+    public event Action onSpaceButton;//This Event for calss CharacterAnimatorController  
 
     private InputActions inputActions;
 
@@ -22,21 +22,13 @@ public class InputControlPerson : MonoBehaviour, ICharacterComponent
         inputActions.ActionMaps.LeftMouseButton.performed += ctx => LeftMouse_performed(ctx);
         inputActions.ActionMaps.RightMouseButton.performed += ctx => RightMouse_performed(ctx);  
         inputActions.ActionMaps.CtrlButton.performed += ctx => CtrlButton_performed(ctx);
-        inputActions.ActionMaps.SpaceButton.performed += ctx => SpaceButton_performed(ctx); 
+        inputActions.ActionMaps.SpaceButton.performed += ctx => SpaceButton_performed(ctx);
     }
 
     private void OnDisable()
     {
         inputActions.Disable();
-    }
-    public void EnableInputController()
-    {
-        enabled = true;
-    }
-    public void DisableInputController()
-    {
-        enabled = false;
-    }
+    } 
     private void LeftMouse_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -57,19 +49,13 @@ public class InputControlPerson : MonoBehaviour, ICharacterComponent
         if (context.performed)
             onSpaceButton?.Invoke(); //MoveStandingAnim()
     }
-
-    public ICharacterComponent GetComponent()
-    {
-        throw new NotImplementedException();
-    }
-
     public void OnEnableComponent()
     {
-        throw new NotImplementedException();
+        enabled = true;
     }
 
     public void OnDisableComponent()
     {
-        throw new NotImplementedException();
+        enabled = false;
     }
 }

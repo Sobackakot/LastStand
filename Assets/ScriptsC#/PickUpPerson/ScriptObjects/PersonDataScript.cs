@@ -6,6 +6,5 @@ public class PersonDataScript : ScriptableObject
 {
     public string Name = "No name";
     public string Id = "No id - 0";
-    public Sprite sprite = null;
-    public bool isHasPick = false;
+    public Sprite sprite = null; 
 }

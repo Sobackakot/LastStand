@@ -1,29 +1,23 @@
- 
+
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveAgentHitPoint : MonoBehaviour, ICharacterComponent
+public class PersonMoveControl : MonoBehaviour
 {
     [SerializeField] private InputControlPerson inputControllerPerson;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private NavMeshAgent agentMove;
-    [Range(100, 1000)] private float rayDistance = 500f;
+    [Range(100, 1000)] private float rayDistance = 500f; 
+
     private void OnEnable()
     {
         inputControllerPerson.onRightMouseButton += MoveAgent;
-    }
+    } 
     private void OnDisable()
     {
         inputControllerPerson.onRightMouseButton -= MoveAgent;
-    }
-    public void EnableMoveAgent()
-    {
-        enabled = true;
-    }
-    public void DisableMoveAgent()
-    {
-        enabled = false;
-    }
+    } 
     public void MoveAgent()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -32,20 +26,14 @@ public class MoveAgentHitPoint : MonoBehaviour, ICharacterComponent
         {
             agentMove.SetDestination(hit.point);
         }
-    }
-
-    public ICharacterComponent GetComponent()
-    {
-        throw new System.NotImplementedException();
-    }
-
+    } 
     public void OnEnableComponent()
     {
-        throw new System.NotImplementedException();
+        enabled = true;
     }
 
     public void OnDisableComponent()
     {
-        throw new System.NotImplementedException();
+        enabled = false;
     }
 } 

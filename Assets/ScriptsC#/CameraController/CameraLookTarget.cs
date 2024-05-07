@@ -33,14 +33,14 @@ public class CameraLookTarget : MonoBehaviour
         inputContorlCamera.onRotateMouse += RotateCamera;
         inputContorlCamera.onScrollMouse += ZoomCamera;
         raycastPointFollow.onResetTargetLookPoint += ResetLookPoint;
-        SystemPersonData.Instance.onResetFocusCamera += ResetLookPoint;
+        CharacterSwitchingSystem.Instance.onResetFocusCamera += ResetLookPoint;
     }
     private void OnDisable()
     {
         inputContorlCamera.onRotateMouse -= RotateCamera;
         inputContorlCamera.onScrollMouse -= ZoomCamera;
         raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;
-        SystemPersonData.Instance.onResetFocusCamera -= ResetLookPoint;
+        CharacterSwitchingSystem.Instance.onResetFocusCamera -= ResetLookPoint;
     }
     private void Start()
     {
@@ -53,7 +53,7 @@ public class CameraLookTarget : MonoBehaviour
     {
         PositionUpdate();
     } 
-    public void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from SystemPersonData
+    public void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchingSystem
     { 
         // либо камера следует за выбранным из списка персонажем или свободно следует за точкой
         if (isFreeCamera)
