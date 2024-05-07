@@ -2,12 +2,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MoveAgentHitPoint : MonoBehaviour
+public class MoveAgentHitPoint : MonoBehaviour, ICharacterComponent
 {
     [SerializeField] private InputControlPerson inputControllerPerson;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private NavMeshAgent agentMove;
-    [SerializeField, Range(100, 1000)] private float rayDistance = 150f;
+    [Range(100, 1000)] private float rayDistance = 500f;
     private void OnEnable()
     {
         inputControllerPerson.onRightMouseButton += MoveAgent;
@@ -32,5 +32,20 @@ public class MoveAgentHitPoint : MonoBehaviour
         {
             agentMove.SetDestination(hit.point);
         }
-    } 
+    }
+
+    public ICharacterComponent GetComponent()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnEnableComponent()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnDisableComponent()
+    {
+        throw new System.NotImplementedException();
+    }
 } 

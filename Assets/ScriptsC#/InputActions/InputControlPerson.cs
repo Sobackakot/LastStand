@@ -3,7 +3,7 @@ using System;
 using UnityEngine; 
 using UnityEngine.InputSystem;
 
-public class InputControlPerson : MonoBehaviour
+public class InputControlPerson : MonoBehaviour, ICharacterComponent
 {
     //Input Mouse Button MoveAgentHitPoint
     public event Action onLeftMouseButton; //This Event for calss MoveAgentHitPoint
@@ -56,5 +56,20 @@ public class InputControlPerson : MonoBehaviour
     {
         if (context.performed)
             onSpaceButton?.Invoke(); //MoveStandingAnim()
+    }
+
+    public ICharacterComponent GetComponent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnEnableComponent()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnDisableComponent()
+    {
+        throw new NotImplementedException();
     }
 }

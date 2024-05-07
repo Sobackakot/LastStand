@@ -2,16 +2,15 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterAnimatorControl : MonoBehaviour
+public class CharacterAnimatorControl : MonoBehaviour, ICharacterComponent
 {
 
     [SerializeField] private InputControlPerson inputControlPerson;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animatorPerson;
 
-    [Header("Current speed move")]
-    [SerializeField,Range(1,50)] private float agentMoveStanding = 10f;
-    [SerializeField,Range(1,25)] private float agentMoveSitting = 3.5f;
+    [Range(1,50)] private float agentMoveStanding = 10f;
+    [Range(1,25)] private float agentMoveSitting = 3.5f;
 
     private void OnEnable()
     {
@@ -23,7 +22,7 @@ public class CharacterAnimatorControl : MonoBehaviour
         inputControlPerson.onCtrlButton -= WalkSittingAnim;
         inputControlPerson.onSpaceButton -= MoveStandingAnim;
     }
-    private void Update()
+    private void LateUpdate()
     {
         AnimatorUpdate();
     }
@@ -54,5 +53,20 @@ public class CharacterAnimatorControl : MonoBehaviour
     private float SpeedCalculate()
     {
         return agent.velocity.magnitude / agent.speed; 
+    }
+
+    public ICharacterComponent GetComponent()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnEnableComponent()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnDisableComponent()
+    {
+        throw new System.NotImplementedException();
     }
 }

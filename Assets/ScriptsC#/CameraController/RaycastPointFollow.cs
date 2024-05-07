@@ -1,7 +1,6 @@
 
 using System;
-using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine; 
 
 public class RaycastPointFollow : MonoBehaviour
 {
@@ -16,9 +15,9 @@ public class RaycastPointFollow : MonoBehaviour
     [Header("Terrane Layer Mask")]
     [SerializeField] private LayerMask terraLayerMask; // слой Маска поверхности 
 
-    [Header("Settings Point Ray")]
-    [SerializeField,Range(500,2000)] private float verticalRayDistance = 2000f; // длина луча
-    [SerializeField, Range(1,50)] private float speedMoveRay = 15f;
+    [Range(500,2000)] private float verticalRayDistance = 2000f; // длина луча
+    [Range(1,50)] private float speedMoveRay = 15f; // скорость движения луча
+    private Transform rayPoint;
      
     //This Event for class InputController
     public event Func<Vector2> onInputGetAxis; //событие для получения направления движения по оси X.Z
@@ -31,25 +30,37 @@ public class RaycastPointFollow : MonoBehaviour
       
     private float inputAxisX;
     private float inputAxisZ;
-    private void OnEnable()
+    private void Start()
     {
-        inputControlCamera.onInputGetAxis += SetInputAxisMove;
+        rayPoint = GetComponent<Transform>();
+    }
+    private void OnEnable()
+    { 
+        inputControlCamera.onInputGetAxis += SetInputAxisMove; 
     }
     private void OnDisable()
     {
-        inputControlCamera.onInputGetAxis -= SetInputAxisMove;
+        inputControlCamera.onInputGetAxis -= SetInputAxisMove; 
     }
-    private void Update()
+    private void LateUpdate()
     {
         GetDirectionCamera();
         SetRaycastPoint();
         MoveRay();
     }
+    public void EnableMoveRay()
+    {
+        enabled = true;
+    }
+    public void DisableMoveRay()
+    {
+        enabled = false;
+    }
     private void SetInputAxisMove(Vector2 inputAxis)  
     {   
         inputAxisX = inputAxis.x;
         inputAxisZ = inputAxis.y;
-        onResetTargetLookPoint.Invoke(true, null); 
+        onResetTargetLookPoint?.Invoke(true, null); 
     }
     private void GetDirectionCamera()
     {
@@ -61,7 +72,7 @@ public class RaycastPointFollow : MonoBehaviour
     }
     private void SetRaycastPoint()
     {
-        Ray ray = new Ray(transform.position, -Vector3.up);// создаем луч в направлении сверху в низ
+        Ray ray = new Ray(rayPoint.position, -Vector3.up);// создаем луч в направлении сверху в низ
         if (Physics.Raycast(ray, out RaycastHit hit, verticalRayDistance, terraLayerMask))// проверем столкновение луча с поверхностью
         {
             lookFreePoint.position = hit.point;// перемещяем объект Target LookPoint камеры в позицию пересечения луча с поверхностью
@@ -70,8 +81,8 @@ public class RaycastPointFollow : MonoBehaviour
     private void MoveRay()
     { 
         if (newDirectionMove.sqrMagnitude > 0)
-        { 
-            transform.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
+        {
+            rayPoint.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
         }    
     } 
 }

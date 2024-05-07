@@ -1,7 +1,7 @@
 
+using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine; 
 
 public class SystemPersonData : MonoBehaviour
 {
@@ -10,9 +10,8 @@ public class SystemPersonData : MonoBehaviour
     [Header("List person UI and current amoutn PickUpPerson")]
     [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>(30);
     [SerializeField] private List<PickUpPerson> personsObjs = new List<PickUpPerson>(30);
-
-    [Header("Reset camera look target")]
-    public UnityEvent<bool, PickUpPerson> onSetFocusCamera; // This Event for calss CameraLookTarget
+    
+    public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget  
       
     public void Awake()
     {
@@ -30,7 +29,7 @@ public class SystemPersonData : MonoBehaviour
     }
     public void SetDataPerson(PersonDataScript dataScript) // set new first data person 
     {
-        dataScript.Id = "per" + Random.Range(1, 1000000);
+        dataScript.Id = "per" + UnityEngine.Random.Range(1, 1000000);
         foreach (var uiGroup in personsUI)
         {
             if (!uiGroup.HasData())
@@ -47,7 +46,7 @@ public class SystemPersonData : MonoBehaviour
         {
             if (pers.id == id)
             { 
-                onSetFocusCamera.Invoke(false, pers); // ResetLookPoint
+                onResetFocusCamera?.Invoke(false, pers); // ResetLookPoint 
                 break;
             } 
         }

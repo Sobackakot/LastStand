@@ -12,20 +12,17 @@ public class CameraLookTarget : MonoBehaviour
     [SerializeField] private Transform lookFreePoint; 
     [Header("Current Camera position")]
     [SerializeField] private Vector3 offset; 
+     
+    [Range(0.3f,3)] private float sensitivity = 0.5f;
+    [Range(-75, 0)] private float minAngle = -45f;
+    [Range(0, 75)] private float maxAngle = 75f;
 
-    [Header("Mouse Rotate Camera")]
-    [SerializeField, Range(0.3f,3)] private float sensitivity = 0.5f;
-    [SerializeField, Range(-75, 0)] private float minAngle = -45f;
-    [SerializeField, Range(0, 75)] private float maxAngle = 75f;
+    [Range(1,30)] private float currentScrollPoint = 6f;
+    [Range(1, 10)] private float zoomSpeed = 2f;
+    [Range(1, 6)] private float minZoom = 2f;
+    [Range(25, 500)] private float maxZoom = 100f;
 
-    [Header("Mouse Zoom Camera")]
-    [SerializeField, Range(1,30)] private float currentScrollPoint = 6f;
-    [SerializeField, Range(1, 10)] private float zoomSpeed = 6f;
-    [SerializeField, Range(1, 6)] private float minZoom = 2f;
-    [SerializeField, Range(25, 500)] private float maxZoom = 100f;
-
-   
-
+    private Transform cameraPoint;// стартовая позиция камеры
     private Transform currentLookPoint; // тукущая точка следования камеры 
 
     private float deltaX;
@@ -36,17 +33,20 @@ public class CameraLookTarget : MonoBehaviour
         inputContorlCamera.onRotateMouse += RotateCamera;
         inputContorlCamera.onScrollMouse += ZoomCamera;
         raycastPointFollow.onResetTargetLookPoint += ResetLookPoint;
+        SystemPersonData.Instance.onResetFocusCamera += ResetLookPoint;
     }
     private void OnDisable()
     {
         inputContorlCamera.onRotateMouse -= RotateCamera;
         inputContorlCamera.onScrollMouse -= ZoomCamera;
         raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;
+        SystemPersonData.Instance.onResetFocusCamera -= ResetLookPoint;
     }
     private void Start()
-    { 
+    {
+        cameraPoint = GetComponent<Transform>();
         currentLookPoint = lookFreePoint;
-        offset = transform.position - currentLookPoint.position; // получаем стартовую позицию камеры от таргета 
+        offset = cameraPoint.position - currentLookPoint.position; // получаем стартовую позицию камеры от таргета 
         //Cursor.lockState = CursorLockMode.Locked;
     }
     public void LateUpdate()
@@ -66,16 +66,16 @@ public class CameraLookTarget : MonoBehaviour
         }
     }
     public virtual void PositionUpdate()
-    { 
-        transform.position = transform.localRotation * offset + currentLookPoint.position; //обновление позии камеры при вращении
-        transform.position = currentLookPoint.position - transform.forward * currentScrollPoint; //обновление позиции камеры при зууме
+    {
+        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position; //обновление позии камеры при вращении
+        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //обновление позиции камеры при зууме
     }
     public virtual void RotateCamera(Vector2 deltaMouse)
     {
         deltaX += deltaMouse.x * sensitivity; // получаем дельту вращения по X
         deltaY -= deltaMouse.y * sensitivity; // получаем дельту вращения по Y
         deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // ограничение вращения по Y
-        transform.localEulerAngles = new Vector3(deltaY, deltaX, 0); // инициализация вращения камеры толко с зажатой кнопкой
+        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); // инициализация вращения камеры толко с зажатой кнопкой
     }
     public virtual void ZoomCamera(Vector2 scrollMouse)
     {   
