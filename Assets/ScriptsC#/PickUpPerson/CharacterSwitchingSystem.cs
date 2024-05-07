@@ -30,8 +30,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
         personsObj.Add(person);
         gameObjectPersonComponents.Add(gameObjectPerson);
         gameObjectPerson.GetComponent<InputControlPerson>().OnDisableComponent();
-        gameObjectPerson.GetComponent<PersonMoveControl>().OnDisableComponent();
-        gameObjectPerson.GetComponent<CharacterAnimatorControl>().OnDisableComponent();
+        gameObjectPerson.GetComponent<PersonMoveControl>().OnDisableComponent(); 
     }
     public void RemovePersonList(PickUpPerson person, GameObject gameObjectPerson) // Remove new person my group ...
     {
@@ -60,16 +59,14 @@ public class CharacterSwitchingSystem : MonoBehaviour
                 personsObj[i].isActive = true;
                 onResetFocusCamera?.Invoke(false, personsObj[i]); // ResetLookPoint 
                 gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnEnableComponent();
-                gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnEnableComponent();
-                gameObjectPersonComponents[i].GetComponent<CharacterAnimatorControl>().OnEnableComponent();
+                gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnEnableComponent(); 
                 continue;
             }
             if (personsObj[i].isActive)
             {
                 personsObj[i].isActive = false;
                 gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnDisableComponent();
-                gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnDisableComponent();
-                gameObjectPersonComponents[i].GetComponent<CharacterAnimatorControl>().OnDisableComponent();
+                gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnDisableComponent(); 
             }
         }
     }

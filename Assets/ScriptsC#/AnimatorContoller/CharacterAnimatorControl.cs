@@ -47,13 +47,4 @@ public class CharacterAnimatorControl : MonoBehaviour
     {
         return agent.velocity.magnitude / agent.speed; 
     }
-    public void OnEnableComponent()
-    {
-        enabled = true;
-    }
-
-    public void OnDisableComponent()
-    {
-        enabled = false;
-    }
 }
