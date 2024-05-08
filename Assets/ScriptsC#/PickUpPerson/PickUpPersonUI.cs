@@ -15,6 +15,10 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     private bool _hasData = false;
 
     [HideInInspector] public string id;
+    public void Start()
+    {
+        id = personDataUI.Id;
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -22,7 +26,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
             HandleClick();
         }
     } 
-    public void SetDataPersonUI(PersonDataScript data) // first set new person data in Ui slot
+    public void SetDataPersonUI(PersonDataScript data) // Set first data new person in Ui slot
     {
         personDataUI = data;
         perImage.sprite = personDataUI.sprite;
@@ -43,8 +47,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     {
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
-        {
-            id = personDataUI.Id;
+        { 
             CharacterSwitchingSystem.Instance?.SetFocusCamera(id);
         } 
         lastClickTime = Time.time;

@@ -58,14 +58,14 @@ public class CharacterSwitchingSystem : MonoBehaviour
             {
                 personsObj[i].isActive = true;
                 onResetFocusCamera?.Invoke(false, personsObj[i]); // ResetLookPoint 
-                gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnEnableComponent();
+                gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnEnableComponent(); // next pick person Activating components
                 gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnEnableComponent(); 
                 continue;
             }
             if (personsObj[i].isActive)
             {
-                personsObj[i].isActive = false;
-                gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnDisableComponent();
+                personsObj[i].isActive = false; 
+                gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnDisableComponent(); // Deactive  current person components
                 gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnDisableComponent(); 
             }
         }

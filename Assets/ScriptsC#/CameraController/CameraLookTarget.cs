@@ -1,4 +1,4 @@
-
+п»ї
 using UnityEngine; 
 
 public class CameraLookTarget : MonoBehaviour  
@@ -22,8 +22,8 @@ public class CameraLookTarget : MonoBehaviour
     [Range(1, 6)] private float minZoom = 2f;
     [Range(25, 500)] private float maxZoom = 100f;
 
-    private Transform cameraPoint;// стартовая позиция камеры
-    private Transform currentLookPoint; // тукущая точка следования камеры 
+    private Transform cameraPoint;// СЃС‚Р°СЂС‚РѕРІР°СЏ РїРѕР·РёС†РёСЏ РєР°РјРµСЂС‹
+    private Transform currentLookPoint; // С‚СѓРєСѓС‰Р°СЏ С‚РѕС‡РєР° СЃР»РµРґРѕРІР°РЅРёСЏ РєР°РјРµСЂС‹ 
 
     private float deltaX;
     private float deltaY;
@@ -33,7 +33,7 @@ public class CameraLookTarget : MonoBehaviour
         inputContorlCamera.onRotateMouse += RotateCamera;
         inputContorlCamera.onScrollMouse += ZoomCamera;
         raycastPointFollow.onResetTargetLookPoint += ResetLookPoint;
-        CharacterSwitchingSystem.Instance.onResetFocusCamera += ResetLookPoint;
+        
     }
     private void OnDisable()
     {
@@ -44,9 +44,10 @@ public class CameraLookTarget : MonoBehaviour
     }
     private void Start()
     {
+        CharacterSwitchingSystem.Instance.onResetFocusCamera += ResetLookPoint;
         cameraPoint = GetComponent<Transform>();
         currentLookPoint = lookFreePoint;
-        offset = cameraPoint.position - currentLookPoint.position; // получаем стартовую позицию камеры от таргета 
+        offset = cameraPoint.position - currentLookPoint.position; // РїРѕР»СѓС‡Р°РµРј СЃС‚Р°СЂС‚РѕРІСѓСЋ РїРѕР·РёС†РёСЋ РєР°РјРµСЂС‹ РѕС‚ С‚Р°СЂРіРµС‚Р° 
         //Cursor.lockState = CursorLockMode.Locked;
     }
     public void LateUpdate()
@@ -55,7 +56,7 @@ public class CameraLookTarget : MonoBehaviour
     } 
     public void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchingSystem
     { 
-        // либо камера следует за выбранным из списка персонажем или свободно следует за точкой
+        // Р»РёР±Рѕ РєР°РјРµСЂР° СЃР»РµРґСѓРµС‚ Р·Р° РІС‹Р±СЂР°РЅРЅС‹Рј РёР· СЃРїРёСЃРєР° РїРµСЂСЃРѕРЅР°Р¶РµРј РёР»Рё СЃРІРѕР±РѕРґРЅРѕ СЃР»РµРґСѓРµС‚ Р·Р° С‚РѕС‡РєРѕР№
         if (isFreeCamera)
         {
             currentLookPoint = lookFreePoint;
@@ -67,19 +68,19 @@ public class CameraLookTarget : MonoBehaviour
     }
     public virtual void PositionUpdate()
     {
-        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position; //обновление позии камеры при вращении
-        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //обновление позиции камеры при зууме
+        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position; //РѕР±РЅРѕРІР»РµРЅРёРµ РїРѕР·РёРё РєР°РјРµСЂС‹ РїСЂРё РІСЂР°С‰РµРЅРёРё
+        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //РѕР±РЅРѕРІР»РµРЅРёРµ РїРѕР·РёС†РёРё РєР°РјРµСЂС‹ РїСЂРё Р·СѓСѓРјРµ
     }
     public virtual void RotateCamera(Vector2 deltaMouse)
     {
-        deltaX += deltaMouse.x * sensitivity; // получаем дельту вращения по X
-        deltaY -= deltaMouse.y * sensitivity; // получаем дельту вращения по Y
-        deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // ограничение вращения по Y
-        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); // инициализация вращения камеры толко с зажатой кнопкой
+        deltaX += deltaMouse.x * sensitivity; // РїРѕР»СѓС‡Р°РµРј РґРµР»СЊС‚Сѓ РІСЂР°С‰РµРЅРёСЏ РїРѕ X
+        deltaY -= deltaMouse.y * sensitivity; // РїРѕР»СѓС‡Р°РµРј РґРµР»СЊС‚Сѓ РІСЂР°С‰РµРЅРёСЏ РїРѕ Y
+        deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІСЂР°С‰РµРЅРёСЏ РїРѕ Y
+        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РІСЂР°С‰РµРЅРёСЏ РєР°РјРµСЂС‹ С‚РѕР»РєРѕ СЃ Р·Р°Р¶Р°С‚РѕР№ РєРЅРѕРїРєРѕР№
     }
     public virtual void ZoomCamera(Vector2 scrollMouse)
     {   
-        currentScrollPoint-= scrollMouse.y * zoomSpeed * Time.deltaTime; // получаем значения Zoom камеры вперед/назад
-        currentScrollPoint = Mathf.Clamp(currentScrollPoint, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // ограничения Zoom 
+        currentScrollPoint-= scrollMouse.y * zoomSpeed * Time.deltaTime; // РїРѕР»СѓС‡Р°РµРј Р·РЅР°С‡РµРЅРёСЏ Zoom РєР°РјРµСЂС‹ РІРїРµСЂРµРґ/РЅР°Р·Р°Рґ
+        currentScrollPoint = Mathf.Clamp(currentScrollPoint, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // РѕРіСЂР°РЅРёС‡РµРЅРёСЏ Zoom 
     } 
 }

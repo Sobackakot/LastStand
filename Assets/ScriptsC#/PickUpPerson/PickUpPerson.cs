@@ -7,8 +7,11 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     [SerializeField] private PersonDataScript personData; 
     private bool isInitialized = false;
     public bool isActive = false;
-    [HideInInspector]public string id;
-
+    [HideInInspector] public string id;
+    public void Start()
+    {
+        id = personData.Id;  
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -16,9 +19,9 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
             if (!isInitialized)
             {   
                 isInitialized = true;
-                CharacterSwitchingSystem.Instance?.SetDataPerson(personData);
-                CharacterSwitchingSystem.Instance?.AddPersonList(this,gameObject);
-                id = personData.Id;
+                CharacterSwitchingSystem.Instance?.SetDataPerson(personData); // set first data new person game
+                CharacterSwitchingSystem.Instance?.AddPersonList(this,gameObject); //Add new gamObjects person in list  
+                id = personData.Id; 
             } 
         }
     } 

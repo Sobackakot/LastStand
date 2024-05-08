@@ -19,8 +19,6 @@ public class RaycastPointFollow : MonoBehaviour
     [Range(1,50)] private float speedMoveRay = 15f; // скорость движения луча
     private Transform rayPoint;
      
-    //This Event for class InputController
-    public event Func<Vector2> onInputGetAxis; //событие для получения направления движения по оси X.Z
 
     public event Action<bool, PickUpPerson> onResetTargetLookPoint;//this Event for class CameraLookTarget
 
