@@ -8,10 +8,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     private bool isInitialized = false;
     public bool isActive = false;
     [HideInInspector] public string id;
-    public void Start()
-    {
-        id = personData.Id;  
-    }
+     
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
