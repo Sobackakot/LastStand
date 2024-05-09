@@ -14,11 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: asd
   sprite: {fileID: 21300000, guid: cc0f5ae97ad82a34a8af9ac2f8449f32, type: 3}
-  data:
-    Id: fa5dea15-3725-418f-a39d-74d134131823
-    currentHP: 100
-    x: 0
-    y: 0
-    z: 0
-    rotateY: 0
-    isInstalled: 1

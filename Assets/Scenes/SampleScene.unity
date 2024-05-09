@@ -985,6 +985,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1158042011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1158042013}
+  - component: {fileID: 1158042012}
+  m_Layer: 0
+  m_Name: SaveDataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1158042012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158042011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15c7903716fe974d942883936706703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1158042013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158042011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.10446074, y: 4.6858954, z: -0.9899639}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1199347013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,6 +1275,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a26e5585b24026144b88d0643d6491f1,
         type: 2}
+    - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: dataManager
+      value: 
+      objectReference: {fileID: 1158042012}
     - target: {fileID: 4736641695933056650, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_Enabled
@@ -1240,6 +1289,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Person  (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979978968027931991, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -1544,6 +1598,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: dataManager
+      value: 
+      objectReference: {fileID: 1158042012}
     - target: {fileID: 4736641695933056650, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_Enabled
@@ -1553,6 +1612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Person  (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979978968027931991, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -1863,6 +1927,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 225543d2a1ae15d48bb408a7c712590f,
         type: 2}
+    - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: dataManager
+      value: 
+      objectReference: {fileID: 1158042012}
     - target: {fileID: 4736641695933056650, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_Enabled
@@ -1872,6 +1941,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'Person '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979978968027931991, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -1950,6 +2024,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PersonCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3396365093253637521, guid: 7ad4463b45841c04da0de2d98a85ed54,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4318120693312194363, guid: 7ad4463b45841c04da0de2d98a85ed54,
         type: 3}
@@ -2048,4 +2127,5 @@ SceneRoots:
   - {fileID: 196373487}
   - {fileID: 1810419648}
   - {fileID: 51737706}
+  - {fileID: 1158042013}
   - {fileID: 1887805542}

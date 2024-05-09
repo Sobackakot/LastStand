@@ -14,11 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: qwe
   sprite: {fileID: 21300000, guid: ed1a508b76e3f3b48b2d6c1d9049b3c9, type: 3}
-  data:
-    Id: 6e835f51-1497-4e23-9e66-e6f01001ff8f
-    currentHP: 100
-    x: 0
-    y: 0
-    z: 0
-    rotateY: 0
-    isInstalled: 1
