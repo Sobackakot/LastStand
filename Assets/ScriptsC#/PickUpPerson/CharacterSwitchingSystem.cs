@@ -39,7 +39,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
     }
     public void SetDataPerson(PersonDataScript dataScript) // set new first data person 
     {
-        dataScript.GetCurrenPersonId();
+        dataScript.data.GetCurrenPersonId();
         foreach (var uiGroup in personsUI)
         {
             if (!uiGroup.HasData()) //  check is first set  data for person 

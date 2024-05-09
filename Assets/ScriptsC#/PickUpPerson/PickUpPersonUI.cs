@@ -18,7 +18,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     [HideInInspector] public string id;
     public void Start()
     {
-        id = personDataUI.GetCurrenPersonId();
+        id = personDataUI.data.GetCurrenPersonId();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
