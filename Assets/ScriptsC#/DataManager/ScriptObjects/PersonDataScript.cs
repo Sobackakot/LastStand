@@ -7,6 +7,5 @@ public class PersonDataScript : ScriptableObject
     public string Name = "No name"; 
     public Sprite sprite = null; 
 
-    public PersonData data;
-      
+    public PersonData data; 
 }

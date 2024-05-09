@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PersonDataManager : MonoBehaviour
 {    
-    private PersonsDataList  dataList; 
+    private PersonsDataList  dataList;  
 
     private void Start()
     {
@@ -35,7 +35,7 @@ public class PersonDataManager : MonoBehaviour
     }
     public async void SaveData()
     {
-        string filePath = Path.Combine(Application.persistentDataPath, "Data.txt");
+        string filePath = Path.Combine(Application.persistentDataPath, "Data.txt"); 
         await SaveDataSystem.SaveDataAsync(dataList, filePath);
         Debug.Log("Manager call save");
     }
