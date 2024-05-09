@@ -14,7 +14,13 @@ public class CharacterSwitchingSystem : MonoBehaviour
 
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager
-    public void Awake()
+    public event Action onSaveData;
+    public event Action onLoadData;
+    private void OnDisable()
+    {
+        onSaveData?.Invoke();
+    }
+    private void Awake()
     {
         if(Instance != null)
         {
@@ -23,7 +29,11 @@ public class CharacterSwitchingSystem : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-    } 
+    }
+    private void Start()
+    {
+        onLoadData?.Invoke();
+    }
     public void AddPersonList(PickUpPerson person,GameObject gameObjectPerson) // Add new person my group
     {
         personsObj.Add(person);

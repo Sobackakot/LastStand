@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: obj 2
   m_EditorClassIdentifier: 
   Name: zxc
-  Id: 
   sprite: {fileID: 21300000, guid: 3e76b61b0917e2d488816ebb161e64bb, type: 3}
+  data:
+    Id: 5e1b9afb-119d-46e1-b3dd-dce0fdcae873
+    currentHP: 100
+    x: 0
+    y: 0
+    z: 0
+    rotateY: 0
+    isInstalled: 1

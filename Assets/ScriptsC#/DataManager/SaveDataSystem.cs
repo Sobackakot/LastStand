@@ -1,10 +1,9 @@
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks; 
-using UnityEngine;
+using System.Threading.Tasks;  
 
-public static class SaveDataPerson  
+public static class SaveDataSystem  
 { 
     public static async Task SaveDataAsync(PersonsDataList data, string filePath)
     {
