@@ -1,13 +1,14 @@
 
+using System;
 using UnityEngine; 
 using UnityEngine.EventSystems;
 
 public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private PersonDataScript personData; 
+    [SerializeField] private PersonDataScript personData; // static data person
     private bool isInitialized = false;
     public bool isActive = false;
-    [HideInInspector] public string id;
+    [HideInInspector] public string id; 
      
     public void OnPointerClick(PointerEventData eventData)
     {
