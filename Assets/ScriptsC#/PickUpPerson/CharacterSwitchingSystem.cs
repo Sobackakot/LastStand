@@ -13,12 +13,18 @@ public class CharacterSwitchingSystem : MonoBehaviour
     [SerializeField] private List<GameObject> gameObjectPersonComponents = new List<GameObject>(30);
 
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
-    public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager
-    public event Action onSaveData;
-    public event Action onLoadData;
+    public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager 
+
+    public event Action onSaveDataPerson;
+    public event Action onLoadDataPerson;
+
+    private void OnEnable()
+    {
+        onLoadDataPerson?.Invoke();
+    }
     private void OnDisable()
     {
-        onSaveData?.Invoke();
+        onSaveDataPerson?.Invoke();
     }
     private void Awake()
     {
@@ -30,16 +36,12 @@ public class CharacterSwitchingSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    private void Start()
-    {
-        onLoadData?.Invoke();
-    }
     public void AddPersonList(PickUpPerson person,GameObject gameObjectPerson) // Add new person my group
     {
         personsObj.Add(person);
         gameObjectPersonComponents.Add(gameObjectPerson);
         gameObjectPerson.GetComponent<InputControlPerson>().OnDisableComponent();
-        gameObjectPerson.GetComponent<PersonMoveControl>().OnDisableComponent();  
+        gameObjectPerson.GetComponent<PersonMoveControl>().OnDisableComponent(); 
     }
     public void RemovePersonList(PickUpPerson person, GameObject gameObjectPerson) // Remove new person my group ...
     {
@@ -47,8 +49,8 @@ public class CharacterSwitchingSystem : MonoBehaviour
         gameObjectPersonComponents.Remove(gameObjectPerson); 
         // add Action RemovePersonData for list PersonsDataList...
     }
-    public void SetDataPerson(PersonDataScript dataScript) // set new first data person 
-    {
+    public void SetDataPerson(PersonDataScript dataScript, Transform transform) // set new first data person 
+    {   
         dataScript.data.GetCurrenPersonId(); // set new id person for PersonData
         onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList .....
         foreach (var uiGroup in personsUI)
