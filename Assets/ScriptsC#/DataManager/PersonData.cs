@@ -4,20 +4,17 @@ using UnityEngine;
 [Serializable]
 public class PersonData  
 {
-    public string Id;
+    private string Id;
+     
+    private float currentHP = 100f;
+     
+    private float x = 0;
+    private float y = 1;
+    private float z = 0;
+     
+    private float rotateY;
 
-    [SerializeField, Range(0, 100)]
-    public float currentHP = 100f;
-
-    [Header("Position")]
-    public float x = 0;
-    public float y = 1;
-    public float z = 0;
-
-    [Header("Rotation")] 
-    public float rotateY;
-
-    public bool isInstalled = false;
+    private bool isInstalled = false;
      
     public void SavePositionPerson(Transform person)
     {
