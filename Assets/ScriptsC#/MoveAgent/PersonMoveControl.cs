@@ -1,5 +1,5 @@
 
-using System;
+using System; 
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,7 +19,7 @@ public class PersonMoveControl : MonoBehaviour
         inputControllerPerson.onRightMouseButton -= MoveAgent;
     } 
     public void MoveAgent()
-    {
+    {    
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance))

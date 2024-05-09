@@ -25,7 +25,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    public void AddPersonList(PickUpPerson person, GameObject gameObjectPerson) // Add new person my group
+    public void AddPersonList(PickUpPerson person,GameObject gameObjectPerson) // Add new person my group
     {
         personsObj.Add(person);
         gameObjectPersonComponents.Add(gameObjectPerson);
@@ -39,18 +39,18 @@ public class CharacterSwitchingSystem : MonoBehaviour
     }
     public void SetDataPerson(PersonDataScript dataScript) // set new first data person 
     {
-        dataScript.Id = "per" + UnityEngine.Random.Range(1, 1000000);
+        dataScript.GetCurrenPersonId();
         foreach (var uiGroup in personsUI)
         {
             if (!uiGroup.HasData()) //  check is first set  data for person 
             {
                 ActivePersonUI(uiGroup);
-                uiGroup.SetDataPersonUI(dataScript);
+                uiGroup.SetDataPersonUI();
                 break; // Stop after finding the first empty slot
             }
         } 
     }
-    public void SetFocusCamera(string id) //set focus camera pickup person
+    public void SetFocusCamera(in string id) //set focus camera pickup person
     {
         for(int i = 0; i < personsObj.Count; i++)
         {   

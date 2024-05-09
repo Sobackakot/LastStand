@@ -1,4 +1,5 @@
- 
+
+using System.Threading.Tasks;
 using TMPro; 
 using UnityEngine; 
 using UnityEngine.EventSystems;
@@ -17,7 +18,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     [HideInInspector] public string id;
     public void Start()
     {
-        id = personDataUI.Id;
+        id = personDataUI.GetCurrenPersonId();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -26,9 +27,8 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
             HandleClick();
         }
     } 
-    public void SetDataPersonUI(PersonDataScript data) // Set first data new person in Ui slot
+    public void SetDataPersonUI() // Set first data new person in Ui slot
     {
-        personDataUI = data;
         perImage.sprite = personDataUI.sprite;
         namePerson.text = personDataUI.Name;
         _hasData = true; 
@@ -43,12 +43,13 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     {
         return _hasData;
     } 
+  
     private void HandleClick() // check double click slot person ui
     {
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
         { 
-            CharacterSwitchingSystem.Instance?.SetFocusCamera(id);
+            CharacterSwitchingSystem.Instance?.SetFocusCamera(in id);
         } 
         lastClickTime = Time.time;
     } 

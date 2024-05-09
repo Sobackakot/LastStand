@@ -1,11 +1,11 @@
 
-using System;
-using UnityEngine; 
-
+using System; 
+using UnityEngine;  
 public class RaycastPointFollow : MonoBehaviour
 {
     [Header("EventSystem Input Controller Camera")]
     [SerializeField] private InputContorlCamera inputControlCamera;
+
     [Header("Camera Person")]
     [SerializeField] private Transform mainCamera;
 
@@ -16,7 +16,9 @@ public class RaycastPointFollow : MonoBehaviour
     [SerializeField] private LayerMask terraLayerMask; // слой Маска поверхности 
 
     [Range(500,2000)] private float verticalRayDistance = 2000f; // длина луча
+
     [Range(1,50)] private float speedMoveRay = 15f; // скорость движения луча
+
     private Transform rayPoint;
      
 
@@ -74,7 +76,7 @@ public class RaycastPointFollow : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, verticalRayDistance, terraLayerMask))// проверем столкновение луча с поверхностью
         {
             lookFreePoint.position = hit.point;// перемещяем объект Target LookPoint камеры в позицию пересечения луча с поверхностью
-        } 
+        }
     }
     private void MoveRay()
     { 
@@ -82,7 +84,7 @@ public class RaycastPointFollow : MonoBehaviour
         {
             rayPoint.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
         }    
-    } 
-}
+    }
      
+} 
 
