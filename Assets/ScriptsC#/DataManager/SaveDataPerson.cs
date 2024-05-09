@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 public static class SaveDataPerson  
-{
-    public static async Task SaveDataAsync(GameObject data, string filePath)
+{ 
+    public static async Task SaveDataAsync(PersonDataManager data, string filePath)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         using(FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
@@ -14,14 +14,14 @@ public static class SaveDataPerson
             await Task.Run(() => formatter.Serialize(stream,data));
         }
     }
-    public static async Task<PersonData> LoadDataAsync(string filePath)
+    public static async Task<PersonDataManager> LoadDataAsync(string filePath)
     {
         if (File.Exists(filePath))
         {
             BinaryFormatter formatter = new BinaryFormatter();
             using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
-                return await Task.Run(() => formatter.Deserialize(stream)) as PersonData;
+                return await Task.Run(() => formatter.Deserialize(stream)) as PersonDataManager;
             } 
         }
         return null;

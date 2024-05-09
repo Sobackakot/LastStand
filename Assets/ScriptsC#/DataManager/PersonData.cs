@@ -7,7 +7,7 @@ public class PersonData
     public string Id;
 
     [SerializeField, Range(0, 100)]
-    public float currentHP =100;
+    public float currentHP = 100f;
 
     [Header("Position")]
     public float x;
@@ -17,7 +17,7 @@ public class PersonData
     [Header("Rotation")] 
     public float rotateY;
 
-    private bool isInstalled = false;
+    public bool isInstalled = false;
 
     public string GetCurrenPersonId()
     {
