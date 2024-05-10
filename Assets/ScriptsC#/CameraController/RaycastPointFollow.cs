@@ -14,7 +14,7 @@ public class RaycastPointFollow : MonoBehaviour
     [SerializeField] private Transform lookFreePoint; // target who the camera is following
 
     [Header("Terrane Layer Mask")]
-    [SerializeField] readonly LayerMask terraLayerMask; // layer Surface mask
+    [SerializeField] private LayerMask terraLayerMask; // layer Surface mask
 
     [Range(510,2000)] readonly float verticalRayDistance = 510f; // beam length
     [Range(10, 500)] readonly float offsetY = 500f; 
@@ -79,8 +79,8 @@ public class RaycastPointFollow : MonoBehaviour
         {
             lookFreePoint.position = hit.point;// moved object Target Look Point of the camera
                                                // to the position of intersection of the ray with the surface
-                                               //Logic to adjust Y coordinate based on terrain height using raycasting.
-            
+
+            //Logic to adjust Y coordinate based on terrain height using raycasting.
             transform.position = new Vector3(transform.position.x, hit.point.y + offsetY, transform.position.z);
         }
     }

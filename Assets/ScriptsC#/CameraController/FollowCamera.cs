@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
@@ -33,7 +34,8 @@ public class FollowCamera : MonoBehaviour
         {
             direction.Normalize();
             direction = Vector3.ClampMagnitude(direction, maxRadius);
-            raycastPosition.position = Vector3.Lerp(raycastPosition.position, currentTarget.position + direction, Time.deltaTime * smoothSpeed);
+            Vector3 currentOffsetY = new Vector3(currentTarget.position.x + direction.x, raycastPosition.position.y, currentTarget.position.z + direction.z);
+            raycastPosition.position = Vector3.Lerp(raycastPosition.position, currentOffsetY, Time.deltaTime * smoothSpeed);
         }
     }
 }
