@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 public static class SaveDataSystem  
 { 
-    public static async Task SaveDataAsync(PersonsDataList data, string filePath)
+    public static async Task SaveDataAsync(PersonsDataList data, string filePath) // save data from PersonDataManager
     {
         BinaryFormatter formatter = new BinaryFormatter();
         using(FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
@@ -13,7 +13,7 @@ public static class SaveDataSystem
             await Task.Run(() => formatter.Serialize(stream,data));
         }
     }
-    public static async Task<PersonsDataList> LoadDataAsync(string filePath)
+    public static async Task<PersonsDataList> LoadDataAsync(string filePath) // load data from PersonDataManager
     {
         if (File.Exists(filePath))
         {

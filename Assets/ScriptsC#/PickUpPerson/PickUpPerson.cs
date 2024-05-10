@@ -1,5 +1,4 @@
 
-using System;
 using UnityEngine; 
 using UnityEngine.EventSystems;
 
@@ -29,8 +28,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
                 CharacterSwitchingSystem.Instance?.SetDataPerson(personData,transform); // set first data new person game
                 CharacterSwitchingSystem.Instance?.AddPersonList(this,gameObject); //Add new gamObjects person in list  
                 id = personData.data.GetCurrenPersonId(); 
-            }
-            Debug.Log(id);
+            } 
         }
     } 
 }

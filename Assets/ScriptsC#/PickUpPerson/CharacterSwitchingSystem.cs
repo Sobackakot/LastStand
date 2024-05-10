@@ -13,10 +13,10 @@ public class CharacterSwitchingSystem : MonoBehaviour
     [SerializeField] private List<GameObject> gameObjectPersonComponents = new List<GameObject>(30);
 
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
-    public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager 
-
-    public event Action onSaveDataPerson;
-    public event Action onLoadDataPerson;
+    public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
+    public event Action onSaveDataPerson; // This Event for PersonDataManager
+    public event Action onLoadDataPerson;// This Event for PersonDataManager
+    public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera
 
     private void OnEnable()
     {
@@ -36,7 +36,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    public void AddPersonList(PickUpPerson person,GameObject gameObjectPerson) // Add new person my group
+    public void AddPersonList(PickUpPerson person,GameObject gameObjectPerson) // Add new person my group for PickUpPerson
     {
         personsObj.Add(person);
         gameObjectPersonComponents.Add(gameObjectPerson);
@@ -49,10 +49,10 @@ public class CharacterSwitchingSystem : MonoBehaviour
         gameObjectPersonComponents.Remove(gameObjectPerson); 
         // add Action RemovePersonData for list PersonsDataList...
     }
-    public void SetDataPerson(PersonDataScript dataScript, Transform transform) // set new first data person 
+    public void SetDataPerson(PersonDataScript dataScript, Transform transform) // set new first data for PickUpPerson
     {   
         dataScript.data.GetCurrenPersonId(); // set new id person for PersonData
-        onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList .....
+        onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList ..... 
         foreach (var uiGroup in personsUI)
         {
             if (!uiGroup.HasData()) //  check is first set  data for person 
@@ -63,14 +63,15 @@ public class CharacterSwitchingSystem : MonoBehaviour
             }
         } 
     }
-    public void SetFocusCamera(in string id) //set focus camera pickup person
+    public void SetFocusCamera(in string id) //set focus camera for PickUpPersonUI 
     {
         for(int i = 0; i < personsObj.Count; i++)
         {   
             if (personsObj[i].id ==id)
             {
-                personsObj[i].isActive = true;
-                onResetFocusCamera?.Invoke(false, personsObj[i]); // ResetLookPoint 
+                personsObj[i].isActive = true; 
+                onResetFocusCamera?.Invoke(false, personsObj[i]); // ResetLookPoint camera focus on selected person
+                onSetNewTargetFolowCamera?.Invoke(personsObj[i].transform); // Set new target follow camera
                 gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnEnableComponent(); // next pick person Activating components
                 gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnEnableComponent(); 
                 continue;

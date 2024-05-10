@@ -17,29 +17,25 @@ public class PersonDataManager : MonoBehaviour
         CharacterSwitchingSystem.Instance.onSaveDataPerson -= SaveData;
         CharacterSwitchingSystem.Instance.onLoadDataPerson -= LoadData;
     }
-    public void AddDataPerson(PersonData data) // add new person for PersonsDataListst
+    private void AddDataPerson(PersonData data) // add new person for PersonsDataListst
     {
         if (dataList.dataPersons.Contains(data)) return;
-        dataList.dataPersons.Add(data); 
-        Debug.Log("Add new PersonData to PersonManager");
+        dataList.dataPersons.Add(data);  
     }
-    public void RemoveDataPerson(PersonData data) //remove person from PersonsDataListst
+    private void RemoveDataPerson(PersonData data) //remove person from PersonsDataListst
     {
         if (!dataList.dataPersons.Contains(data)) return;
-        dataList.dataPersons.Remove(data); 
-        Debug.Log("Remove PersonData from PersonManager");
+        dataList.dataPersons.Remove(data);  
     }
-    public async void SaveData()
+    private async void SaveData()
     {
         string filePath = Path.Combine(Application.persistentDataPath, "Data.txt");
-        await SaveDataSystem.SaveDataAsync(dataList, filePath);
-        Debug.Log("Manager call save");
+        await SaveDataSystem.SaveDataAsync(dataList, filePath); 
     }
-    public async void LoadData()
+    private async void LoadData()
     {
         string filePath = Path.Combine(Application.persistentDataPath, "Data.txt");
-        dataList = await SaveDataSystem.LoadDataAsync(filePath);
-        Debug.Log("Manager call load");
+        dataList = await SaveDataSystem.LoadDataAsync(filePath); 
     }
    
     public void SavePoisition(PersonDataScript dataScript,Transform person)

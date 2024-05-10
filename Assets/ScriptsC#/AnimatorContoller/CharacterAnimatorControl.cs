@@ -27,18 +27,18 @@ public class CharacterAnimatorControl : MonoBehaviour
     {
         AnimatorUpdate();
     }
-    public void AnimatorUpdate()
+    private void AnimatorUpdate()
     {
         float speedAnimator = agent.velocity.sqrMagnitude > 0 ? SpeedCalculate() : 0f;
         animatorPerson.SetFloat("MoveSitting", speedAnimator, 0.1f, Time.deltaTime);
         animatorPerson.SetFloat("MoveStanding", speedAnimator, 0.1f, Time.deltaTime);
     }
-    public void WalkSittingAnim()
+    private void WalkSittingAnim()
     {
         agent.speed = agentMoveSitting;
         animatorPerson.SetBool("isSquat", true); 
     }
-    public void MoveStandingAnim()
+    private void MoveStandingAnim()
     {
         agent.speed = agentMoveStanding;
         animatorPerson.SetBool("isSquat", false);

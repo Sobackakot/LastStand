@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine; 
 
 public class CameraLookTarget : MonoBehaviour  
@@ -21,9 +22,9 @@ public class CameraLookTarget : MonoBehaviour
     [Range(1, 10)] private float zoomSpeed = 2f;
     [Range(1, 6)] private float minZoom = 2f;
     [Range(25, 500)] private float maxZoom = 100f;
-
-    private Transform cameraPoint;// стартовая позиция камеры
-    private Transform currentLookPoint; // тукущая точка следования камеры 
+     
+    private Transform cameraPoint;// camera starting position
+    private Transform currentLookPoint; // current camera tracking point
 
     private float deltaX;
     private float deltaY;
@@ -47,40 +48,40 @@ public class CameraLookTarget : MonoBehaviour
         CharacterSwitchingSystem.Instance.onResetFocusCamera += ResetLookPoint;
         cameraPoint = GetComponent<Transform>();
         currentLookPoint = lookFreePoint;
-        offset = cameraPoint.position - currentLookPoint.position; // получаем стартовую позицию камеры от таргета 
+        offset = cameraPoint.position - currentLookPoint.position; // get the starting position of the camera from the target 
         //Cursor.lockState = CursorLockMode.Locked;
     }
     public void LateUpdate()
     {
         PositionUpdate();
     } 
-    public void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchingSystem
-    { 
-        // либо камера следует за выбранным из списка персонажем или свободно следует за точкой
+    private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchingSystem
+    {
+        // either the camera follows the character selected from the list or freely follows the point
         if (isFreeCamera)
         {
             currentLookPoint = lookFreePoint;
         } 
         else
         { 
-            currentLookPoint = person.transform;
+            currentLookPoint = person.transform; 
         }
     }
-    public virtual void PositionUpdate()
+    public void PositionUpdate()
     {
-        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position; //обновление позии камеры при вращении
-        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //обновление позиции камеры при зууме
+        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position;//updating camera position when rotating
+        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //updating camera position when zooming
     }
-    public virtual void RotateCamera(Vector2 deltaMouse)
+    private void RotateCamera(Vector2 deltaMouse)
     {
-        deltaX += deltaMouse.x * sensitivity; // получаем дельту вращения по X
-        deltaY -= deltaMouse.y * sensitivity; // получаем дельту вращения по Y
-        deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // ограничение вращения по Y
-        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); // инициализация вращения камеры толко с зажатой кнопкой
+        deltaX += deltaMouse.x * sensitivity; // get the rotation delta along X
+        deltaY -= deltaMouse.y * sensitivity; // get rotation delta in Y
+        deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // rotation limitation in Y
+        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); // initialize camera rotation only with the button held down
     }
-    public virtual void ZoomCamera(Vector2 scrollMouse)
+    private void ZoomCamera(Vector2 scrollMouse)
     {   
-        currentScrollPoint-= scrollMouse.y * zoomSpeed * Time.deltaTime; // получаем значения Zoom камеры вперед/назад
-        currentScrollPoint = Mathf.Clamp(currentScrollPoint, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // ограничения Zoom 
+        currentScrollPoint-= scrollMouse.y * zoomSpeed * Time.deltaTime; // get camera Zoom values ​​forward/backward
+        currentScrollPoint = Mathf.Clamp(currentScrollPoint, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // Zoom restrictions 
     } 
 }

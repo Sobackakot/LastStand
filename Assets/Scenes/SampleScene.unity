@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 55243897}
   - component: {fileID: 55243896}
   - component: {fileID: 55243895}
+  - component: {fileID: 55243898}
   m_Layer: 0
   m_Name: LookFreePoint
   m_TagString: Focus
@@ -256,6 +257,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &55243898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55243893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1976cf7c2b2e3340a392ca0771afe65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastPosition: {fileID: 196373487}
+  currentTarget: {fileID: 1614746393}
 --- !u!1 &196373482
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +349,7 @@ Transform:
   m_GameObject: {fileID: 196373482}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1000, z: 0}
+  m_LocalPosition: {x: 0, y: 500, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -355,9 +370,6 @@ MonoBehaviour:
   inputControlCamera: {fileID: 7166093947692530667}
   mainCamera: {fileID: 2029986940}
   lookFreePoint: {fileID: 55243897}
-  terraLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!20 &330585545 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8847350122379099946, guid: 7ad4463b45841c04da0de2d98a85ed54,
@@ -1305,6 +1317,11 @@ PrefabInstance:
       propertyPath: inputControllerPerson
       value: 
       objectReference: {fileID: 1433293110}
+    - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: followCameraLookTarget
+      value: 
+      objectReference: {fileID: 55243898}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1382,6 +1399,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b7c8dc15c8dd144c90e89f3f4af4e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1614746393 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2553463961350281022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1810419644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,6 +1651,11 @@ PrefabInstance:
       propertyPath: inputControllerPerson
       value: 
       objectReference: {fileID: 1821401643}
+    - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: followCameraLookTarget
+      value: 
+      objectReference: {fileID: 55243898}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1952,6 +1980,11 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: followCameraLookTarget
+      value: 
+      objectReference: {fileID: 55243898}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.x

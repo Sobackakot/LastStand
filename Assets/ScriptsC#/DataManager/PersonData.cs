@@ -5,7 +5,7 @@ using UnityEngine;
 public class PersonData  
 {
     private string Id;
-     
+    [Range(1,100)]
     private float currentHP = 100f;
      
     private float x = 0;

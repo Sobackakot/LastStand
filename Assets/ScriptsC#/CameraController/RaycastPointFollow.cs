@@ -1,5 +1,6 @@
 
-using System; 
+using System;
+using Unity.Burst.CompilerServices;
 using UnityEngine;  
 public class RaycastPointFollow : MonoBehaviour
 {
@@ -10,24 +11,25 @@ public class RaycastPointFollow : MonoBehaviour
     [SerializeField] private Transform mainCamera;
 
     [Header("Target Look Point")]
-    [SerializeField] private Transform lookFreePoint; // таргет за кем слудует камера
+    [SerializeField] private Transform lookFreePoint; // target who the camera is following
 
     [Header("Terrane Layer Mask")]
-    [SerializeField] private LayerMask terraLayerMask; // слой Маска поверхности 
+    [SerializeField] readonly LayerMask terraLayerMask; // layer Surface mask
 
-    [Range(500,2000)] private float verticalRayDistance = 2000f; // длина луча
+    [Range(510,2000)] readonly float verticalRayDistance = 510f; // beam length
+    [Range(10, 500)] readonly float offsetY = 500f; 
 
-    [Range(1,50)] private float speedMoveRay = 15f; // скорость движения луча
+    [Range(1,50)] private float speedMoveRay = 15f; // beam movement speed
 
     private Transform rayPoint;
      
 
     public event Action<bool, PickUpPerson> onResetTargetLookPoint;//this Event for class CameraLookTarget
 
-    private Vector3 directionX; // текущее направление камеры  
-    private Vector3 directionZ; // текущее направление камеры  
-    private Vector3 newDirectionMove;// новое направление передвижения луча в зависимости от направления камеры
-      
+    private Vector3 directionX;// current camera direction
+    private Vector3 directionZ; // current camera direction
+    private Vector3 newDirectionMove;// new direction of beam movement depending on the camera direction
+
     private float inputAxisX;
     private float inputAxisZ;
     private void Start()
@@ -64,27 +66,30 @@ public class RaycastPointFollow : MonoBehaviour
     }
     private void GetDirectionCamera()
     {
-        directionX = mainCamera.right; // получаем направление камеры
-        directionZ = mainCamera.forward;// получаем направление камеры
-        directionX.y = 0; // обнуляем вертикальную ось 
-        directionZ.y = 0; // обнуляем вертикальную ось  
-        newDirectionMove = (directionX * inputAxisX) + (directionZ * inputAxisZ).normalized; // получаем нвое напрвления движения
+        directionX = mainCamera.right; // get camera direction
+        directionZ = mainCamera.forward;// get camera direction
+        directionX.y = 0; // reset the vertical axis
+        directionZ.y = 0; // reset the vertical axis
+        newDirectionMove = (directionX * inputAxisX) + (directionZ * inputAxisZ).normalized;// get a new direction of movement
     }
     private void SetRaycastPoint()
     {
-        Ray ray = new Ray(rayPoint.position, -Vector3.up);// создаем луч в направлении сверху в низ
-        if (Physics.Raycast(ray, out RaycastHit hit, verticalRayDistance, terraLayerMask))// проверем столкновение луча с поверхностью
+        Ray ray = new Ray(rayPoint.position, -Vector3.up);// create a ray in the direction from top to bottom
+        if (Physics.Raycast(ray, out RaycastHit hit, verticalRayDistance, terraLayerMask))// check the collision of the ray with the surface
         {
-            lookFreePoint.position = hit.point;// перемещяем объект Target LookPoint камеры в позицию пересечения луча с поверхностью
+            lookFreePoint.position = hit.point;// moved object Target Look Point of the camera
+                                               // to the position of intersection of the ray with the surface
+                                               //Logic to adjust Y coordinate based on terrain height using raycasting.
+            
+            transform.position = new Vector3(transform.position.x, hit.point.y + offsetY, transform.position.z);
         }
     }
     private void MoveRay()
     { 
         if (newDirectionMove.sqrMagnitude > 0)
         {
-            rayPoint.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // передвигаем луч по напрвлению камеры 
+            rayPoint.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // move the beam in the direction of the camera
         }    
     }
-     
 } 
 
