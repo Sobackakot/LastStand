@@ -31,16 +31,16 @@ public class CameraLookTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        inputContorlCamera.onRotateMouse += RotateCamera;
-        inputContorlCamera.onScrollMouse += ZoomCamera;
-        raycastPointFollow.onResetTargetLookPoint += ResetLookPoint;
-        
+        inputContorlCamera.onRotateMouse += RotateCamera; // InputControllerCamera
+        inputContorlCamera.onScrollMouse += ZoomCamera;// InputControllerCamera
+        raycastPointFollow.onResetTargetLookPoint += ResetLookPoint; //RaycastPointFollow
+
     }
     private void OnDisable()
     {
-        inputContorlCamera.onRotateMouse -= RotateCamera;
-        inputContorlCamera.onScrollMouse -= ZoomCamera;
-        raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;
+        inputContorlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
+        inputContorlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
+        raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
         CharacterSwitchingSystem.Instance.onResetFocusCamera -= ResetLookPoint;
     }
     private void Start()
@@ -48,8 +48,7 @@ public class CameraLookTarget : MonoBehaviour
         CharacterSwitchingSystem.Instance.onResetFocusCamera += ResetLookPoint;
         cameraPoint = GetComponent<Transform>();
         currentLookPoint = lookFreePoint;
-        offset = cameraPoint.position - currentLookPoint.position; // get the starting position of the camera from the target 
-        //Cursor.lockState = CursorLockMode.Locked;
+        offset = cameraPoint.position - currentLookPoint.position; // get the starting position of the camera from the target  
     }
     public void LateUpdate()
     {
@@ -63,7 +62,7 @@ public class CameraLookTarget : MonoBehaviour
             currentLookPoint = lookFreePoint;
         } 
         else
-        { 
+        {
             currentLookPoint = person.transform; 
         }
     }

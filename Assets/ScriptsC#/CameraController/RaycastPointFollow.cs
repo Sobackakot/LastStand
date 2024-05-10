@@ -66,11 +66,11 @@ public class RaycastPointFollow : MonoBehaviour
     }
     private void GetDirectionCamera()
     {
-        directionX = mainCamera.right; // get camera direction
-        directionZ = mainCamera.forward;// get camera direction
-        directionX.y = 0; // reset the vertical axis
-        directionZ.y = 0; // reset the vertical axis
-        newDirectionMove = (directionX * inputAxisX) + (directionZ * inputAxisZ).normalized;// get a new direction of movement
+        // Normalize the camera's right and forward vectors to ignore vertical movement
+        Vector3 directionX = Vector3.ProjectOnPlane(mainCamera.right, Vector3.up);
+        Vector3 directionZ = Vector3.ProjectOnPlane(mainCamera.forward, Vector3.up);
+
+        newDirectionMove = ((directionX * inputAxisX) + (directionZ * inputAxisZ)).normalized;// get a new direction of movement
     }
     private void SetRaycastPoint()
     {
