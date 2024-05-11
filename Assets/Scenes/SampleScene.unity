@@ -251,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 55243893}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.051, z: -37.1}
+  m_LocalPosition: {x: 0, y: 3.579, z: -37.1}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -370,6 +370,9 @@ MonoBehaviour:
   inputControlCamera: {fileID: 7166093947692530667}
   mainCamera: {fileID: 2029986940}
   lookFreePoint: {fileID: 55243897}
+  terraLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!20 &330585545 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8847350122379099946, guid: 7ad4463b45841c04da0de2d98a85ed54,
@@ -1314,6 +1317,11 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
+      propertyPath: terraLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
       propertyPath: inputControllerPerson
       value: 
       objectReference: {fileID: 1433293110}
@@ -1330,7 +1338,7 @@ PrefabInstance:
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.049
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -1606,13 +1614,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1819523238}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.043619405, y: 0, z: 0, w: 0.9990483}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 50, y: 1, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5, y: 0, z: 0}
 --- !u!1001 &1821401642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1648,6 +1656,11 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
+      propertyPath: terraLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
       propertyPath: inputControllerPerson
       value: 
       objectReference: {fileID: 1821401643}
@@ -1664,7 +1677,7 @@ PrefabInstance:
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.049
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
@@ -1982,6 +1995,11 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
+      propertyPath: terraLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
       propertyPath: followCameraLookTarget
       value: 
       objectReference: {fileID: 55243898}
@@ -1993,7 +2011,7 @@ PrefabInstance:
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.049
+      value: 2.84
       objectReference: {fileID: 0}
     - target: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}

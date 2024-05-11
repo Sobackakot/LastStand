@@ -1,5 +1,4 @@
-using System.Threading.Tasks;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
@@ -18,10 +17,9 @@ public class FollowCamera : MonoBehaviour
     {
         CharacterSwitchingSystem.Instance.onSetNewTargetFolowCamera += SetTargetPlayer;
     }
-    private async void LateUpdate()
+    private void LateUpdate()
     {
-        RadiusCameraClamp();
-        await Task.Delay(200);
+        RadiusCameraClamp(); 
     }
     public void SetTargetPlayer(Transform newTarget)
     {

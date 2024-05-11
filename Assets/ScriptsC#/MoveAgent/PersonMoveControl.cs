@@ -9,6 +9,7 @@ public class PersonMoveControl : MonoBehaviour
     [SerializeField] private FollowCamera followCameraLookTarget; 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private NavMeshAgent agentMove;
+    [SerializeField] private LayerMask terraLayer;
     [Range(100, 1000)] private float rayDistance = 500f; 
     private void OnEnable()
     {
@@ -23,7 +24,7 @@ public class PersonMoveControl : MonoBehaviour
     {    
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, rayDistance))
+        if (Physics.Raycast(ray, out hit, rayDistance, terraLayer))
         {
             agentMove.SetDestination(hit.point);
         } 

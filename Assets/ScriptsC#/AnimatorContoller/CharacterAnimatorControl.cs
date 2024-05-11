@@ -32,6 +32,7 @@ public class CharacterAnimatorControl : MonoBehaviour
         float speedAnimator = agent.velocity.sqrMagnitude > 0 ? SpeedCalculate() : 0f;
         animatorPerson.SetFloat("MoveSitting", speedAnimator, 0.1f, Time.deltaTime);
         animatorPerson.SetFloat("MoveStanding", speedAnimator, 0.1f, Time.deltaTime);
+        Debug.Log("Animation"); 
     }
     private void WalkSittingAnim()
     {
@@ -46,5 +47,5 @@ public class CharacterAnimatorControl : MonoBehaviour
     private float SpeedCalculate()
     {
         return agent.velocity.magnitude / agent.speed; 
-    }
+    } 
 }

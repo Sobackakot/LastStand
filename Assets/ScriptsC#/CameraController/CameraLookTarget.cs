@@ -1,5 +1,5 @@
 ﻿
-using System;
+using System; 
 using UnityEngine; 
 
 public class CameraLookTarget : MonoBehaviour  
@@ -52,7 +52,7 @@ public class CameraLookTarget : MonoBehaviour
     }
     public void LateUpdate()
     {
-        PositionUpdate();
+        PositionUpdate(); 
     } 
     private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchingSystem
     {

@@ -1,6 +1,5 @@
 
-using System;
-using Unity.Burst.CompilerServices;
+using System; 
 using UnityEngine;  
 public class RaycastPointFollow : MonoBehaviour
 {
@@ -43,12 +42,12 @@ public class RaycastPointFollow : MonoBehaviour
     private void OnDisable()
     {
         inputControlCamera.onInputGetAxis -= SetInputAxisMove; 
-    }
+    } 
     private void LateUpdate()
     {
         GetDirectionCamera();
-        SetRaycastPoint();
         MoveRay();
+        SetRaycastPoint();  
     }
     public void EnableMoveRay()
     {
@@ -78,18 +77,15 @@ public class RaycastPointFollow : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, verticalRayDistance, terraLayerMask))// check the collision of the ray with the surface
         {
             lookFreePoint.position = hit.point;// moved object Target Look Point of the camera
-                                               // to the position of intersection of the ray with the surface
-
+                                               // to the position of intersection of the ray with the surface 
             //Logic to adjust Y coordinate based on terrain height using raycasting.
             transform.position = new Vector3(transform.position.x, hit.point.y + offsetY, transform.position.z);
         }
     }
     private void MoveRay()
-    { 
-        if (newDirectionMove.sqrMagnitude > 0)
-        {
-            rayPoint.Translate(newDirectionMove * speedMoveRay * Time.deltaTime); // move the beam in the direction of the camera
-        }    
-    }
+    {
+        rayPoint.position += newDirectionMove * speedMoveRay * Time.deltaTime;
+        // move the beam in the direction of the camera
+    } 
 } 
 
