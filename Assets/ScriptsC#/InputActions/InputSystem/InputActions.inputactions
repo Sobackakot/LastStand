@@ -76,6 +76,15 @@
                     "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "SelectMouseDelta",
+                    "type": "Value",
+                    "id": "ccf5d9d7-9fc0-48d3-bbcc-a4bf2ab1b73f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -83,7 +92,7 @@
                     "name": "",
                     "id": "fd8b9f90-f516-4e2b-bebe-4b0f0bfb15f8",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold,Press",
                     "processors": "",
                     "groups": "",
                     "action": "LeftMouseButton",
@@ -210,6 +219,17 @@
                     "action": "GetAxisDirectionMove",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "961f98b8-7d64-4322-9143-5a3558062fd8",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2",
+                    "groups": "",
+                    "action": "SelectMouseDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

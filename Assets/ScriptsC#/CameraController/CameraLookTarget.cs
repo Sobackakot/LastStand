@@ -72,7 +72,7 @@ public class CameraLookTarget : MonoBehaviour
         cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //updating camera position when zooming
     }
     private void RotateCamera(Vector2 deltaMouse)
-    {
+    {    
         deltaX += deltaMouse.x * sensitivity; // get the rotation delta along X
         deltaY -= deltaMouse.y * sensitivity; // get rotation delta in Y
         deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // rotation limitation in Y

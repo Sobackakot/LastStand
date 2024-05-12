@@ -98,6 +98,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": ""NormalizeVector2"",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectMouseDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""ccf5d9d7-9fc0-48d3-bbcc-a4bf2ab1b73f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -105,7 +114,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""fd8b9f90-f516-4e2b-bebe-4b0f0bfb15f8"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
+                    ""interactions"": ""Hold,Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LeftMouseButton"",
@@ -232,6 +241,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""GetAxisDirectionMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""961f98b8-7d64-4322-9143-5a3558062fd8"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2"",
+                    ""groups"": """",
+                    ""action"": ""SelectMouseDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -248,6 +268,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_CtrlButton = m_ActionMaps.FindAction("CtrlButton", throwIfNotFound: true);
         m_ActionMaps_SpaceButton = m_ActionMaps.FindAction("SpaceButton", throwIfNotFound: true);
         m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
+        m_ActionMaps_SelectMouseDelta = m_ActionMaps.FindAction("SelectMouseDelta", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +338,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_CtrlButton;
     private readonly InputAction m_ActionMaps_SpaceButton;
     private readonly InputAction m_ActionMaps_GetAxisDirectionMove;
+    private readonly InputAction m_ActionMaps_SelectMouseDelta;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -329,6 +351,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @CtrlButton => m_Wrapper.m_ActionMaps_CtrlButton;
         public InputAction @SpaceButton => m_Wrapper.m_ActionMaps_SpaceButton;
         public InputAction @GetAxisDirectionMove => m_Wrapper.m_ActionMaps_GetAxisDirectionMove;
+        public InputAction @SelectMouseDelta => m_Wrapper.m_ActionMaps_SelectMouseDelta;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +385,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetAxisDirectionMove.started += instance.OnGetAxisDirectionMove;
             @GetAxisDirectionMove.performed += instance.OnGetAxisDirectionMove;
             @GetAxisDirectionMove.canceled += instance.OnGetAxisDirectionMove;
+            @SelectMouseDelta.started += instance.OnSelectMouseDelta;
+            @SelectMouseDelta.performed += instance.OnSelectMouseDelta;
+            @SelectMouseDelta.canceled += instance.OnSelectMouseDelta;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -390,6 +416,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetAxisDirectionMove.started -= instance.OnGetAxisDirectionMove;
             @GetAxisDirectionMove.performed -= instance.OnGetAxisDirectionMove;
             @GetAxisDirectionMove.canceled -= instance.OnGetAxisDirectionMove;
+            @SelectMouseDelta.started -= instance.OnSelectMouseDelta;
+            @SelectMouseDelta.performed -= instance.OnSelectMouseDelta;
+            @SelectMouseDelta.canceled -= instance.OnSelectMouseDelta;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -417,5 +446,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnCtrlButton(InputAction.CallbackContext context);
         void OnSpaceButton(InputAction.CallbackContext context);
         void OnGetAxisDirectionMove(InputAction.CallbackContext context);
+        void OnSelectMouseDelta(InputAction.CallbackContext context);
     }
 }
