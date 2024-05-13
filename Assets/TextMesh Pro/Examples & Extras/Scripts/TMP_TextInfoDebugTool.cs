@@ -94,7 +94,7 @@ namespace TMPro.Examples
 
 
         /// <summary>
-        /// Method to draw a rectangle around each character.
+        /// Method to drawFrame a rectangle around each character.
         /// </summary>
         /// <param name="text"></param>
         void DrawCharactersBounds()
@@ -258,7 +258,7 @@ namespace TMPro.Examples
 
 
         /// <summary>
-        /// Method to draw rectangles around each word of the text.
+        /// Method to drawFrame rectangles around each word of the text.
         /// </summary>
         /// <param name="text"></param>
         void DrawWordBounds()

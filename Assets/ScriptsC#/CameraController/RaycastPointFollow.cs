@@ -78,7 +78,7 @@ public class RaycastPointFollow : MonoBehaviour
         {
             lookFreePoint.position = hit.point;// moved object Target Look Point of the camera
                                                // to the position of intersection of the ray with the surface 
-            //Logic to adjust Y coordinate based on terrain height using raycasting.
+            //Logic to adjust Y coordinate based on terrain heightY using raycasting.
             transform.position = new Vector3(transform.position.x, hit.point.y + offsetY, transform.position.z);
         }
     }

@@ -31,8 +31,7 @@ public class CharacterAnimatorControl : MonoBehaviour
     {
         float speedAnimator = agent.velocity.sqrMagnitude > 0 ? SpeedCalculate() : 0f;
         animatorPerson.SetFloat("MoveSitting", speedAnimator, 0.1f, Time.deltaTime);
-        animatorPerson.SetFloat("MoveStanding", speedAnimator, 0.1f, Time.deltaTime);
-        Debug.Log("Animation"); 
+        animatorPerson.SetFloat("MoveStanding", speedAnimator, 0.1f, Time.deltaTime); 
     }
     private void WalkSittingAnim()
     {

@@ -3,11 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputGameController : MonoBehaviour
-{
-    //Input Mouse Button PersonMoveControl
-    public event Action onLeftMouseButtonDown; //This Event for calss SelectMouse
-    public event Action onSelectStayMouseButton;
-    public event Action onLeftMouseButtonUp; //This Event for calss SelectMouse
+{ 
+    public event Action onLeftMouseButtonDown;  
+    public event Action onPressedMouseButton; 
+    public event Action onLeftMouseButtonUp;  
       
     private InputActions inputActions;
     private bool isPressedLeftMouseButton;
@@ -19,7 +18,7 @@ public class InputGameController : MonoBehaviour
         inputActions.ActionMaps.LeftMouseButton.performed += ctx => LeftMouse_Performed(ctx);
         inputActions.ActionMaps.LeftMouseButton.canceled += ctx => LeftMouse_Canceled(ctx);
 
-        inputActions.ActionMaps.SelectMouseDelta.performed += ctx => SelectMouseDelta_Perfomed(ctx);
+        inputActions.ActionMaps.SelectMouseDelta.performed += ctx => SelectMouseDelta_Perfomed(ctx); 
         inputActions.ActionMaps.LeftMouseButton.performed += ctx => isPressedLeftMouseButton = true;
         inputActions.ActionMaps.LeftMouseButton.canceled += ctx => isPressedLeftMouseButton = false; 
     }
@@ -31,16 +30,16 @@ public class InputGameController : MonoBehaviour
     private void LeftMouse_Performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onLeftMouseButtonDown?.Invoke(); //SelectPerson
+            onLeftMouseButtonDown?.Invoke(); 
     }
     private void SelectMouseDelta_Perfomed(InputAction.CallbackContext context)
     {
         if (isPressedLeftMouseButton && context.performed)
-            onSelectStayMouseButton?.Invoke();
+            onPressedMouseButton?.Invoke();
     }
     private void LeftMouse_Canceled(InputAction.CallbackContext context)
     {
         if (context.canceled)
-            onLeftMouseButtonUp?.Invoke();//SelectPerson
+            onLeftMouseButtonUp?.Invoke(); 
     } 
 }
