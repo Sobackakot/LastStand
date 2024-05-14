@@ -34,7 +34,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            HandleClick();
+            HandleClick(); 
         }
     } 
     public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
@@ -60,8 +60,12 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
         { 
-            CharacterSwitchingSystem.Instance?.SetFocusCamera(in id);
-        } 
+            CharacterSwitchingSystem.Instance?.ÑharacterSwitch(in id);
+        }
+        else
+        {
+            CharacterSwitchingSystem.Instance?.CharacterPick(in id);
+        }
         lastClickTime = Time.time;
-    } 
+    }  
 }

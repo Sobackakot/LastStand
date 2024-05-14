@@ -6,8 +6,8 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 { 
     [SerializeField] private PersonDataScript personData;  
     [SerializeField] private PersonDataManager dataManager;
-    private bool isInitialized = false;
-    public bool isActive = false;
+    private bool isInitialized = false;// needed to check the first initialization of data
+    public bool isActive = false; // needed to check the asset or deactivate components
     [HideInInspector] public string id; 
 
     private void OnEnable()

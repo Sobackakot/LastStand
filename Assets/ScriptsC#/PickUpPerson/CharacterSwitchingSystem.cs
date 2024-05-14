@@ -1,6 +1,8 @@
 
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine; 
 
 public class CharacterSwitchingSystem : MonoBehaviour
@@ -19,7 +21,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
     public event Action onSaveDataPerson; // This Event for PersonDataManager
     public event Action onLoadDataPerson;// This Event for PersonDataManager
-    public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera
+    public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
 
     private void OnEnable()
     {
@@ -42,11 +44,8 @@ public class CharacterSwitchingSystem : MonoBehaviour
     public void AddPersonList(PickUpPerson person) // Add new person my group for PickUpPerson
     {
         personsObj.Add(person); 
-        CacheComponents(person.gameObject); 
-        if (inputControlCache.ContainsKey(person.gameObject)) //if there is such an object in the list, then turn off the components in advance
-            inputControlCache[person.gameObject].OnDisableComponent(); 
-        if (moveControlCache.ContainsKey(person.gameObject))
-            moveControlCache[person.gameObject].OnDisableComponent();
+        CacheComponents(person.gameObject); //Cached new person components
+        DisableComponentsPerson(person); //if there is such an object in the list, then turn off the components in advance 
     }
     public void RemovePersonList(PickUpPerson person) // Remove new person my group ...
     {
@@ -67,28 +66,42 @@ public class CharacterSwitchingSystem : MonoBehaviour
             }
         } 
     }
-    public void SetFocusCamera(in string id) //set focus camera for PickUpPersonUI 
+    public void CharacterPick(in string id)
     {
-       
-        foreach (PickUpPerson pick in personsObj)
+        foreach(PickUpPerson pick in personsObj)
         {
             if (pick.id == id)
             {
-                pick.isActive = true;
-                onResetFocusCamera?.Invoke(false, pick);// ResetLookPoint camera focus on selected person
-                onSetNewTargetFolowCamera?.Invoke(pick.transform);// Set new target follow camera
-                inputControlCache[pick.gameObject].OnEnableComponent(); // next pick person Activating components
-                moveControlCache[pick.gameObject].OnEnableComponent();
+                EnableComponentsPerson(pick);
                 continue;
             }
             if (pick.isActive)
             {
-                pick.isActive = false;
-                inputControlCache[pick.gameObject].OnDisableComponent();// Deactive  current person components
-                moveControlCache[pick.gameObject].OnDisableComponent(); 
+                DisableComponentsPerson(pick);
             }
         }
     }
+    public void ÑharacterSwitch(in string id) //set focus camera for PickUpPersonUI 
+    { 
+        foreach (PickUpPerson pick in personsObj)
+        {
+            if (pick.id == id)
+            {
+                SetFocusCamera(pick);
+                EnableComponentsPerson(pick);
+                continue;
+            }
+            if (pick.isActive)
+            {
+                DisableComponentsPerson(pick);
+            }
+        }
+    }
+    private void SetFocusCamera(PickUpPerson pick)
+    {
+        onResetFocusCamera?.Invoke(false, pick);// ResetLookPoint camera focus on selected person
+        onSetNewTargetFolowCamera?.Invoke(pick.transform);// Set new target follow camera
+    } 
     private void ActivePersonUI(PickUpPersonUI uiSlot) //Active new person my ui slot group
     {
         uiSlot.gameObject.SetActive(true);
@@ -109,5 +122,19 @@ public class CharacterSwitchingSystem : MonoBehaviour
             var moveControl = obj.GetComponent<PersonMoveControl>(); // Cached PersonMoveControl component
             moveControlCache[obj] = moveControl; 
         }
+    }
+    private void EnableComponentsPerson(PickUpPerson pick)
+    {
+        pick.isActive = true;
+        inputControlCache[pick.gameObject].OnEnableComponent(); // next pick person Activating components
+        moveControlCache[pick.gameObject].OnEnableComponent();
+    }
+    private void DisableComponentsPerson(PickUpPerson pick)
+    {
+        pick.isActive = false;
+        if (inputControlCache.ContainsKey(pick.gameObject))
+            inputControlCache[pick.gameObject].OnDisableComponent();// Deactive  current person components
+        if (moveControlCache.ContainsKey(pick.gameObject))
+            moveControlCache[pick.gameObject].OnDisableComponent();
     }
 }
