@@ -2,8 +2,11 @@
 using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
-{ 
+{
+    
+    [Header("RaycastPointFollow - Script")]
     [SerializeField] private Transform raycastPosition;
+    [Header("Follow new Person point")]
     [SerializeField] private Transform currentTarget;
 
     private float maxRadius = 50f;

@@ -5,13 +5,21 @@ using UnityEngine.AI;
 
 public class CharacterAnimatorControl : MonoBehaviour
 {
-
-    [SerializeField] private InputControlPerson inputControlPerson;
-    [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private Animator animatorPerson;
-
+    [Header("Additional components required!!!")]
+    [Header("1). InputControlPerson")]
+    [Header("2). NavMeshAgent")]
+    [Header("3). Animator")]
+    [SerializeField] private Animator animatorPerson; 
+    private InputControlPerson inputControlPerson;
+    private NavMeshAgent agent;
+     
     [Range(1,50)] private float agentMoveStanding = 10f;
     [Range(1,25)] private float agentMoveSitting = 3.5f;
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        inputControlPerson = GetComponent<InputControlPerson>();
+    }
 
     private void OnEnable()
     {

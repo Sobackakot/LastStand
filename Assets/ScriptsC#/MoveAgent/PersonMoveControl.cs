@@ -4,13 +4,25 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class PersonMoveControl : MonoBehaviour
-{
-    [SerializeField] private InputControlPerson inputControllerPerson;
-    [SerializeField] private FollowCamera followCameraLookTarget; 
+{   
+    [Header("Additional components required!!!")]
+    [Header("1). InputControlPerson")]
+    [Header("2). NavMeshAgent")]
+    [Header("3). PersonCamera")]
+
     [SerializeField] private Camera mainCamera;
-    [SerializeField] private NavMeshAgent agentMove;
     [SerializeField] private LayerMask terraLayer;
-    [Range(100, 1000)] private float rayDistance = 500f; 
+
+    private InputControlPerson inputControllerPerson; 
+    private NavMeshAgent agentMove; 
+
+    [Range(100, 1000)] private float rayDistance = 500f;
+
+    private void Awake()
+    {
+        inputControllerPerson = GetComponent<InputControlPerson>();
+        agentMove = GetComponent<NavMeshAgent>();
+    }
     private void OnEnable()
     {
         inputControllerPerson.onRightMouseButton += MoveAgent; 

@@ -7,15 +7,25 @@ using UnityEngine.UI;
 
 public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
 {
-    [SerializeField] private Image perImage;
-    [SerializeField] private TextMeshProUGUI namePerson;
+    [Header("Additional components required!!!")]
+    [Header("1). PersonDataScript - ScriptableObject")]
+    [Header("2). TextMeshProUGUI - name")]
+    [Header("3). Image - avatar")]
+    
     [SerializeField] private PersonDataScript personDataUI;
-     
+    [SerializeField] private TextMeshProUGUI namePerson;
+
+    private Image perImage;
+
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.5f;
     private bool _hasData = false;
 
     [HideInInspector] public string id;
+    private void Awake()
+    {
+        perImage = GetComponent<Image>();
+    }
     public void Start()
     {
         id = personDataUI.data.ID;

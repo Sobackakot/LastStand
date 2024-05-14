@@ -7,9 +7,10 @@ public class CharacterSwitchingSystem : MonoBehaviour
 {
     public static CharacterSwitchingSystem Instance; 
      
-    [Header("List person UI and current amoutn PickUpPerson")]
+    [Header("List person UI - You need to fill the list with objects from the UI slots for characters!!!")]
     [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>(30);
-    [SerializeField] private List<PickUpPerson> personsObj = new List<PickUpPerson>(30);
+    
+    private List<PickUpPerson> personsObj = new List<PickUpPerson>(30);
 
     private Dictionary<GameObject, InputControlPerson> inputControlCache = new Dictionary<GameObject, InputControlPerson>(); //components
     private Dictionary<GameObject, PersonMoveControl> moveControlCache = new Dictionary<GameObject, PersonMoveControl>();//components

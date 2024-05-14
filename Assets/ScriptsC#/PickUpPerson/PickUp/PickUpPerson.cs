@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PickUpPerson : MonoBehaviour, IPointerClickHandler
-{
-    [SerializeField] private PersonDataScript personData; // static data person
+{ 
+    [SerializeField] private PersonDataScript personData;  
     [SerializeField] private PersonDataManager dataManager;
     private bool isInitialized = false;
     public bool isActive = false;
@@ -19,16 +19,29 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         dataManager.SavePoisition(personData, transform);
     } 
     public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
+    {   
+        if(eventData.button == PointerEventData.InputButton.Left)
         {
-            if (!isInitialized)
-            {   
-                isInitialized = true;
-                CharacterSwitchingSystem.Instance?.SetDataPerson(personData); // set first data new person game 
-                CharacterSwitchingSystem.Instance?.AddPersonList(this);
-               id = personData.data.ID; 
-            } 
+            PickPerson();
         }
+        else
+        {
+
+        }
+        
     } 
+    private void PickPerson()
+    {
+        if (!isInitialized)
+        {
+            isInitialized = true;
+            CharacterSwitchingSystem.Instance?.SetDataPerson(personData); // set first data new person game 
+            CharacterSwitchingSystem.Instance?.AddPersonList(this);
+            id = personData.data.ID;
+        }
+    }
+    public void SetInitialized(bool isHas)
+    {
+        isInitialized = isHas;
+    }
 }
