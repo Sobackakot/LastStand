@@ -27,10 +27,11 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
             HandleClick();
         }
     } 
-    public void SetDataPersonUI() // Set first data new person in Ui slot from CharacterSwitchSystem
+    public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
     {
-        perImage.sprite = personDataUI.data.Sprite;
-        namePerson.text = personDataUI.data.Namae;
+        personDataUI = personData;  
+        perImage.sprite = personDataUI.spritePerson;
+        namePerson.text = personDataUI.namePerson;
         _hasData = true; 
     }
     public void ÑlearDataPersonUI() // clear person data in Ui slot ...

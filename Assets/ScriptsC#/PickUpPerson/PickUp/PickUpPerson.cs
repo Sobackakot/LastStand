@@ -25,7 +25,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
             if (!isInitialized)
             {   
                 isInitialized = true;
-                CharacterSwitchingSystem.Instance?.SetDataPerson(personData,transform); // set first data new person game 
+                CharacterSwitchingSystem.Instance?.SetDataPerson(personData); // set first data new person game 
                 CharacterSwitchingSystem.Instance?.AddPersonList(this);
                id = personData.data.ID; 
             } 

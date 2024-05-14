@@ -172,7 +172,6 @@ MonoBehaviour:
   - {fileID: 1329357385}
   - {fileID: 506103744}
   personsObj: []
-  gameObjectPersonComponents: []
 --- !u!1 &55243893
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +721,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perImage: {fileID: 506103742}
   namePerson: {fileID: 2138354542}
-  personDataUI: {fileID: 11400000, guid: a26e5585b24026144b88d0643d6491f1, type: 2}
+  personDataUI: {fileID: 11400000, guid: 1127a5cf1fd10b64e82b345fab95c8c2, type: 2}
   id: 
 --- !u!1 &786628256
 GameObject:
@@ -815,7 +814,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perImage: {fileID: 786628258}
   namePerson: {fileID: 352933661}
-  personDataUI: {fileID: 11400000, guid: 225543d2a1ae15d48bb408a7c712590f, type: 2}
+  personDataUI: {fileID: 11400000, guid: 85c1b57d9b1bfbc4eaf60b9c0b54c7fe, type: 2}
   id: 
 --- !u!1 &825960475
 GameObject:
@@ -1238,7 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perImage: {fileID: 1329357383}
   namePerson: {fileID: 825960477}
-  personDataUI: {fileID: 11400000, guid: a013503c1dd8d2d43bd641add003be42, type: 2}
+  personDataUI: {fileID: 11400000, guid: 0e1ba584eef6c93438e275d61ce8eb02, type: 2}
   id: 
 --- !u!1 &1410957289
 GameObject:
@@ -1528,7 +1527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcd14ebb126e59478dbdb0f5fbe31dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin: {fileID: 11400000, guid: 98f635ceeb8517c4aa42bcfe9390227e, type: 2}
+  GUISkin: {fileID: 11400000, guid: 98f635ceeb8517c4aa42bcfe9390227e, type: 2}
 --- !u!1 &1819523238
 GameObject:
   m_ObjectHideFlags: 0

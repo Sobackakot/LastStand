@@ -6,13 +6,7 @@ public struct PersonData
 { 
     private string id;
     public string ID { get { return id; } private set { id = value; } }
-
-    private string name;
-    public string Namae { get { return name; } set { name = value; } }
-
-    private Sprite sprite;
-    public Sprite Sprite { get { return sprite; }set { sprite = value; } }
-
+     
     [Range(1, 100)]
     private float currentHP;
     public float CurrentHP { get { return currentHP; } set { currentHP = value; } }

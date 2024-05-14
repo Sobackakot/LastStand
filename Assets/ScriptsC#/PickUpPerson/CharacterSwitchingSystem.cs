@@ -52,7 +52,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
         personsObj.Remove(person);
         // add Action RemovePersonData for list PersonsDataList...
     }
-    public void SetDataPerson(PersonDataScript dataScript, Transform transform) // set new first data for PickUpPerson
+    public void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
     {   
         dataScript.data.SetNewPersonId(); // set new id person for PersonData
         onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList ..... 
@@ -61,7 +61,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
             if (!uiGroup.HasData()) //  check is first set  data for person 
             {
                 ActivePersonUI(uiGroup);
-                uiGroup.SetDataPersonUI();
+                uiGroup.SetDataPersonUI(dataScript);
                 break; // Stop after finding the first empty slot
             }
         } 
