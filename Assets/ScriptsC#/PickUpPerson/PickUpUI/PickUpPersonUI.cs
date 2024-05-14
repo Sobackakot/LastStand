@@ -18,7 +18,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     [HideInInspector] public string id;
     public void Start()
     {
-        id = personDataUI.data.GetCurrenPersonId();
+        id = personDataUI.data.ID;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -29,8 +29,8 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     } 
     public void SetDataPersonUI() // Set first data new person in Ui slot from CharacterSwitchSystem
     {
-        perImage.sprite = personDataUI.sprite;
-        namePerson.text = personDataUI.Name;
+        perImage.sprite = personDataUI.data.Sprite;
+        namePerson.text = personDataUI.data.Namae;
         _hasData = true; 
     }
     public void ÑlearDataPersonUI() // clear person data in Ui slot ...

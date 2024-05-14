@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using UnityEngine; 
 
 public class CharacterSwitchingSystem : MonoBehaviour
@@ -10,7 +10,9 @@ public class CharacterSwitchingSystem : MonoBehaviour
     [Header("List person UI and current amoutn PickUpPerson")]
     [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>(30);
     [SerializeField] private List<PickUpPerson> personsObj = new List<PickUpPerson>(30);
-    [SerializeField] private List<GameObject> gameObjectPersonComponents = new List<GameObject>(30);
+
+    private Dictionary<GameObject, InputControlPerson> inputControlCache = new Dictionary<GameObject, InputControlPerson>(); //components
+    private Dictionary<GameObject, PersonMoveControl> moveControlCache = new Dictionary<GameObject, PersonMoveControl>();//components
 
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
@@ -36,22 +38,23 @@ public class CharacterSwitchingSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    public void AddPersonList(PickUpPerson person,GameObject gameObjectPerson) // Add new person my group for PickUpPerson
+    public void AddPersonList(PickUpPerson person) // Add new person my group for PickUpPerson
     {
-        personsObj.Add(person);
-        gameObjectPersonComponents.Add(gameObjectPerson);
-        gameObjectPerson.GetComponent<InputControlPerson>().OnDisableComponent();
-        gameObjectPerson.GetComponent<PersonMoveControl>().OnDisableComponent(); 
+        personsObj.Add(person); 
+        CacheComponents(person.gameObject); 
+        if (inputControlCache.ContainsKey(person.gameObject)) //if there is such an object in the list, then turn off the components in advance
+            inputControlCache[person.gameObject].OnDisableComponent(); 
+        if (moveControlCache.ContainsKey(person.gameObject))
+            moveControlCache[person.gameObject].OnDisableComponent();
     }
-    public void RemovePersonList(PickUpPerson person, GameObject gameObjectPerson) // Remove new person my group ...
+    public void RemovePersonList(PickUpPerson person) // Remove new person my group ...
     {
         personsObj.Remove(person);
-        gameObjectPersonComponents.Remove(gameObjectPerson); 
         // add Action RemovePersonData for list PersonsDataList...
     }
     public void SetDataPerson(PersonDataScript dataScript, Transform transform) // set new first data for PickUpPerson
     {   
-        dataScript.data.GetCurrenPersonId(); // set new id person for PersonData
+        dataScript.data.SetNewPersonId(); // set new id person for PersonData
         onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList ..... 
         foreach (var uiGroup in personsUI)
         {
@@ -65,22 +68,23 @@ public class CharacterSwitchingSystem : MonoBehaviour
     }
     public void SetFocusCamera(in string id) //set focus camera for PickUpPersonUI 
     {
-        for(int i = 0; i < personsObj.Count; i++)
-        {   
-            if (personsObj[i].id ==id)
+       
+        foreach (PickUpPerson pick in personsObj)
+        {
+            if (pick.id == id)
             {
-                personsObj[i].isActive = true; 
-                onResetFocusCamera?.Invoke(false, personsObj[i]); // ResetLookPoint camera focus on selected person
-                onSetNewTargetFolowCamera?.Invoke(personsObj[i].transform); // Set new target follow camera
-                gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnEnableComponent(); // next pick person Activating components
-                gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnEnableComponent(); 
+                pick.isActive = true;
+                onResetFocusCamera?.Invoke(false, pick);// ResetLookPoint camera focus on selected person
+                onSetNewTargetFolowCamera?.Invoke(pick.transform);// Set new target follow camera
+                inputControlCache[pick.gameObject].OnEnableComponent(); // next pick person Activating components
+                moveControlCache[pick.gameObject].OnEnableComponent();
                 continue;
             }
-            if (personsObj[i].isActive)
+            if (pick.isActive)
             {
-                personsObj[i].isActive = false; 
-                gameObjectPersonComponents[i].GetComponent<InputControlPerson>().OnDisableComponent(); // Deactive  current person components
-                gameObjectPersonComponents[i].GetComponent<PersonMoveControl>().OnDisableComponent(); 
+                pick.isActive = false;
+                inputControlCache[pick.gameObject].OnDisableComponent();// Deactive  current person components
+                moveControlCache[pick.gameObject].OnDisableComponent(); 
             }
         }
     }
@@ -91,5 +95,18 @@ public class CharacterSwitchingSystem : MonoBehaviour
     private void DeActivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group ...
     {
         uiSlot.gameObject.SetActive(false);
+    }
+    private void CacheComponents(GameObject obj) //Cached new person components
+    {
+        if (!inputControlCache.ContainsKey(obj))
+        {
+            var inputControl = obj.GetComponent<InputControlPerson>(); //Cached InputControlPerson Component
+            inputControlCache[obj] = inputControl; 
+        }
+        if (!moveControlCache.ContainsKey(obj))
+        {
+            var moveControl = obj.GetComponent<PersonMoveControl>(); // Cached PersonMoveControl component
+            moveControlCache[obj] = moveControl; 
+        }
     }
 }

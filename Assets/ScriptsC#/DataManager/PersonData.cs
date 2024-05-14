@@ -2,40 +2,46 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class PersonData  
-{
-    private string Id;
-    [Range(1,100)]
-    private float currentHP = 100f;
-     
-    private float x = 0;
-    private float y = 1;
-    private float z = 0;
-     
-    private float rotateY;
+public struct PersonData  
+{ 
+    private string id;
+    public string ID { get { return id; } private set { id = value; } }
 
-    private bool isInstalled = false;
-     
-    public void SavePositionPerson(Transform person)
+    private string name;
+    public string Namae { get { return name; } set { name = value; } }
+
+    private Sprite sprite;
+    public Sprite Sprite { get { return sprite; }set { sprite = value; } }
+
+    [Range(1, 100)]
+    private float currentHP;
+    public float CurrentHP { get { return currentHP; } set { currentHP = value; } }
+
+    private float x;
+    private float y;
+    private float z;
+
+    private bool isInstalled;
+
+    public void SetNewPersonId()
+    {
+        if (!isInstalled)
+        {
+            id = Guid.NewGuid().ToString();
+            isInstalled = true; 
+        } 
+    }   
+    public void SavePositionPerson(ref Transform person)
     {
         x = person.position.x;
         y = person.position.y;
         z = person.position.z;
     }
     public Vector3 LoadPositionPerson()
-    {    
+    {
         float _x = x;
         float _y = y;
         float _z = z;
         return new Vector3(_x, _y, _z);
-    }
-    public string GetCurrenPersonId()
-    {
-        if (!isInstalled)
-        {
-            Id = Guid.NewGuid().ToString();
-            isInstalled = true; 
-        }
-        return Id;
     }
 }

@@ -40,7 +40,7 @@ public class PersonDataManager : MonoBehaviour
    
     public void SavePoisition(PersonDataScript dataScript,Transform person)
     {
-        dataScript.data.SavePositionPerson(person);
+        dataScript.data.SavePositionPerson(ref person);
     }
     public Vector3 LoadPosition(PersonDataScript dataScripts)
     { 

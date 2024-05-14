@@ -90,17 +90,17 @@ public class TestFrame : MonoBehaviour
                 // трансформируем позицию объекта из мирового пространства, в пространство экрана
                 Vector2 tmp = new Vector2(Camera.main.WorldToScreenPoint(unit[j].transform.position).x, Screen.height - Camera.main.WorldToScreenPoint(unit[j].transform.position).y);
 
-                //if (rectTransform.Contains(tmp)) // проверка, находится-ли текущий объект в рамке
-                //{
-                //    if (unitSelected.Count == 0)
-                //    {
-                //        unitSelected.Add(unit[j]);
-                //    }
-                //    else if (!CheckUnit(unit[j]))
-                //    {
-                //        unitSelected.Add(unit[j]);
-                //    }
-                //}
+                if (rect.Contains(tmp)) // проверка, находится-ли текущий объект в рамке
+                {
+                    if (unitSelected.Count == 0)
+                    {
+                        unitSelected.Add(unit[j]);
+                    }
+                    else if (!CheckUnit(unit[j]))
+                    {
+                        unitSelected.Add(unit[j]);
+                    }
+                }
             }
         }
     }
