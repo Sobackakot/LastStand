@@ -1,5 +1,4 @@
 
-using System.Threading.Tasks;
 using TMPro; 
 using UnityEngine; 
 using UnityEngine.EventSystems;
@@ -8,9 +7,9 @@ using UnityEngine.UI;
 public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
 {
     [Header("Additional components required!!!")]
-    [Header("1). PersonDataScript - ScriptableObject")]
-    [Header("2). TextMeshProUGUI - name")]
-    [Header("3). Image - avatar")]
+    [Header("1). Image - avatar ")]
+    [Header("2). PersonDataScript - ScriptableObject")]
+    [Header("3). TextMeshProUGUI - name")]
     
     [SerializeField] private PersonDataScript personDataUI;
     [SerializeField] private TextMeshProUGUI namePerson;
@@ -18,18 +17,14 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     private Image perImage;
 
     private float lastClickTime = 0f;
-    private float doubleClickThreshold = 0.5f;
+    private float doubleClickThreshold = 0.3f;
     private bool _hasData = false;
 
     [HideInInspector] public string id;
     private void Awake()
     {
         perImage = GetComponent<Image>();
-    }
-    public void Start()
-    {
-        id = personDataUI.data.ID;
-    }
+    } 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -39,7 +34,8 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     } 
     public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
     {
-        personDataUI = personData;  
+        personDataUI = personData;
+        id = personDataUI.data.ID;
         perImage.sprite = personDataUI.spritePerson;
         namePerson.text = personDataUI.namePerson;
         _hasData = true; 

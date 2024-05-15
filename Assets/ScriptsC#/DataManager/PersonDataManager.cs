@@ -8,14 +8,10 @@ public class PersonDataManager : MonoBehaviour
     {
         dataList = new PersonsDataList();
         CharacterSwitchingSystem.Instance.onAddNewDataPerson += AddDataPerson;
-        CharacterSwitchingSystem.Instance.onSaveDataPerson += SaveData;
-        CharacterSwitchingSystem.Instance.onLoadDataPerson += LoadData;
     } 
     private void OnDisable()
     {
         CharacterSwitchingSystem.Instance.onAddNewDataPerson -= AddDataPerson;
-        CharacterSwitchingSystem.Instance.onSaveDataPerson -= SaveData;
-        CharacterSwitchingSystem.Instance.onLoadDataPerson -= LoadData;
     }
     private void AddDataPerson(PersonData data) // add new person for PersonsDataListst
     {

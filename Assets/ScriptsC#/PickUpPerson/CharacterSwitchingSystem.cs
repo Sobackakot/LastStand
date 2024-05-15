@@ -1,8 +1,6 @@
-
-using JetBrains.Annotations;
+ 
 using System;
-using System.Collections.Generic;
-using TreeEditor;
+using System.Collections.Generic; 
 using UnityEngine; 
 
 public class CharacterSwitchingSystem : MonoBehaviour
@@ -19,18 +17,8 @@ public class CharacterSwitchingSystem : MonoBehaviour
 
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
-    public event Action onSaveDataPerson; // This Event for PersonDataManager
-    public event Action onLoadDataPerson;// This Event for PersonDataManager
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
 
-    private void OnEnable()
-    {
-        onLoadDataPerson?.Invoke();
-    }
-    private void OnDisable()
-    {
-        onSaveDataPerson?.Invoke();
-    }
     private void Awake()
     {
         if(Instance != null)
@@ -66,7 +54,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
             }
         } 
     }
-    public void CharacterPick(in string id)
+    public void CharacterPick(in string id) //click on the character to enable all components
     {
         foreach(PickUpPerson pick in personsObj)
         {
