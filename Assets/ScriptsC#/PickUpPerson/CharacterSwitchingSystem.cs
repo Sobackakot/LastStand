@@ -8,16 +8,18 @@ public class CharacterSwitchingSystem : MonoBehaviour
     public static CharacterSwitchingSystem Instance; 
      
     [Header("List person UI - You need to fill the list with objects from the UI slots for characters!!!")]
-    [SerializeField] private List<PickUpPersonUI> personsUI = new List<PickUpPersonUI>(30);
+    [SerializeField] private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30);
     
-    private List<PickUpPerson> personsObj = new List<PickUpPerson>(30);
+    private List<PickUpPerson> personsSquad = new List<PickUpPerson>(30);
 
-    private Dictionary<GameObject, InputControlPerson> inputControlCache = new Dictionary<GameObject, InputControlPerson>(); //components
-    private Dictionary<GameObject, PersonMoveControl> moveControlCache = new Dictionary<GameObject, PersonMoveControl>();//components
+    private Dictionary<PickUpPerson, InputControlPerson> inputControlComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
+
+    private Dictionary<PickUpPerson, PersonMoveControl> moveControlComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
 
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
+    public event Action<PickUpPerson> onUpdatePersonsBySelect;
 
     private void Awake()
     {
@@ -31,20 +33,22 @@ public class CharacterSwitchingSystem : MonoBehaviour
     }
     public void AddPersonList(PickUpPerson person) // Add new person my group for PickUpPerson
     {
-        personsObj.Add(person); 
-        CacheComponents(person.gameObject); //Cached new person components
+        personsSquad.Add(person); 
+        CacheComponents(person); //Cached new person components
         DisableComponentsPerson(person); //if there is such an object in the list, then turn off the components in advance 
+        //onUpdatePersonsBySelect.Invoke(person);
     }
     public void RemovePersonList(PickUpPerson person) // Remove new person my group ...
     {
-        personsObj.Remove(person);
+        personsSquad.Remove(person);
+        //onUpdatePersonsBySelect.Invoke(person);
         // add Action RemovePersonData for list PersonsDataList...
     }
     public void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
     {   
         dataScript.data.SetNewPersonId(); // set new id person for PersonData
         onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList ..... 
-        foreach (var uiGroup in personsUI)
+        foreach (var uiGroup in personsUISquad)
         {
             if (!uiGroup.HasData()) //  check is first set  data for person 
             {
@@ -56,7 +60,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
     }
     public void CharacterPick(in string id) //click on the character to enable all components
     {
-        foreach(PickUpPerson pick in personsObj)
+        foreach(PickUpPerson pick in personsSquad)
         {
             if (pick.id == id)
             {
@@ -71,7 +75,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
     }
     public void ÑharacterSwitch(in string id) //set focus camera for PickUpPersonUI 
     { 
-        foreach (PickUpPerson pick in personsObj)
+        foreach (PickUpPerson pick in personsSquad)
         {
             if (pick.id == id)
             {
@@ -98,31 +102,31 @@ public class CharacterSwitchingSystem : MonoBehaviour
     {
         uiSlot.gameObject.SetActive(false);
     }
-    private void CacheComponents(GameObject obj) //Cached new person components
+    private void CacheComponents(PickUpPerson person) //Cached new person components
     {
-        if (!inputControlCache.ContainsKey(obj))
+        if (!inputControlComponents.ContainsKey(person))
         {
-            var inputControl = obj.GetComponent<InputControlPerson>(); //Cached InputControlPerson Component
-            inputControlCache[obj] = inputControl; 
+            var inputControl = person.GetComponent<InputControlPerson>(); //Cached InputControlPerson Component
+            inputControlComponents[person] = inputControl; 
         }
-        if (!moveControlCache.ContainsKey(obj))
+        if (!moveControlComponents.ContainsKey(person))
         {
-            var moveControl = obj.GetComponent<PersonMoveControl>(); // Cached PersonMoveControl component
-            moveControlCache[obj] = moveControl; 
+            var moveControl = person.GetComponent<PersonMoveControl>(); // Cached PersonMoveControl component
+            moveControlComponents[person] = moveControl; 
         }
     }
     private void EnableComponentsPerson(PickUpPerson pick)
     {
         pick.isActive = true;
-        inputControlCache[pick.gameObject].OnEnableComponent(); // next pick person Activating components
-        moveControlCache[pick.gameObject].OnEnableComponent();
+        inputControlComponents[pick].OnEnableComponent(); // next pick person Activating components
+        moveControlComponents[pick].OnEnableComponent();
     }
     private void DisableComponentsPerson(PickUpPerson pick)
     {
         pick.isActive = false;
-        if (inputControlCache.ContainsKey(pick.gameObject))
-            inputControlCache[pick.gameObject].OnDisableComponent();// Deactive  current person components
-        if (moveControlCache.ContainsKey(pick.gameObject))
-            moveControlCache[pick.gameObject].OnDisableComponent();
+        if (inputControlComponents.ContainsKey(pick))
+            inputControlComponents[pick].OnDisableComponent();// Deactive  current person components
+        if (moveControlComponents.ContainsKey(pick))
+            moveControlComponents[pick].OnDisableComponent();
     }
 }

@@ -1,8 +1,10 @@
- 
+
+using System.Collections.Generic;
 using UnityEngine; 
 
-public class SelectPersons : MonoBehaviour
+public class SelectPersonsSystem : MonoBehaviour
 { 
+    private List<PickUpPerson> personsSquad = new List<PickUpPerson>();
     public GUISkin GUISkin; 
     private Rect rectTransform;
     private bool drawFrame;
@@ -19,15 +21,30 @@ public class SelectPersons : MonoBehaviour
         StaySelect();
         EndSelect();
     }
-    private void StartSelect()
+
+    private void UpdateListPersonsBySelect(PickUpPerson person)
+    {   
+        if(!personsSquad.Contains(person))
+                personsSquad.Add(person);
+        else personsSquad.Remove(person);
+    }
+    private void SelectPersons()
+    {
+    }
+    private void DeselectPersons()
+    {
+
+    }
+    private void StartSelect() // start of character selection
     {    
         if(Input.GetMouseButtonDown(0))
         {
+            DeselectPersons();
             startPoint = Input.mousePosition;
             drawFrame = true;
         }
     } 
-    private void StaySelect()
+    private void StaySelect()// selection process while pressing the button
     {  
         if(Input.GetMouseButton(0)) 
         {
@@ -40,15 +57,16 @@ public class SelectPersons : MonoBehaviour
             }
         } 
     }
-    private void EndSelect()
+    private void EndSelect() //finishing the selection with a frame of characters
     {
         if (Input.GetMouseButtonUp(0))
         {
+            SelectPersons();
             endPoint = Input.mousePosition;
             drawFrame = false; 
         }
     }
-    private Rect GetInvertRectByScreenPoint(Vector2 startPoint, Vector2 endPoint)
+    private Rect GetInvertRectByScreenPoint(Vector2 startPoint, Vector2 endPoint) //invert frame for negative values
     {   
 
         float minPointX = Mathf.Min(endPoint.x, startPoint.x);
@@ -63,5 +81,5 @@ public class SelectPersons : MonoBehaviour
         float heightY = maxPointY - minPointY;
 
         return rectTransform = new Rect(pointsX, pointsY, widthX, heightY);
-    }
+    } 
 }

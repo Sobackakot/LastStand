@@ -23,34 +23,24 @@ public class TestFrame : MonoBehaviour
     bool CheckUnit(GameObject unit)
     {
         bool result = false;
-        foreach (GameObject u in unitSelected)
-        {
-            if (u == unit) result = true;
-        }
+        if (unitSelected.Contains(unit))
+            result = true;
         return result;
     }
 
-    void Select()
+    void SelectPersons()
     {
-        if (unitSelected.Count > 0)
+        foreach (GameObject unit in unitSelected)
         {
-            for (int j = 0; j < unitSelected.Count; j++)
-            {
-                // делаем что-либо с выделенными объектами
-                unitSelected[j].GetComponent<MeshRenderer>().material.color = Color.red;
-            }
+            // Active Person Components
         }
     }
 
-    void Deselect()
+    void DeselectPersons()
     {
-        if (unitSelected.Count > 0)
+        foreach (GameObject unit in unitSelected)
         {
-            for (int j = 0; j < unitSelected.Count; j++)
-            {
-                // отменяем то, что делали с объектоми
-                unitSelected[j].GetComponent<MeshRenderer>().material.color = Color.white;
-            }
+            // Deactive Person Components
         }
     }
 
@@ -61,7 +51,7 @@ public class TestFrame : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            //Deselect();
+            //DeselectPersons();
             startPos = Input.mousePosition;
             draw = true;
         }
@@ -69,14 +59,14 @@ public class TestFrame : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             draw = false;
-            //Select();
+            //SelectPersonsSystem();
         }
 
         if (draw)
         {
             //unitSelected.Clear();
             endPos = Input.mousePosition;
-            if (startPos == endPos) return;
+            if (startPos == endPos) return; // reset selection if points coincide
 
             rect = new Rect(Mathf.Min(endPos.x, startPos.x),
                             Screen.height - Mathf.Max(endPos.y, startPos.y),

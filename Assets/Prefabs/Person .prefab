@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6603612861164635218}
   - component: {fileID: 4736641695933056650}
   - component: {fileID: 701345186078337446}
+  - component: {fileID: 927369696316025734}
   m_Layer: 0
   m_Name: 'Person '
   m_TagString: Untagged
@@ -124,8 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c27b25a0bb1c2a45b84dd2b9c206206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputControlPerson: {fileID: 4736641695933056650}
-  agent: {fileID: 4276336633959298467}
   animatorPerson: {fileID: 2911897509416161000}
 --- !u!114 &6603612861164635218
 MonoBehaviour:
@@ -139,9 +138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de27d007d8db454685604d59b49dcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputControllerPerson: {fileID: 4736641695933056650}
   mainCamera: {fileID: 0}
-  agentMove: {fileID: 4276336633959298467}
+  terraLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4736641695933056650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +169,19 @@ MonoBehaviour:
   personData: {fileID: 11400000, guid: a013503c1dd8d2d43bd641add003be42, type: 2}
   isActive: 0
   id: 
+--- !u!114 &927369696316025734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979978968027931991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77c2cbc2563a9dd4f9852b94ebc2301a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pick: {fileID: 701345186078337446}
 --- !u!1 &7989481627455057463
 GameObject:
   m_ObjectHideFlags: 0
