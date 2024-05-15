@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14299ec81903c604bbc7ec778ca8ddc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personsUI:
+  personsUISquad:
   - {fileID: 786628260}
   - {fileID: 1329357385}
   - {fileID: 506103744}
@@ -1346,7 +1346,8 @@ PrefabInstance:
       propertyPath: inputControlPerson
       value: 
       objectReference: {fileID: 1433293110}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 927369696316025734, guid: 0ef2132312a3adf488b716038c0b0c1d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1479,7 +1480,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810419644}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebcd14ebb126e59478dbdb0f5fbe31dc, type: 3}
   m_Name: 
@@ -1699,7 +1700,8 @@ PrefabInstance:
       propertyPath: inputControlPerson
       value: 
       objectReference: {fileID: 1821401643}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 927369696316025734, guid: 0ef2132312a3adf488b716038c0b0c1d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

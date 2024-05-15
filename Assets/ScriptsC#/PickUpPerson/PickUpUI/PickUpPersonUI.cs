@@ -40,7 +40,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         namePerson.text = personDataUI.namePerson;
         _hasData = true; 
     }
-    public void ÑlearDataPersonUI() // clear person data in Ui slot ...
+    public void ResetDataPersonUI() // clear person data in Ui slot ...
     {
         personDataUI = null;
         perImage.sprite = null;

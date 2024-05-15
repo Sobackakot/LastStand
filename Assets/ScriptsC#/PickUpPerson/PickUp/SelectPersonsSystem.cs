@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class SelectPersonsSystem : MonoBehaviour
 { 
-    private List<PickUpPerson> personsSquad = new List<PickUpPerson>();
+    private CharacterSwitchingSystem characterSystem;
+
     public GUISkin GUISkin; 
     private Rect rectTransform;
     private bool drawFrame;
 
     private Vector2 startPoint;
     private Vector2 endPoint;
-    private int sortingLayer = 99;
-     
+    private int sortingLayer = 99; 
+   
+    private void Start()
+    {
+        characterSystem = CharacterSwitchingSystem.Instance; 
+    }
+
     private void OnGUI()
     {  
         GUI.skin = GUISkin;
@@ -21,25 +27,29 @@ public class SelectPersonsSystem : MonoBehaviour
         StaySelect();
         EndSelect();
     }
-
-    private void UpdateListPersonsBySelect(PickUpPerson person)
-    {   
-        if(!personsSquad.Contains(person))
-                personsSquad.Add(person);
-        else personsSquad.Remove(person);
-    }
-    private void SelectPersons()
+    private Vector2 CheckPersonsFromScreen(PickUpPerson person)
     {
+        float pointX = Camera.main.WorldToScreenPoint(person.transform.position).x;
+        float pointY = Camera.main.WorldToScreenPoint(person.transform.position).y;
+        Vector2 screenPoint = new Vector2(pointX, Screen.height - pointY);
+        return screenPoint;
     }
-    private void DeselectPersons()
+    private void SelectPersons(Rect rectTransform)
     {
-
-    }
+        foreach(var pick in characterSystem.PersonsSquad)
+        {
+            Vector2 screenPoint = CheckPersonsFromScreen(pick);
+            if (rectTransform.Contains(screenPoint))
+            {
+                characterSystem.EnableComponentsPerson(pick);
+            }
+            else characterSystem.DisableComponentsPerson(pick);
+        }
+    } 
     private void StartSelect() // start of character selection
     {    
         if(Input.GetMouseButtonDown(0))
         {
-            DeselectPersons();
             startPoint = Input.mousePosition;
             drawFrame = true;
         }
@@ -53,7 +63,8 @@ public class SelectPersonsSystem : MonoBehaviour
                 endPoint = Input.mousePosition;
                 if (startPoint == endPoint) return;
                 rectTransform = GetInvertRectByScreenPoint(startPoint, endPoint);
-                GUI.Box(rectTransform, ""); 
+                GUI.Box(rectTransform, "");
+                SelectPersons(rectTransform);
             }
         } 
     }
@@ -61,7 +72,6 @@ public class SelectPersonsSystem : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            SelectPersons();
             endPoint = Input.mousePosition;
             drawFrame = false; 
         }

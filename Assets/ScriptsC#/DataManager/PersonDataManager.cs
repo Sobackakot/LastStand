@@ -13,12 +13,12 @@ public class PersonDataManager : MonoBehaviour
     {
         CharacterSwitchingSystem.Instance.onAddNewDataPerson -= AddDataPerson;
     }
-    private void AddDataPerson(PersonData data) // add new person for PersonsDataListst
+    private void AddDataPerson(PersonData data) // add new person for PersonsDataList from CharacterSwitchingSystem
     {
         if (dataList.dataPersons.Contains(data)) return;
         dataList.dataPersons.Add(data);  
     }
-    private void RemoveDataPerson(PersonData data) //remove person from PersonsDataListst
+    private void RemoveDataPerson(PersonData data) //remove person from PersonsDataList from CharacterSwitchingSystem...
     {
         if (!dataList.dataPersons.Contains(data)) return;
         dataList.dataPersons.Remove(data);  
