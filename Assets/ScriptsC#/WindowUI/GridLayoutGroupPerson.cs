@@ -11,7 +11,7 @@ public class GridLayoutGroupPerson : MonoBehaviour
     private readonly float minCellSize = 100f;
     private readonly float maxCellSize = 170f;
 
-    [Range(1, 18)] private int currentSlotsCount = 0;
+    [Range(1, 18)] private int currentSlotsCount = 1;
     [Range(100,170)] private float currentCellSize = 100;
 
     private void Start()
