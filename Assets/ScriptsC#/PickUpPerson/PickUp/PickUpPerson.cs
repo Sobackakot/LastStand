@@ -19,7 +19,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     {   
         if(eventData.button == PointerEventData.InputButton.Left)
         { 
-            CharacterSwitchingSystem.Instance?.CharacterPick(in id);  
+            CharacterSwitchSystem.Instance?.CharacterPick(in id);  
         }
         else
         {
@@ -31,8 +31,8 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         if (!isInitialized)
         {
             isInitialized = true;
-            CharacterSwitchingSystem.Instance?.SetDataPerson(personData); // set first data new person game 
-            CharacterSwitchingSystem.Instance?.AddPersonList(this);
+            CharacterSwitchSystem.Instance?.SetDataPerson(personData); // set first data new person game 
+            CharacterSwitchSystem.Instance?.AddPersonList(this);
             id = personData.data.ID;
         }
     } 

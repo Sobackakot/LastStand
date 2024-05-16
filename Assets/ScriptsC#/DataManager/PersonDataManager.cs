@@ -7,18 +7,18 @@ public class PersonDataManager : MonoBehaviour
     private void Start()
     {
         dataList = new PersonsDataList();
-        CharacterSwitchingSystem.Instance.onAddNewDataPerson += AddDataPerson;
+        CharacterSwitchSystem.Instance.onAddNewDataPerson += AddDataPerson;
     } 
     private void OnDisable()
     {
-        CharacterSwitchingSystem.Instance.onAddNewDataPerson -= AddDataPerson;
+        CharacterSwitchSystem.Instance.onAddNewDataPerson -= AddDataPerson;
     }
-    private void AddDataPerson(PersonData data) // add new person for PersonsDataList from CharacterSwitchingSystem
+    private void AddDataPerson(PersonData data) // add new person for PersonsDataList from CharacterSwitchSystem
     {
         if (dataList.dataPersons.Contains(data)) return;
         dataList.dataPersons.Add(data);  
     }
-    private void RemoveDataPerson(PersonData data) //remove person from PersonsDataList from CharacterSwitchingSystem...
+    private void RemoveDataPerson(PersonData data) //remove person from PersonsDataList from CharacterSwitchSystem...
     {
         if (!dataList.dataPersons.Contains(data)) return;
         dataList.dataPersons.Remove(data);  

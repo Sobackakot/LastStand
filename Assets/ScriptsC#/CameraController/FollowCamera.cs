@@ -14,11 +14,11 @@ public class FollowCamera : MonoBehaviour
     private Vector3 direction;
     private void OnDisable()
     {
-        CharacterSwitchingSystem.Instance.onSetNewTargetFolowCamera -= SetTargetPlayer;
+        CharacterSwitchSystem.Instance.onSetNewTargetFolowCamera -= SetTargetPlayer;
     }
     private void Start()
     {
-        CharacterSwitchingSystem.Instance.onSetNewTargetFolowCamera += SetTargetPlayer;
+        CharacterSwitchSystem.Instance.onSetNewTargetFolowCamera += SetTargetPlayer;
     }
     private void LateUpdate()
     {

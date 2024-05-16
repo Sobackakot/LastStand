@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic; 
 using UnityEngine; 
 
-public class CharacterSwitchingSystem : MonoBehaviour
+public class CharacterSwitchSystem : MonoBehaviour
 {
-    public static CharacterSwitchingSystem Instance; 
+    public static CharacterSwitchSystem Instance; 
      
     [Header("List person UI - You need to fill the list with objects from the UI slots for characters!!!")]
     [SerializeField] private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30);
@@ -22,6 +22,7 @@ public class CharacterSwitchingSystem : MonoBehaviour
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
+    public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson
     
     private void Awake()
     {
@@ -105,10 +106,12 @@ public class CharacterSwitchingSystem : MonoBehaviour
     private void ActivePersonUI(PickUpPersonUI uiSlot) //Active new person my ui slot group
     {
         uiSlot.gameObject.SetActive(true);
+        onUpdateCellSizeGrid.Invoke(); //sets the size of character cells in the UI grid
     }
     private void DeActivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group ...
     {
         uiSlot.gameObject.SetActive(false);
+        onUpdateCellSizeGrid.Invoke();//sets the size of character cells in the UI grid
     }
     private void AddComponentsByDictionary(PickUpPerson person) //Cached new person components
     {

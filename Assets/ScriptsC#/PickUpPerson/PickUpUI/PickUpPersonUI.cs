@@ -56,11 +56,11 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
         { 
-            CharacterSwitchingSystem.Instance?.ÑharacterSwitch(in id);
+            CharacterSwitchSystem.Instance?.ÑharacterSwitch(in id);
         }
         else
         {
-            CharacterSwitchingSystem.Instance?.CharacterPick(in id);
+            CharacterSwitchSystem.Instance?.CharacterPick(in id);
         }
         lastClickTime = Time.time;
     }  

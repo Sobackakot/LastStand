@@ -41,11 +41,11 @@ public class CameraLookTarget : MonoBehaviour
         inputContorlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
         inputContorlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
         raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
-        CharacterSwitchingSystem.Instance.onResetFocusCamera -= ResetLookPoint;
+        CharacterSwitchSystem.Instance.onResetFocusCamera -= ResetLookPoint;
     }
     private void Start()
     {
-        CharacterSwitchingSystem.Instance.onResetFocusCamera += ResetLookPoint;
+        CharacterSwitchSystem.Instance.onResetFocusCamera += ResetLookPoint;
         cameraPoint = GetComponent<Transform>();
         currentLookPoint = lookFreePoint;
         offset = cameraPoint.position - currentLookPoint.position; // get the starting position of the camera from the target  
@@ -54,7 +54,7 @@ public class CameraLookTarget : MonoBehaviour
     {
         PositionUpdate(); 
     } 
-    private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchingSystem
+    private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchSystem
     {
         // either the camera follows the character selected from the list or freely follows the point
         if (isFreeCamera)

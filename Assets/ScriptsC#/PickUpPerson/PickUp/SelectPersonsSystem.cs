@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SelectPersonsSystem : MonoBehaviour
 { 
-    private CharacterSwitchingSystem characterSystem;
+    private CharacterSwitchSystem characterSystem;
 
     public GUISkin GUISkin; 
     private Rect rectTransform;
@@ -16,7 +16,7 @@ public class SelectPersonsSystem : MonoBehaviour
    
     private void Start()
     {
-        characterSystem = CharacterSwitchingSystem.Instance; 
+        characterSystem = CharacterSwitchSystem.Instance; 
     }
 
     private void OnGUI()
