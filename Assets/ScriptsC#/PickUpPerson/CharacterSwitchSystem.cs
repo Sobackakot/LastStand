@@ -106,12 +106,12 @@ public class CharacterSwitchSystem : MonoBehaviour
     private void ActivePersonUI(PickUpPersonUI uiSlot) //Active new person my ui slot group
     {
         uiSlot.gameObject.SetActive(true);
-        onUpdateCellSizeGrid.Invoke(); //sets the size of character cells in the UI grid
+        onUpdateCellSizeGrid?.Invoke(); //sets the size of character cells in the UI grid
     }
     private void DeActivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group ...
     {
         uiSlot.gameObject.SetActive(false);
-        onUpdateCellSizeGrid.Invoke();//sets the size of character cells in the UI grid
+        onUpdateCellSizeGrid?.Invoke();//sets the size of character cells in the UI grid
     }
     private void AddComponentsByDictionary(PickUpPerson person) //Cached new person components
     {
