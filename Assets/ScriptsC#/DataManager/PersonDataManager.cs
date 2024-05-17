@@ -8,20 +8,24 @@ public class PersonDataManager : MonoBehaviour
     {
         dataList = new PersonsDataList();
         CharacterSwitchSystem.Instance.onAddNewDataPerson += AddDataPerson;
+        CharacterSwitchSystem.Instance.onRemoveNewDataPerson += RemoveDataPerson;
     } 
     private void OnDisable()
     {
         CharacterSwitchSystem.Instance.onAddNewDataPerson -= AddDataPerson;
+        CharacterSwitchSystem.Instance.onRemoveNewDataPerson -= RemoveDataPerson;
     }
     private void AddDataPerson(PersonData data) // add new person for PersonsDataList from CharacterSwitchSystem
     {
         if (dataList.dataPersons.Contains(data)) return;
-        dataList.dataPersons.Add(data);  
+        dataList.dataPersons.Add(data);
+        Debug.Log("dataList" + dataList.dataPersons.Count);
     }
     private void RemoveDataPerson(PersonData data) //remove person from PersonsDataList from CharacterSwitchSystem...
     {
         if (!dataList.dataPersons.Contains(data)) return;
-        dataList.dataPersons.Remove(data);  
+        dataList.dataPersons.Remove(data);
+        Debug.Log("dataList" + dataList.dataPersons.Count);
     }
     private async void SaveData()
     {
@@ -36,7 +40,7 @@ public class PersonDataManager : MonoBehaviour
    
     public void SavePoisition(PersonDataScript dataScript,Transform person)
     {
-        dataScript.data.SavePositionPerson(ref person);
+        dataScript?.data.SavePositionPerson(ref person);
     }
     public Vector3 LoadPosition(PersonDataScript dataScripts)
     { 

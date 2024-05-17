@@ -18,7 +18,7 @@ public class RaycastPointFollow : MonoBehaviour
     [Range(510,2000)] readonly float verticalRayDistance = 510f; // beam length
     [Range(10, 500)] readonly float offsetY = 500f; 
 
-    [Range(1,50)] private float speedMoveRay = 15f; // beam movement speed
+    [Range(1,50)] private float speedMoveRay = 25f; // beam movement speed
 
     private Transform rayPoint;
      

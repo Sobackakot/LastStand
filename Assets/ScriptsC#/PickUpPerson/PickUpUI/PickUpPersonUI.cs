@@ -13,6 +13,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     
     [SerializeField] private PersonDataScript personDataUI;
     [SerializeField] private TextMeshProUGUI namePerson;
+    [SerializeField] private GameObject buttonDelataPerson;
 
     private Image perImage;
 
@@ -23,13 +24,21 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     [HideInInspector] public string id;
     private void Awake()
     {
-        perImage = GetComponent<Image>();
-    } 
+        perImage = GetComponent<Image>(); 
+    }
+    private void Start()
+    {
+        id = personDataUI.data.ID;
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             HandleClick(); 
+        }
+        else
+        {
+            ActiveButtonRemove();
         }
     } 
     public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
@@ -40,11 +49,13 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         namePerson.text = personDataUI.namePerson;
         _hasData = true; 
     }
-    public void ResetDataPersonUI() // clear person data in Ui slot ...
+    public void RemoveDataPersonUI() // clear person data in Ui slot from button in cell
     {
+        CharacterSwitchSystem.Instance?.RemovePerson(id);
         personDataUI = null;
         perImage.sprite = null;
-        namePerson.text = null; 
+        namePerson.text = null;
+        _hasData = false;
     }
     public bool HasData() // check has data in ui person slot from CharacterSwitchSystem
     {
@@ -56,12 +67,16 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
         { 
-            CharacterSwitchSystem.Instance?.ÑharacterSwitch(in id);
+            CharacterSwitchSystem.Instance?.ÑharacterSwitch(in id); // camera focus on selected character from cell UI 
         }
         else
         {
-            CharacterSwitchSystem.Instance?.CharacterPick(in id);
+            CharacterSwitchSystem.Instance?.CharacterPick(in id); //activating a character to control it
         }
         lastClickTime = Time.time;
     }  
+    private void ActiveButtonRemove()
+    {
+        buttonDelataPerson.SetActive(true); //active button in cell
+    }
 }

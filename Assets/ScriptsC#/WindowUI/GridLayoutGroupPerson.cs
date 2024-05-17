@@ -48,8 +48,7 @@ public class GridLayoutGroupPerson : MonoBehaviour
             //counts the current number of active cells in the UI grid
             if (child.gameObject.activeSelf)
             { 
-                currentSlotsCount++;
-                Debug.Log(currentSlotsCount);
+                currentSlotsCount++; 
             }
         }
         return currentSlotsCount;

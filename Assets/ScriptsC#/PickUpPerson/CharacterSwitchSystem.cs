@@ -9,18 +9,19 @@ public class CharacterSwitchSystem : MonoBehaviour
      
     [Header("List person UI - You need to fill the list with objects from the UI slots for characters!!!")]
     [SerializeField] private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30);
-    
-    private List<PickUpPerson> personsSquad = new List<PickUpPerson>(30);
     public IEnumerable<PickUpPerson> PersonsSquad => personsSquad;
-
-    private Dictionary<PickUpPerson, InputControlPerson> inputComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
-    private Dictionary<PickUpPerson, PersonMoveControl> moveComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
     public IEnumerable<KeyValuePair<PickUpPerson, InputControlPerson>> InputComponents => inputComponents;
     public IEnumerable<KeyValuePair<PickUpPerson, PersonMoveControl>> MoveComponents => moveComponents;
 
 
+
+    private List<PickUpPerson> personsSquad = new List<PickUpPerson>(30); 
+    private Dictionary<PickUpPerson, InputControlPerson> inputComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
+    private Dictionary<PickUpPerson, PersonMoveControl> moveComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
+      
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
-    public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager  
+    public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager
+    public event Action<PersonData> onRemoveNewDataPerson; //This Event for PersonDataManager  
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
     public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson
     
@@ -34,25 +35,41 @@ public class CharacterSwitchSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-    public void AddPersonList(PickUpPerson person) // Add new person my group for PickUpPerson
+    public void RemovePerson(string id) // call from PickUpPersonUI
+    {   
+        PickUpPerson personToRemove = null;
+        foreach(PickUpPerson pick in personsSquad)
+        {
+            if (pick.id == id)
+            {
+               personToRemove = pick;   
+               break;
+            }
+        }
+        if(personToRemove != null)
+            RemovePersonList(personToRemove, personToRemove.personData);
+    }
+    public void AddPersonList(PickUpPerson person, PersonDataScript dataScript) // Add new person my group for PickUpPerson
     {
+        SetDataPerson(dataScript);
         personsSquad.Add(person); 
         AddComponentsByDictionary(person); //Cached new person components
         DisableComponentsPerson(person); //if there is such an object in the list, then turn off the components in advance 
     }
-    public void RemovePersonList(PickUpPerson person) // Remove new person my group ...
+    private void RemovePersonList(PickUpPerson person, PersonDataScript dataScript) // Remove new person my group ...
     {
+        ResetDataPerson(dataScript);
+        DisableComponentsPerson(person);
         RemoveComponentsByDictionary(person);
-        personsSquad.Remove(person); 
-        
+        personsSquad.Remove(person);  
     }
-    public void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
+    private void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
     {   
         dataScript.data.SetNewPersonId(); // set new id person for PersonData
         onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList from PersonDataManager
         foreach (var uiGroup in personsUISquad)
         {
-            if (!uiGroup.HasData()) //  check is first set  data for person 
+            if (!uiGroup.HasData()) //  check is first set  data for person. !!!need to add cells to the PickUpPersonUI list!!!
             {
                 ActivePersonUI(uiGroup);
                 uiGroup.SetDataPersonUI(dataScript);
@@ -60,11 +77,19 @@ public class CharacterSwitchSystem : MonoBehaviour
             }
         } 
     }
-    public void ResetDataPerson(PersonDataScript dataScript)  //deletes all information in the ui and in the data
-    {
-        // add Action RemoveDataPerson for list PersonsDataList from PersonDataManager
-        // ResetDataPersonUI
-        // add Deactive PersonUI
+    private void ResetDataPerson(PersonDataScript dataScript)  //deletes all information in the ui and in the data
+    {   
+        string ID = dataScript.data.ID;
+       
+        onRemoveNewDataPerson?.Invoke(dataScript.data);// Remove data person for PersonsDataList from PersonDataManager 
+        foreach (var uiGroup in personsUISquad)
+        {
+            if (uiGroup.HasData() && uiGroup.id == ID) //  check is first set  data for person 
+            {
+                DeactivePersonUI(uiGroup); 
+                break; // Stop after finding the first empty slot
+            }
+        }
     }
 
     public void CharacterPick(in string id) //click on the character to enable all components
@@ -108,7 +133,7 @@ public class CharacterSwitchSystem : MonoBehaviour
         uiSlot.gameObject.SetActive(true);
         onUpdateCellSizeGrid?.Invoke(); //sets the size of character cells in the UI grid
     }
-    private void DeActivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group ...
+    public void DeactivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group 
     {
         uiSlot.gameObject.SetActive(false);
         onUpdateCellSizeGrid?.Invoke();//sets the size of character cells in the UI grid
@@ -126,7 +151,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             moveComponents[person] = moveControl;    
         }
     }
-    private void RemoveComponentsByDictionary(PickUpPerson person) // Remove components by Dictionary...
+    private void RemoveComponentsByDictionary(PickUpPerson person) // Remove components by Dictionary
     {
         if (personsSquad.Contains(person))
         {

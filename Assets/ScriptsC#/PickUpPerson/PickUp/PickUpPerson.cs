@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 { 
-    [SerializeField] private PersonDataScript personData;  
+    public PersonDataScript personData;  
 
     private bool isInitialized = false;// needed to check the first initialization of data
     public bool isActive = false; // needed to check the asset or deactivate components
@@ -19,11 +19,11 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     {   
         if(eventData.button == PointerEventData.InputButton.Left)
         { 
-            CharacterSwitchSystem.Instance?.CharacterPick(in id);  
+            CharacterSwitchSystem.Instance?.CharacterPick(in id);  //activating a character to control it
         }
         else
         {
-            PickPerson();
+            PickPerson(); //add a character to a squad
         }
     } 
     private void PickPerson()
@@ -31,8 +31,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         if (!isInitialized)
         {
             isInitialized = true;
-            CharacterSwitchSystem.Instance?.SetDataPerson(personData); // set first data new person game 
-            CharacterSwitchSystem.Instance?.AddPersonList(this);
+            CharacterSwitchSystem.Instance?.AddPersonList(this, personData);//adds a new character to my squad list
             id = personData.data.ID;
         }
     } 
