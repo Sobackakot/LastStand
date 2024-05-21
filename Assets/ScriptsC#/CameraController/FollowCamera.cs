@@ -24,11 +24,11 @@ public class FollowCamera : MonoBehaviour
     {
         RadiusCameraClamp(); 
     }
-    public void SetTargetPlayer(Transform newTarget)
+    public void SetTargetPlayer(Transform newTarget) // call from CharacterSwitchSystem
     {
         currentTarget = newTarget;
     }
-    private void RadiusCameraClamp()
+    private void RadiusCameraClamp() //limiting the radius of free camera movement around the selected character
     { 
         direction = transform.position - currentTarget.position;
         if (direction.sqrMagnitude > maxRadius * maxRadius)

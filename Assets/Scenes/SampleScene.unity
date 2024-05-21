@@ -1262,7 +1262,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastPosition: {fileID: 196373487}
-  currentTarget: {fileID: 1614746393}
+  currentTarget: {fileID: 1924312981}
+--- !u!4 &165068908 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3041684037575099563, guid: 0ef2132312a3adf488b716038c0b0c1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1821401642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &177323075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4657,6 +4663,12 @@ MonoBehaviour:
   buttonDelataPerson: {fileID: 1991717102}
   frameImage: {fileID: 1152459313}
   id: 
+--- !u!4 &799025246 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3041684037575099563, guid: 0ef2132312a3adf488b716038c0b0c1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1433293109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &815763756
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,10 +6804,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 5
+    m_Right: 5
+    m_Top: 5
+    m_Bottom: 5
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
@@ -8894,6 +8906,11 @@ PrefabInstance:
       propertyPath: dataManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: pointLookTarget
+      value: 
+      objectReference: {fileID: 799025246}
     - target: {fileID: 4736641695933056650, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_Enabled
@@ -9894,12 +9911,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600461695}
   m_CullTransparentMesh: 1
---- !u!4 &1614746393 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8638521615705438721, guid: 0ef2132312a3adf488b716038c0b0c1d,
-    type: 3}
-  m_PrefabInstance: {fileID: 2553463961350281022}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1624072054
 GameObject:
   m_ObjectHideFlags: 0
@@ -11612,6 +11623,11 @@ PrefabInstance:
       propertyPath: dataManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: pointLookTarget
+      value: 
+      objectReference: {fileID: 165068908}
     - target: {fileID: 4736641695933056650, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_Enabled
@@ -12359,6 +12375,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913320339}
   m_CullTransparentMesh: 1
+--- !u!4 &1924312981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3041684037575099563, guid: 0ef2132312a3adf488b716038c0b0c1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2553463961350281022}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1937516014
 GameObject:
   m_ObjectHideFlags: 0
@@ -13880,6 +13902,11 @@ PrefabInstance:
       propertyPath: dataManager
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+        type: 3}
+      propertyPath: pointLookTarget
+      value: 
+      objectReference: {fileID: 1924312981}
     - target: {fileID: 4736641695933056650, guid: 0ef2132312a3adf488b716038c0b0c1d,
         type: 3}
       propertyPath: m_Enabled

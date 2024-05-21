@@ -68,8 +68,8 @@ public class CameraLookTarget : MonoBehaviour
         } 
         else
         {   
-            currentLookPoint = person.transform;
-            newTransformRaycast = person.transform;
+            currentLookPoint = person.pointLookTarget;
+            newTransformRaycast = person.pointLookTarget;
         }
     }
    
