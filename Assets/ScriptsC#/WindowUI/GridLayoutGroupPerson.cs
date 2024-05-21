@@ -40,7 +40,7 @@ public class GridLayoutGroupPerson : MonoBehaviour
             grid.cellSize = new Vector2(currentCellSize, currentCellSize);
         }
     }
-    private int GetCurrentActiveSlot()
+    private int GetCurrentActiveSlot() //checks all active cells in the grid for scaling
     {
         currentSlotsCount = 0;
         foreach (Transform child in grid.transform)

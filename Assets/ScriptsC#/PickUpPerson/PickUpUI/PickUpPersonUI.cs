@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
+public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Additional components required!!!")]
     [Header("1). Image - avatar ")]
@@ -14,6 +14,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     [SerializeField] private PersonDataScript personDataUI;
     [SerializeField] private TextMeshProUGUI namePerson;
     [SerializeField] private GameObject buttonDelataPerson;
+    [SerializeField] private GameObject frameImage;
 
     private Image perImage;
 
@@ -40,7 +41,16 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         {
             ActiveButtonRemove();
         }
-    } 
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        frameImage.SetActive(true); 
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        frameImage.SetActive(false); 
+    }
     public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
     {
         personDataUI = personData;
@@ -78,5 +88,5 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     private void ActiveButtonRemove()
     {
         buttonDelataPerson.SetActive(true); //active button in cell
-    }
+    }  
 }
