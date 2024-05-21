@@ -6,6 +6,9 @@ public class RaycastPointFollow : MonoBehaviour
     [Header("EventSystem Input Controller Camera")]
     [SerializeField] private InputContorlCamera inputControlCamera;
 
+    [Header("EventSystem free move CameraLookTarget")]
+    [SerializeField] private CameraLookTarget cameraLookTarget;
+
     [Header("Camera Person")]
     [SerializeField] private Transform mainCamera;
 
@@ -24,9 +27,7 @@ public class RaycastPointFollow : MonoBehaviour
      
 
     public event Action<bool, PickUpPerson> onResetTargetLookPoint;//this Event for class CameraLookTarget
-
-    private Vector3 directionX;// current camera direction
-    private Vector3 directionZ; // current camera direction
+     
     private Vector3 newDirectionMove;// new direction of beam movement depending on the camera direction
 
     private float inputAxisX;
@@ -34,14 +35,16 @@ public class RaycastPointFollow : MonoBehaviour
     private void Start()
     {
         rayPoint = GetComponent<Transform>();
-    }
+        cameraLookTarget.onUpdateRaycastPoint += UpdateRaycastPoint;
+    } 
     private void OnEnable()
     { 
         inputControlCamera.onInputGetAxis += SetInputAxisMove; 
     }
     private void OnDisable()
     {
-        inputControlCamera.onInputGetAxis -= SetInputAxisMove; 
+        inputControlCamera.onInputGetAxis -= SetInputAxisMove;
+        cameraLookTarget.onUpdateRaycastPoint -= UpdateRaycastPoint;
     } 
     private void LateUpdate()
     {
@@ -57,11 +60,16 @@ public class RaycastPointFollow : MonoBehaviour
     {
         enabled = false;
     }
+
+    private void UpdateRaycastPoint(Transform newPoint) // call from CameraLookTarget
+    {
+        rayPoint.position = new Vector3(newPoint.position.x, rayPoint.position.y, newPoint.position.z);
+    }
     private void SetInputAxisMove(Vector2 inputAxis)  
     {   
         inputAxisX = inputAxis.x;
-        inputAxisZ = inputAxis.y;
-        onResetTargetLookPoint?.Invoke(true, null); 
+        inputAxisZ = inputAxis.y; 
+        onResetTargetLookPoint?.Invoke(true, null);  // free move camera 
     }
     private void GetDirectionCamera()
     {
@@ -79,7 +87,7 @@ public class RaycastPointFollow : MonoBehaviour
             lookFreePoint.position = hit.point;// moved object Target Look Point of the camera
                                                // to the position of intersection of the ray with the surface 
             //Logic to adjust Y coordinate based on terrain heightY using raycasting.
-            transform.position = new Vector3(transform.position.x, hit.point.y + offsetY, transform.position.z);
+            rayPoint.position = new Vector3(rayPoint.position.x, hit.point.y + offsetY, rayPoint.position.z);
         }
     }
     private void MoveRay()

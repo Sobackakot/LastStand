@@ -22,12 +22,16 @@ public class CameraLookTarget : MonoBehaviour
     [Range(1, 10)] private float zoomSpeed = 2f;
     [Range(1, 6)] private float minZoom = 2f;
     [Range(25, 500)] private float maxZoom = 100f;
-     
+      
     private Transform cameraPoint;// camera starting position
     private Transform currentLookPoint; // current camera tracking point
 
+    public event Action<Transform> onUpdateRaycastPoint;
+
     private float deltaX;
     private float deltaY;
+
+    private Transform newTransformRaycast;
 
     private void OnEnable()
     {
@@ -58,25 +62,40 @@ public class CameraLookTarget : MonoBehaviour
     {
         // either the camera follows the character selected from the list or freely follows the point
         if (isFreeCamera)
-        {
-            currentLookPoint = lookFreePoint;
+        { 
+            UpdateRaycastPoint();
+            currentLookPoint = lookFreePoint; 
         } 
         else
+        {   
+            currentLookPoint = person.transform;
+            newTransformRaycast = person.transform;
+        }
+    }
+   
+    private void UpdateRaycastPoint()
+    {
+        //Updates the raycast position depending on the position of the selected Character
+        if (newTransformRaycast != null)
         {
-            currentLookPoint = person.transform; 
+            onUpdateRaycastPoint?.Invoke(newTransformRaycast); //gets new coordinates for Raycast
+            newTransformRaycast = null;
         }
     }
     public void PositionUpdate()
     {
-        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position;//updating camera position when rotating
-        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; //updating camera position when zooming
+        //updating camera position when rotating
+        cameraPoint.position = cameraPoint.localRotation * offset + currentLookPoint.position;
+        //updating camera position when zooming
+        cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; 
     }
     private void RotateCamera(Vector2 deltaMouse)
     {    
         deltaX += deltaMouse.x * sensitivity; // get the rotation delta along X
         deltaY -= deltaMouse.y * sensitivity; // get rotation delta in Y
         deltaY = Mathf.Clamp(deltaY, minAngle, maxAngle); // rotation limitation in Y
-        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); // initialize camera rotation only with the button held down
+        // initialize camera rotation only with the button held down
+        cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); 
     }
     private void ZoomCamera(Vector2 scrollMouse)
     {   
