@@ -42,6 +42,7 @@ public class PersonMoveControl : MonoBehaviour
     private void LateUpdate()
     {
         LookRotationTarget();
+        FolowFocus();
     }
     private void MoveAgent()
     {    
@@ -62,9 +63,7 @@ public class PersonMoveControl : MonoBehaviour
             Interactable interactable =  hit.collider.GetComponent<Interactable>(); 
             if (interactable != null)
             {
-                SetFocus(interactable);
-                agentMove.SetDestination(focusTrnasform.position);
-                agentMove.stoppingDistance = interactFocus.radius;
+                SetFocus(interactable); 
             }
         }
     }
@@ -76,6 +75,14 @@ public class PersonMoveControl : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(newDirection.x, 0, newDirection.z));
             person.rotation = Quaternion.Lerp(person.rotation, lookRotation, angleSpeed * Time.deltaTime);
         } 
+    }
+    private void FolowFocus()
+    {
+        if (interactFocus != null)
+        {
+            agentMove.SetDestination(focusTrnasform.position);
+            agentMove.stoppingDistance = interactFocus.radius;
+        }  
     }
     private void SetFocus(Interactable newFocus)
     {   
