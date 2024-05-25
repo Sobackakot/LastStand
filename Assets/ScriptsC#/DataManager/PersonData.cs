@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public struct PersonData  
+public class PersonData  
 { 
     private string id;
     public string ID { get { return id; } private set { id = value; } }

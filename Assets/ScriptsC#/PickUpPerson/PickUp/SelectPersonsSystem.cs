@@ -12,8 +12,9 @@ public class SelectPersonsSystem : MonoBehaviour
 
     private Vector2 startPoint;
     private Vector2 endPoint;
-    private int sortingLayer = 99; 
-   
+    private int sortingLayer = 99;
+    private float selectionThreshold = 10f; // Minimum distance to start drawing the frame
+
     private void Start()
     {
         characterSystem = CharacterSwitchSystem.Instance; 
@@ -56,12 +57,11 @@ public class SelectPersonsSystem : MonoBehaviour
     } 
     private void StaySelect()// selection process while pressing the button
     {  
-        if(Input.GetMouseButton(0)) 
+        if(Input.GetMouseButton(0) && drawFrame) 
         {
-            if (drawFrame)
-            {
-                endPoint = Input.mousePosition;
-                if (startPoint == endPoint) return;
+            endPoint = Input.mousePosition;
+            if (Vector2.Distance(startPoint, endPoint) > selectionThreshold)
+            {  
                 rectTransform = GetInvertRectByScreenPoint(startPoint, endPoint);
                 GUI.Box(rectTransform, "");
                 SelectPersons(rectTransform);

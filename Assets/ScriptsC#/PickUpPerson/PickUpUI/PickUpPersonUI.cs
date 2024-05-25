@@ -14,7 +14,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     [SerializeField] private PersonDataScript personDataUI;
     [SerializeField] private TextMeshProUGUI namePerson;
     [SerializeField] private GameObject buttonDelataPerson;
-    [SerializeField] private GameObject frameImage;
+    [SerializeField] private GameObject frameCellImage;
 
     private Image perImage;
 
@@ -44,12 +44,12 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        frameImage.SetActive(true); 
+        frameCellImage.SetActive(true); 
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        frameImage.SetActive(false); 
+        frameCellImage.SetActive(false); 
     }
     public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
     {
