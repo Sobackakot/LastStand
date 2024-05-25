@@ -6,16 +6,15 @@ using UnityEngine;
 public class CharacterSwitchSystem : MonoBehaviour
 {
     public static CharacterSwitchSystem Instance; 
-     
-    [Header("List person UI - You need to fill the list with objects from the UI slots for characters!!!")]
-    [SerializeField] private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30);
+      
     public IEnumerable<PickUpPerson> PersonsSquad => personsSquad;
     public IEnumerable<KeyValuePair<PickUpPerson, InputControlPerson>> InputComponents => inputComponents;
     public IEnumerable<KeyValuePair<PickUpPerson, PersonMoveControl>> MoveComponents => moveComponents;
 
 
+    private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30); //List persons UI slots
+    private List<PickUpPerson> personsSquad = new List<PickUpPerson>(30); //List persons squad
 
-    private List<PickUpPerson> personsSquad = new List<PickUpPerson>(30); 
     private Dictionary<PickUpPerson, InputControlPerson> inputComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
     private Dictionary<PickUpPerson, PersonMoveControl> moveComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
       
@@ -34,6 +33,8 @@ public class CharacterSwitchSystem : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        // Automatically fill the personsUISquad list with child PickUpPersonUI components
+        personsUISquad.AddRange(GetComponentsInChildren<PickUpPersonUI>(true));
     }
     public void RemovePerson(string id) // call from PickUpPersonUI
     {   

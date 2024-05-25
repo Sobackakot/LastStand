@@ -12,9 +12,9 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     [Header("3). TextMeshProUGUI - name")]
     
     [SerializeField] private PersonDataScript personDataUI;
-    [SerializeField] private TextMeshProUGUI namePerson;
-    [SerializeField] private GameObject buttonDelataPerson;
-    [SerializeField] private GameObject frameCellImage;
+    private TextMeshProUGUI namePerson;
+    private GameObject buttonDelataPerson;
+    private GameObject frameCellImage;
 
     private Image perImage;
 
@@ -25,7 +25,10 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     [HideInInspector] public string id;
     private void Awake()
     {
-        perImage = GetComponent<Image>(); 
+        perImage = GetComponent<Image>();
+        namePerson = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        buttonDelataPerson = transform.GetChild(1).gameObject;  
+        frameCellImage = transform.GetChild(2).gameObject; 
     }
     private void Start()
     {
