@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputGameController : MonoBehaviour
+public class InputGameController : MonoBehaviour // TEST
 { 
     public event Action onLeftMouseButtonDown;  
     public event Action onPressedMouseButton; 
