@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+ 
 using UnityEngine;
 
 // Class representing an interactable object. 
@@ -14,8 +13,10 @@ public class Interactable : MonoBehaviour
     // Draw the interaction radius in the editor.
     private void OnDrawGizmosSelected()
     {
+        if (interact == null)
+            interact = transform;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.DrawWireSphere(transform.position, radius); 
     }
      
     private void Awake()
