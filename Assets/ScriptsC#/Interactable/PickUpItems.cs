@@ -1,13 +1,11 @@
-
-using System;
+ 
 using UnityEngine; 
 
 public class PickUpItems : Interactable
 {   
     [SerializeField] private ItemScrObj item; 
-     
-     
-    private InventoryContoller inventoty;
+    private InventoryContoller inventoty; 
+
     private void Start()
     {
         inventoty  = InventoryContoller.Instance;
@@ -21,10 +19,10 @@ public class PickUpItems : Interactable
     {   
         if(item.isDefaultItem)
         {
-            bool isPickUp = inventoty.AddItem(item);
+            bool isPickUp = inventoty.AddItemToInventoty(item);
             if (isPickUp)
             {
-                Debug.Log("PickUpItem");
+                
                 Destroy(gameObject);
             }
         } 

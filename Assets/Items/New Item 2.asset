@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: New Item 2
   m_EditorClassIdentifier: 
   NameItem: capsule
-  IconItem: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  CountItem: 1
+  IconItem: {fileID: 21300000, guid: 1d763daa8f166a741bbde52a4562d25b, type: 3}
+  ItemAmount: 1
   isDefaultItem: 1

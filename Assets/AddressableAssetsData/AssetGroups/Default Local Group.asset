@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 81956f1800154684ea7eea7cf4c531a3
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: ef438faa2de26574d88cb1b957c1ee82
+    m_Address: Assets/Materilas/person.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cce93dc07211ad4fb5db24241adc75a, type: 2}
   m_SchemaSet:

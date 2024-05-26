@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UnityEngine; 
 
@@ -6,8 +7,11 @@ public class InventoryContoller : MonoBehaviour
 {    
     public static InventoryContoller Instance;
 
-    [SerializeField] private List<ItemScrObj> itemsList = new List<ItemScrObj>(); 
-    private int space = 3;
+    public List<ItemScrObj> itemsList = new List<ItemScrObj>();
+
+    public event Action onUpdateInventorySlots;
+
+    private int space = 48;
 
     private void Awake()
     {
@@ -19,14 +23,16 @@ public class InventoryContoller : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);    
     }
-    public bool AddItem(ItemScrObj item)
+    public bool AddItemToInventoty(ItemScrObj item)
     {
         if (itemsList.Count >= space) return false;
         itemsList.Add(item);
+        onUpdateInventorySlots?.Invoke();
         return true;
     }
-    public void RemoveItem(ItemScrObj item)
-    {
+    public void RemoveItemFromInventoty(ItemScrObj item)
+    { 
         itemsList.Remove(item);
+        onUpdateInventorySlots?.Invoke();
     }
 }

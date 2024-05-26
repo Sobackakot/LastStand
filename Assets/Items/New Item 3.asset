@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503a7f364537cd94eac0d1d759e9de1a, type: 3}
   m_Name: New Item 3
   m_EditorClassIdentifier: 
-  NameItem: capsule
-  IconItem: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
-  CountItem: 1
+  NameItem: cilinder
+  IconItem: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  ItemAmount: 1
   isDefaultItem: 1

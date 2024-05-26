@@ -16,6 +16,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     private GameObject buttonDelataPerson;
     private GameObject frameCellImage;
 
+    private Transform transformUIPerson;
     private Image perImage;
 
     private float lastClickTime = 0f;
@@ -25,10 +26,11 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     [HideInInspector] public string id;
     private void Awake()
     {
+        transformUIPerson = GetComponent<Transform>();
         perImage = GetComponent<Image>();
-        namePerson = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        buttonDelataPerson = transform.GetChild(1).gameObject;  
-        frameCellImage = transform.GetChild(2).gameObject; 
+        namePerson = transformUIPerson.GetChild(0).GetComponent<TextMeshProUGUI>();
+        buttonDelataPerson = transformUIPerson.GetChild(1).gameObject;  
+        frameCellImage = transformUIPerson.GetChild(2).gameObject; 
     }
     private void Start()
     {
