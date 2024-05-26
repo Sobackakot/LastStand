@@ -1,7 +1,7 @@
  
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "InventoryContoller/Item")]
 public class ItemScrObj :ScriptableObject
 {
      public string Id { get; private set; }

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine; 
 
-public class Inventory : MonoBehaviour
-{   
-    public static Inventory Instance;
+public class InventoryContoller : MonoBehaviour
+{    
+    public static InventoryContoller Instance;
+
     [SerializeField] private List<ItemScrObj> itemsList = new List<ItemScrObj>(); 
     private int space = 3;
+
     private void Awake()
     {
         if(Instance != null)
@@ -15,7 +17,7 @@ public class Inventory : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(this);    
     }
     public bool AddItem(ItemScrObj item)
     {

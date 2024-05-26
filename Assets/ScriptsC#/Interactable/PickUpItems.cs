@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PickUpItems : Interactable
 {   
-    [SerializeField] private ItemScrObj item;
-    private Inventory inventory;
+    [SerializeField] private ItemScrObj item; 
+     
+     
+    private InventoryContoller inventoty;
     private void Start()
     {
-        inventory = Inventory.Instance;
+        inventoty  = InventoryContoller.Instance;
     }
     public override void Interaction()
     {
@@ -19,7 +21,7 @@ public class PickUpItems : Interactable
     {   
         if(item.isDefaultItem)
         {
-            bool isPickUp = inventory.AddItem(item);
+            bool isPickUp = inventoty.AddItem(item);
             if (isPickUp)
             {
                 Debug.Log("PickUpItem");
