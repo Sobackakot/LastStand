@@ -6,17 +6,15 @@ using UnityEngine;
 public class CharacterSwitchSystem : MonoBehaviour
 {
     public static CharacterSwitchSystem Instance; 
-      
-    public IEnumerable<PickUpPerson> PersonsSquad => personsSquad;
-    public IEnumerable<KeyValuePair<PickUpPerson, InputControlPerson>> InputComponents => inputComponents;
-    public IEnumerable<KeyValuePair<PickUpPerson, PersonMoveControl>> MoveComponents => moveComponents;
+     
+
+    [HideInInspector] public readonly List<PickUpPerson> PersonsSquad = new List<PickUpPerson>(30); //List persons squad
+
+    [HideInInspector] public readonly Dictionary<PickUpPerson, InputControlPerson> InputComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
+    [HideInInspector] public readonly Dictionary<PickUpPerson, PersonMoveControl> MoveComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
 
 
-    private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30); //List persons UI slots
-    private List<PickUpPerson> personsSquad = new List<PickUpPerson>(30); //List persons squad
-
-    private Dictionary<PickUpPerson, InputControlPerson> inputComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
-    private Dictionary<PickUpPerson, PersonMoveControl> moveComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
+    private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30); //List persons UI slots 
       
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager
@@ -39,7 +37,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     public void RemovePerson(string id) // call from PickUpPersonUI
     {   
         PickUpPerson personToRemove = null;
-        foreach(PickUpPerson pick in personsSquad)
+        foreach(PickUpPerson pick in PersonsSquad)
         {
             if (pick.id == id)
             {
@@ -53,7 +51,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     public void AddPersonList(PickUpPerson person, PersonDataScript dataScript) // Add new person my group for PickUpPerson
     {
         SetDataPerson(dataScript);
-        personsSquad.Add(person); 
+        PersonsSquad.Add(person); 
         AddComponentsByDictionary(person); //Cached new person components
         DisableComponentsPerson(person); //if there is such an object in the list, then turn off the components in advance 
     }
@@ -62,7 +60,7 @@ public class CharacterSwitchSystem : MonoBehaviour
         ResetDataPerson(dataScript);
         DisableComponentsPerson(person);
         RemoveComponentsByDictionary(person);
-        personsSquad.Remove(person);  
+        PersonsSquad.Remove(person);  
     }
     private void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
     {   
@@ -95,7 +93,7 @@ public class CharacterSwitchSystem : MonoBehaviour
 
     public void CharacterPick(string id) //click on the character to enable all components
     {
-        foreach(PickUpPerson pick in personsSquad)
+        foreach(PickUpPerson pick in PersonsSquad)
         {
             if (pick.id == id)
             {
@@ -110,7 +108,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     }
     public void ÑharacterSwitch(string id) //set focus camera for PickUpPersonUI 
     { 
-        foreach (PickUpPerson pick in personsSquad)
+        foreach (PickUpPerson pick in PersonsSquad)
         {
             if (pick.id == id)
             {
@@ -141,39 +139,39 @@ public class CharacterSwitchSystem : MonoBehaviour
     }
     private void AddComponentsByDictionary(PickUpPerson person) //Cached new person components
     {
-        if (!inputComponents.ContainsKey(person))
+        if (!InputComponents.ContainsKey(person))
         {
             var inputControl = person.GetComponent<InputControlPerson>(); //Cached InputControlPerson components by Dictionary
-            inputComponents[person] = inputControl; 
+            InputComponents[person] = inputControl; 
         }
-        if (!moveComponents.ContainsKey(person))
+        if (!MoveComponents.ContainsKey(person))
         {
             var moveControl = person.GetComponent<PersonMoveControl>(); // Cached PersonMoveControl components by Dictionary
-            moveComponents[person] = moveControl;    
+            MoveComponents[person] = moveControl;    
         }
     }
     private void RemoveComponentsByDictionary(PickUpPerson person) // Remove components by Dictionary
     {
-        if (personsSquad.Contains(person))
+        if (PersonsSquad.Contains(person))
         {
-            inputComponents.Remove(person);
-            moveComponents.Remove(person); 
+            InputComponents.Remove(person);
+            MoveComponents.Remove(person); 
         }      
     }
     public void EnableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
     {
         pick.isActive = true;
-        if (inputComponents.ContainsKey(pick))
-            inputComponents[pick].OnEnableComponent(); // next pick person Activating components
-        if (moveComponents.ContainsKey(pick))
-            moveComponents[pick].OnEnableComponent();
+        if (InputComponents.ContainsKey(pick))
+            InputComponents[pick].OnEnableComponent(); // next pick person Activating components
+        if (MoveComponents.ContainsKey(pick))
+            MoveComponents[pick].OnEnableComponent();
     }
     public void DisableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
     {
         pick.isActive = false;
-        if (inputComponents.ContainsKey(pick))
-            inputComponents[pick].OnDisableComponent();// Deactive  current person components
-        if (moveComponents.ContainsKey(pick))
-            moveComponents[pick].OnDisableComponent();
+        if (InputComponents.ContainsKey(pick))
+            InputComponents[pick].OnDisableComponent();// Deactive  current person components
+        if (MoveComponents.ContainsKey(pick))
+            MoveComponents[pick].OnDisableComponent();
     }
 }

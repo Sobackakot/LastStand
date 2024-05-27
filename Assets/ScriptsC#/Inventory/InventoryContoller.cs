@@ -7,7 +7,7 @@ public class InventoryContoller : MonoBehaviour
 {    
     public static InventoryContoller Instance;
 
-    public List<ItemScrObj> itemsList = new List<ItemScrObj>();
+    public readonly List<ItemScrObj> itemsList = new List<ItemScrObj>();
 
     public event Action onUpdateInventorySlots;
 
