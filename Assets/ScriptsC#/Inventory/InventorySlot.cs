@@ -1,9 +1,10 @@
 
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private Transform transformSlot;
     private Image itemIcon;
@@ -22,7 +23,7 @@ public class InventorySlot : MonoBehaviour
     {   
         itemScrObj = newItem; 
         itemName.text = itemScrObj.NameItem;
-        itemAmount.text = itemScrObj.ItemAmount.ToString(); 
+        itemAmount.text = itemScrObj.item.itemAmount.ToString();
         itemIcon.sprite = itemScrObj.IconItem;
         itemIcon.enabled = true;
     }
@@ -33,5 +34,17 @@ public class InventorySlot : MonoBehaviour
         itemIcon.enabled = false;
         itemName.text = " ";
         itemAmount.text = " ";
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    { 
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    { 
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    { 
     }
 }

@@ -1,7 +1,10 @@
 
-using System; 
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 // This class controls the movement of a person in the game.
 public class PersonMoveControl : MonoBehaviour
@@ -20,6 +23,7 @@ public class PersonMoveControl : MonoBehaviour
     private Transform focusTrnasform; // Transform of the current focus.
     private Transform person; // Transform of the person.
     private float angleSpeed = 5f; // Speed of rotation towards the focus.
+    private bool isPointerEnterUI = false; //whether the mouse cursor is on the UI
 
     [Range(100, 1000)] private float rayDistance = 500f; // Distance for raycasting.
      
@@ -35,6 +39,7 @@ public class PersonMoveControl : MonoBehaviour
     {
         inputControllerPerson.onRightMouseButton += MoveAgent; // Subscribe to the right mouse button event.
         inputControllerPerson.onLeftMouseButton += UpdateFocusInteract; // Subscribe to the left mouse button event.
+        OnPointerEnterUI.onPointerEnterUI += IsPointerEnterUI; //checking whether the mouse cursor is on the UI
     }
 
     
@@ -42,19 +47,25 @@ public class PersonMoveControl : MonoBehaviour
     {
         inputControllerPerson.onRightMouseButton -= MoveAgent; // Unsubscribe from the right mouse button event.
         inputControllerPerson.onLeftMouseButton -= UpdateFocusInteract; // Unsubscribe from the left mouse button event.
+        OnPointerEnterUI.onPointerEnterUI -= IsPointerEnterUI; //checking whether the mouse cursor is on the UI
     }
 
     
     private void LateUpdate()
-    {
+    { 
         LookRotationTarget(); // Rotate towards the focus target.
         FolowFocus(); // Follow the focus target.
+    }
+    private void  IsPointerEnterUI(bool isEnterUi) // coll from OnPointerEnterUI
+    {
+        isPointerEnterUI = isEnterUi;
     }
 
     // Method to move the agent to the clicked position.
     private void MoveAgent()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); // Create a ray from the camera through the mouse position.
+        if (isPointerEnterUI) return;
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance, terraLayer))
         {
@@ -66,7 +77,8 @@ public class PersonMoveControl : MonoBehaviour
     // Method to update the focus to an interactable object.
     private void UpdateFocusInteract()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); // Create a ray from the camera through the mouse position.
+        if (isPointerEnterUI) return;
+        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance))
         {

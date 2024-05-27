@@ -22,7 +22,6 @@ public class PickUpItems : Interactable
             bool isPickUp = inventoty.AddItemToInventoty(item);
             if (isPickUp)
             {
-                
                 Destroy(gameObject);
             }
         } 

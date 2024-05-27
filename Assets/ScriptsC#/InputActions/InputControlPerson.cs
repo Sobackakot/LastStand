@@ -1,6 +1,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class InputControlPerson : MonoBehaviour
@@ -32,12 +33,12 @@ public class InputControlPerson : MonoBehaviour
 
     private void LeftMouseButton_performed(InputAction.CallbackContext context)
     {
-        if (context.performed)
+            if (context.performed)
             onLeftMouseButton?.Invoke(); //UpdateFocusInteract
     }
     private void RightMouseButton_performed(InputAction.CallbackContext context)
     {
-        if (context.performed)
+            if (context.performed)
             onRightMouseButton?.Invoke();//MoveAgent()
     }
     private void CtrlButton_performed(InputAction.CallbackContext context)

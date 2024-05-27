@@ -7,20 +7,24 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     public PersonDataScript personData;
     public Transform pointLookTarget;
 
-    private bool isInitialized = false;// needed to check the first initialization of data
-    public bool isActive = false; // needed to check the asset or deactivate components
-    [HideInInspector] public string id;
+    private CharacterSwitchSystem characterSystem;
 
+    private bool isInitialized = false;// needed to check the first initialization of data
+
+    [HideInInspector] public bool isActive = false; // needed to check the asset or deactivate components
+    [HideInInspector] public string id { get; private set; }
+     
     private void Start()
-    {  
-        if(isActive)
+    {
+        characterSystem = CharacterSwitchSystem.Instance;
+        if (isActive)
             PickPerson();
     }
     public void OnPointerClick(PointerEventData eventData)
     {   
         if(eventData.button == PointerEventData.InputButton.Left)
-        { 
-            CharacterSwitchSystem.Instance?.CharacterPick(in id);  //activating a character to control it
+        {
+            characterSystem.CharacterPick(id);  //activating a character to control it
         }
         else
         {
@@ -32,7 +36,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         if (!isInitialized)
         {
             isInitialized = true;
-            CharacterSwitchSystem.Instance?.AddPersonList(this, personData);//adds a new character to my squad list
+            characterSystem.AddPersonList(this, personData);//adds a new character to my squad list
             id = personData.data.ID;
         }
     } 

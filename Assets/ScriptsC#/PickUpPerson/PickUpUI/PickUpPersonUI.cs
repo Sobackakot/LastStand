@@ -10,11 +10,14 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     [Header("1). Image - avatar ")]
     [Header("2). PersonDataScript - ScriptableObject")]
     [Header("3). TextMeshProUGUI - name")]
-    
+
+    private CharacterSwitchSystem characterSystem;
+
     [SerializeField] private PersonDataScript personDataUI;
     private TextMeshProUGUI namePerson;
     private GameObject buttonDelataPerson;
     private GameObject frameCellImage;
+
 
     private Transform transformUIPerson;
     private Image perImage;
@@ -22,8 +25,9 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     private float lastClickTime = 0f;
     private float doubleClickThreshold = 0.3f;
     private bool _hasData = false;
+     
+    [HideInInspector] public string id {  get; private set; }
 
-    [HideInInspector] public string id;
     private void Awake()
     {
         transformUIPerson = GetComponent<Transform>();
@@ -34,6 +38,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     }
     private void Start()
     {
+        characterSystem = CharacterSwitchSystem.Instance;
         id = personDataUI.data.ID;
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -66,7 +71,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     }
     public void RemoveDataPersonUI() // clear person data in Ui slot from button in cell
     {
-        CharacterSwitchSystem.Instance?.RemovePerson(id);
+        characterSystem?.RemovePerson(id);
         personDataUI = null;
         perImage.sprite = null;
         namePerson.text = null;
@@ -81,12 +86,12 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     {
         float timeSinceLastClick = Time.time - lastClickTime;
         if(timeSinceLastClick <= doubleClickThreshold)
-        { 
-            CharacterSwitchSystem.Instance?.ÑharacterSwitch(in id); // camera focus on selected character from cell UI 
+        {
+            characterSystem?.ÑharacterSwitch(id); // camera focus on selected character from cell UI 
         }
         else
         {
-            CharacterSwitchSystem.Instance?.CharacterPick(in id); //activating a character to control it
+            characterSystem?.CharacterPick(id); //activating a character to control it
         }
         lastClickTime = Time.time;
     }  

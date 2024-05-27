@@ -93,7 +93,7 @@ public class CharacterSwitchSystem : MonoBehaviour
         }
     }
 
-    public void CharacterPick(in string id) //click on the character to enable all components
+    public void CharacterPick(string id) //click on the character to enable all components
     {
         foreach(PickUpPerson pick in personsSquad)
         {
@@ -108,7 +108,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             }
         }
     }
-    public void ÑharacterSwitch(in string id) //set focus camera for PickUpPersonUI 
+    public void ÑharacterSwitch(string id) //set focus camera for PickUpPersonUI 
     { 
         foreach (PickUpPerson pick in personsSquad)
         {

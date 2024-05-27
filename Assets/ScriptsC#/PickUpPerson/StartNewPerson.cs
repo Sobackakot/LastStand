@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class StartNewPerson : MonoBehaviour
 {
-    [SerializeField] private PickUpPerson pick;
+    private PickUpPerson pick;  
     private void Awake()
-    {
+    {   
+        pick = GetComponent<PickUpPerson>();
         pick.isActive = true;
     }
 }
