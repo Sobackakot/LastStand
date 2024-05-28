@@ -40,6 +40,7 @@ public class PersonMoveControl : MonoBehaviour
         inputControllerPerson.onRightMouseButton += MoveAgent; // Subscribe to the right mouse button event.
         inputControllerPerson.onLeftMouseButton += UpdateFocusInteract; // Subscribe to the left mouse button event.
         OnPointerEnterUI.onPointerEnterUI += IsPointerEnterUI; //checking whether the mouse cursor is on the UI
+        isPointerEnterUI = false;
     }
 
     
@@ -48,6 +49,7 @@ public class PersonMoveControl : MonoBehaviour
         inputControllerPerson.onRightMouseButton -= MoveAgent; // Unsubscribe from the right mouse button event.
         inputControllerPerson.onLeftMouseButton -= UpdateFocusInteract; // Unsubscribe from the left mouse button event.
         OnPointerEnterUI.onPointerEnterUI -= IsPointerEnterUI; //checking whether the mouse cursor is on the UI
+        isPointerEnterUI = true;
     }
 
     
@@ -64,7 +66,7 @@ public class PersonMoveControl : MonoBehaviour
     // Method to move the agent to the clicked position.
     private void MoveAgent()
     {
-        if (isPointerEnterUI) return;
+        if (isPointerEnterUI) return; 
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance, terraLayer))

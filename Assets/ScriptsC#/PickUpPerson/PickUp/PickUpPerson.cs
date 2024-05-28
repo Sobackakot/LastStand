@@ -24,7 +24,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     {   
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            characterSystem.CharacterPick(id);  //activating a character to control it
+            characterSystem?.CharacterPick(id);  //activating a character to control it
         }
         else
         {
@@ -36,7 +36,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         if (!isInitialized)
         {
             isInitialized = true;
-            characterSystem.AddPersonList(this, personData);//adds a new character to my squad list
+            characterSystem?.AddPersonList(this, personData);//adds a new character to my squad list
             id = personData.data.ID;
         }
     } 

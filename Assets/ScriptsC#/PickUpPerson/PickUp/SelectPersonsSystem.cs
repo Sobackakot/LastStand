@@ -22,7 +22,7 @@ public class SelectPersonsSystem : MonoBehaviour
 
     // OnGUI is called for rendering and handling GUI events.
     private void OnGUI()
-    {
+    { 
         GUI.skin = GUISkin; // Set the GUI skin.
         GUI.depth = sortingLayer; // Set the sorting layer.
         StartSelect(); // Handle the start of the selection.
@@ -64,7 +64,7 @@ public class SelectPersonsSystem : MonoBehaviour
     private void StartSelect()
     {
         if (Input.GetMouseButtonDown(0))
-        {
+        { 
             startPoint = Input.mousePosition; // Record the starting point of the selection.
             drawFrame = true; // Enable the drawing of the selection frame.
         }
@@ -77,11 +77,11 @@ public class SelectPersonsSystem : MonoBehaviour
         {
             endPoint = Input.mousePosition; // Update the ending point of the selection.
             if (Vector2.Distance(startPoint, endPoint) > selectionThreshold)
-            {
+            { 
                 // Calculate the inverted rectangle for the selection box.
                 rectTransform = GetInvertRectByScreenPoint(startPoint, endPoint); 
                 GUI.Box(rectTransform, ""); // Draw the selection box.
-                SelectPersons(rectTransform); // Select persons within the selection box.
+                SelectPersons(rectTransform); // Select persons within the selection box. 
             }
         }
     }
@@ -92,7 +92,7 @@ public class SelectPersonsSystem : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             endPoint = Input.mousePosition; // Finalize the ending point of the selection.
-            drawFrame = false; // Disable the drawing of the selection frame.
+            drawFrame = false; // Disable the drawing of the selection frame.  
         }
     }
 

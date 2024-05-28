@@ -1,17 +1,20 @@
 
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
-{
+public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IDropHandler
+{ 
     private Transform transformSlot;
     private Image itemIcon;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
     private ItemScrObj itemScrObj;
-
+    private ItemInSlot itemInSlot;
+    private bool IsHasItem => itemInSlot != null;
+     
     private void Awake()
     {
         transformSlot = GetComponent<Transform>(); 
@@ -36,15 +39,41 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         itemAmount.text = " ";
     }
 
+    public void CheckCurrentItemInSlot()
+    {
+        if (itemInSlot != null && itemInSlot.itemAmount < 1)
+            CleareSlot();
+    }
     public void OnPointerClick(PointerEventData eventData)
     { 
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            LeftButtonClickOnSlot();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
-    { 
+    {
+        
     }
 
     public void OnPointerExit(PointerEventData eventData)
     { 
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (IsHasItem)
+        {
+             
+        }
+    }
+    private void LeftButtonClickOnSlot()
+    { 
+        if (IsHasItem) 
+        {
+            
+            CleareSlot();
+        }   
     }
 }
