@@ -1,5 +1,6 @@
  
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // Class to manage the selection of persons.
 public class SelectPersonsSystem : MonoBehaviour
@@ -63,6 +64,7 @@ public class SelectPersonsSystem : MonoBehaviour
     // Method to start the selection process.
     private void StartSelect()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return; //checking that the mouse cursor is not on the ui element
         if (Input.GetMouseButtonDown(0))
         { 
             startPoint = Input.mousePosition; // Record the starting point of the selection.

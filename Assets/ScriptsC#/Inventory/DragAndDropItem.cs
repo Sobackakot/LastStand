@@ -8,17 +8,17 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
 {     
     private ItemScrObj itemScrObj;
 
-    private Transform currentItem;
+    private RectTransform pickItemTrnasform;
     private Image currentIconItem;
     private TextMeshProUGUI currentAmountItem;
     private TextMeshProUGUI currentNameItem; 
 
     private void Awake()
     {
-        currentItem = GetComponent<Transform>();
+        pickItemTrnasform = GetComponent<RectTransform>();
         currentIconItem = GetComponent<Image>();
-        currentNameItem = currentItem.GetChild(0).GetComponent<TextMeshProUGUI>();
-        currentAmountItem = currentItem.GetChild(1).GetComponent<TextMeshProUGUI>();
+        currentNameItem = pickItemTrnasform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        currentAmountItem = pickItemTrnasform.GetChild(1).GetComponent<TextMeshProUGUI>();
          
     }
     public void OnBeginDrag(PointerEventData eventData)
@@ -26,7 +26,8 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     }
 
     public void OnDrag(PointerEventData eventData)
-    { 
+    {
+        pickItemTrnasform.anchoredPosition += eventData.delta;
     }
 
     public void OnEndDrag(PointerEventData eventData)
