@@ -21,7 +21,7 @@ public class InventotyUI : MonoBehaviour
     {
         inventory.onUpdateInventorySlots -= UpdateInventorySlots;
     }
-    private void UpdateInventorySlots()
+    private void UpdateInventorySlots() //coll from InventoryContoller
     {
         for (int i = 0; i < slots.Length; i++)
         {

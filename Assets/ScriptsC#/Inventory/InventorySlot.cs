@@ -6,8 +6,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IDropHandler
-{ 
-    private Transform transformSlot;
+{
+    private InventoryContoller inventory;
+
+    private RectTransform transformSlot;
+
     private Image itemIcon;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
@@ -15,12 +18,13 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
      
     private void Awake()
     {
-        transformSlot = GetComponent<Transform>(); 
+        transformSlot = GetComponent<RectTransform>(); 
         itemIcon = transformSlot.GetChild(0).GetComponent<Image>();
         itemName = transformSlot.GetChild(1).GetComponent<TextMeshProUGUI>();
-        itemAmount = transformSlot.GetChild(2).GetComponent<TextMeshProUGUI>(); 
-    }
-    public void AddItemToSlot(ItemScrObj newItem)
+        itemAmount = transformSlot.GetChild(2).GetComponent<TextMeshProUGUI>();
+        inventory = InventoryContoller.Instance;
+    } 
+    public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
     {   
         itemScrObj = newItem; 
         itemName.text = itemScrObj.NameItem;
@@ -28,7 +32,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         itemIcon.sprite = itemScrObj.IconItem;
         itemIcon.enabled = true; 
     }
-    public void CleareSlot()
+    public void CleareSlot() // coll from InventotyUI
     {
         itemScrObj = null; 
         itemIcon.sprite = null;
@@ -40,7 +44,9 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     public void CheckCurrentItemInSlot()
     {
         if (itemScrObj != null && itemScrObj.item.itemAmount < 1)
-            CleareSlot();
+        {
+            CleareSlot(); 
+        } 
     }
     public void OnPointerClick(PointerEventData eventData)
     { 
@@ -65,7 +71,6 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
     private void LeftButtonClickOnSlot()
     { 
-          
-          
+        inventory.currentItem.PickUpItem(itemScrObj, transformSlot); 
     }
 }

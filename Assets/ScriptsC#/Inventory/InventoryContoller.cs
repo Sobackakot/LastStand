@@ -7,6 +7,9 @@ public class InventoryContoller : MonoBehaviour
 {    
     public static InventoryContoller Instance;
 
+    [HideInInspector] public DragAndDropItem currentItem;
+    private Transform inventoryTransform;
+
     public readonly List<ItemScrObj> itemsList = new List<ItemScrObj>();
 
     public event Action onUpdateInventorySlots;
@@ -21,9 +24,14 @@ public class InventoryContoller : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this);    
+        DontDestroyOnLoad(this); 
     }
-    public bool AddItemToInventoty(ItemScrObj newItem)
+    private void Start()
+    {
+        inventoryTransform = GetComponent<Transform>();
+        currentItem = inventoryTransform.GetChild(2).GetComponent<DragAndDropItem>();
+    }
+    public bool AddItemToInventoty(ItemScrObj newItem) //call from  PickUpItems 
     {
         if (itemsList.Count >= space) return false;
         itemsList.Add(newItem);
