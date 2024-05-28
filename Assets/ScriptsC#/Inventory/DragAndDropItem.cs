@@ -11,14 +11,15 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     private Transform currentItem;
     private Image currentIconItem;
     private TextMeshProUGUI currentAmountItem;
-    private TextMeshProUGUI currentNameItem;
-    private int AmountItem;
+    private TextMeshProUGUI currentNameItem; 
+
     private void Awake()
     {
         currentItem = GetComponent<Transform>();
-        currentIconItem = currentItem.GetChild(0).GetComponent<Image>();
+        currentIconItem = GetComponent<Image>();
+        currentNameItem = currentItem.GetChild(0).GetComponent<TextMeshProUGUI>();
         currentAmountItem = currentItem.GetChild(1).GetComponent<TextMeshProUGUI>();
-        currentNameItem = currentItem.GetChild(2).GetComponent<TextMeshProUGUI>();  
+         
     }
     public void OnBeginDrag(PointerEventData eventData)
     { 
@@ -35,17 +36,18 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHan
     public void OnPointerDown(PointerEventData eventData)
     { 
     }
-    public void PickUpItem(ItemInSlot itemInSlot)
+    public void PickUpItem(ItemScrObj itemInSlot)
     {   
-        itemScrObj = itemInSlot.itemScrObj;
+        itemScrObj = itemInSlot;
         currentIconItem.sprite = itemScrObj.IconItem;
         currentAmountItem.text = itemScrObj.item.itemAmount.ToString();
         currentNameItem.text = itemScrObj.NameItem;
     }
-    public void DropPickItem(ItemScrObj newItemScrObj)
+    public void DropPickItem(out ItemScrObj newItemScrObj)
     {
         newItemScrObj = itemScrObj;
-        newItemScrObj.IconItem = currentIconItem.sprite;
-        currentNameItem.text = newItemScrObj.NameItem;
+        currentIconItem.sprite = null;
+        currentAmountItem.text = " ";
+        currentNameItem.text = " ";
     }
 }

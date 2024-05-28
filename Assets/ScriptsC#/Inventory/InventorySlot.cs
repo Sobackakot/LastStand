@@ -11,9 +11,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     private Image itemIcon;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
-    private ItemScrObj itemScrObj;
-    private ItemInSlot itemInSlot;
-    private bool IsHasItem => itemInSlot != null;
+    private ItemScrObj itemScrObj; 
      
     private void Awake()
     {
@@ -28,7 +26,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         itemName.text = itemScrObj.NameItem;
         itemAmount.text = itemScrObj.item.itemAmount.ToString();
         itemIcon.sprite = itemScrObj.IconItem;
-        itemIcon.enabled = true;
+        itemIcon.enabled = true; 
     }
     public void CleareSlot()
     {
@@ -41,7 +39,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void CheckCurrentItemInSlot()
     {
-        if (itemInSlot != null && itemInSlot.itemAmount < 1)
+        if (itemScrObj != null && itemScrObj.item.itemAmount < 1)
             CleareSlot();
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -63,17 +61,11 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (IsHasItem)
-        {
-             
-        }
+         
     }
     private void LeftButtonClickOnSlot()
     { 
-        if (IsHasItem) 
-        {
-            
-            CleareSlot();
-        }   
+          
+          
     }
 }

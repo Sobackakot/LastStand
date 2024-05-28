@@ -23,16 +23,16 @@ public class InventoryContoller : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);    
     }
-    public bool AddItemToInventoty(ItemScrObj item)
+    public bool AddItemToInventoty(ItemScrObj newItem)
     {
         if (itemsList.Count >= space) return false;
-        itemsList.Add(item);
+        itemsList.Add(newItem);
         onUpdateInventorySlots?.Invoke();
         return true;
     }
-    public void RemoveItemFromInventoty(ItemScrObj item)
+    public void RemoveItemFromInventoty(ItemScrObj newItem)
     { 
-        itemsList.Remove(item);
+        itemsList.Remove(newItem);
         onUpdateInventorySlots?.Invoke();
     }
 }
