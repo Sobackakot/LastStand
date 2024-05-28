@@ -40,7 +40,7 @@ public class PersonMoveControl : MonoBehaviour
         inputControllerPerson.onRightMouseButton += MoveAgent; // Subscribe to the right mouse button event.
         inputControllerPerson.onLeftMouseButton += UpdateFocusInteract; // Subscribe to the left mouse button event.
         OnPointerEnterUI.onPointerEnterUI += IsPointerEnterUI; //checking whether the mouse cursor is on the UI
-        isPointerEnterUI = false;
+        isPointerEnterUI = false; // Reset flage
     }
 
     
@@ -49,7 +49,7 @@ public class PersonMoveControl : MonoBehaviour
         inputControllerPerson.onRightMouseButton -= MoveAgent; // Unsubscribe from the right mouse button event.
         inputControllerPerson.onLeftMouseButton -= UpdateFocusInteract; // Unsubscribe from the left mouse button event.
         OnPointerEnterUI.onPointerEnterUI -= IsPointerEnterUI; //checking whether the mouse cursor is on the UI
-        isPointerEnterUI = true;
+        isPointerEnterUI = true; // Reset flage
     }
 
     
@@ -60,13 +60,13 @@ public class PersonMoveControl : MonoBehaviour
     }
     private void  IsPointerEnterUI(bool isEnterUi) // coll from OnPointerEnterUI
     {
-        isPointerEnterUI = isEnterUi;
+        isPointerEnterUI = isEnterUi; // Set flage  
     }
 
     // Method to move the agent to the clicked position.
     private void MoveAgent()
     {
-        if (isPointerEnterUI) return; 
+        if (isPointerEnterUI) return; //checking that the mouse cursor does not fall into ui elements
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance, terraLayer))
@@ -79,7 +79,7 @@ public class PersonMoveControl : MonoBehaviour
     // Method to update the focus to an interactable object.
     private void UpdateFocusInteract()
     {
-        if (isPointerEnterUI) return;
+        if (isPointerEnterUI) return; //checking that the mouse cursor does not fall into ui elements
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance))

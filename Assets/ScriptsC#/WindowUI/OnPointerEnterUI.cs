@@ -7,17 +7,15 @@ public class OnPointerEnterUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         [HideInInspector] public bool isPointerEnterUI; 
     public static event Action <bool> onPointerEnterUI;
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData) //checks the position of the mouse cursor on ui elements
     { 
-        isPointerEnterUI = true;
-        Debug.Log(isPointerEnterUI);
+        isPointerEnterUI = true; 
         onPointerEnterUI?.Invoke(isPointerEnterUI);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData) //checks the position of the mouse cursor on ui elements
     {
-        isPointerEnterUI = false;
-        Debug.Log(isPointerEnterUI);
+        isPointerEnterUI = false; 
         onPointerEnterUI?.Invoke(isPointerEnterUI);
     }
 }
