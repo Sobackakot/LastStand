@@ -1,4 +1,5 @@
- 
+
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,7 +16,8 @@ public class SelectPersonsSystem : MonoBehaviour
     private Vector2 endPoint; // Ending point of the selection box.
     private int sortingLayer = 99; // Sorting layer for the GUI.
     private float selectionThreshold = 10f; // Minimum distance to start drawing the frame.
-     
+    private bool isPointerEnterUI = false;
+   
     private void Start()
     {
         characterSystem = CharacterSwitchSystem.Instance; 

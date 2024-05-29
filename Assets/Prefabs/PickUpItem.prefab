@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 515099616919549739}
   - component: {fileID: 3064832568771542090}
   - component: {fileID: 1891289021395389851}
-  - component: {fileID: 5077992451923008786}
   m_Layer: 5
   m_Name: PickUpItem
   m_TagString: Untagged
@@ -91,18 +90,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &5077992451923008786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139925937479842273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2081b404466799468a323bf008f3331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7475575627638008709
 GameObject:
   m_ObjectHideFlags: 0
