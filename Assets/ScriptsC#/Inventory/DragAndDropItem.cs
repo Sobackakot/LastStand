@@ -33,12 +33,6 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        pickItemTransform.SetParent(originalParent); 
-        // If the item was not dropped on a valid slot, return it to its original position
-        if(transform.parent == canvas.transform)
-        {
-            pickItemTransform.SetParent(originalParent);
-            pickItemTransform.anchoredPosition = Vector2.zero;
-        }
+        pickItemTransform.SetParent(originalParent);  
     }
 }

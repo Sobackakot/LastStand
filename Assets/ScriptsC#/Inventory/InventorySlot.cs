@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.UI; 
 
 public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -51,8 +51,17 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
     public void OnDrop(PointerEventData eventData)
     {
         DragAndDropItem droppedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
-        transformItem.SetParent(droppedItem.originalParent); 
-        droppedItem.originalParent = transformSlot;
+        Transform formerPosition = droppedItem.originalParent;
+        if(formerPosition!=transformSlot)
+        {
+            droppedItem.originalParent = transformSlot;
+            droppedItem.transform.SetParent(transformSlot);
+        } 
+        if (transformSlot.childCount == 0)
+        {
+            transformItem.SetParent(transformSlot);
+        }
+        else transformItem.SetParent(formerPosition);
     }
     public void OnPointerUp(PointerEventData eventData)
     {
