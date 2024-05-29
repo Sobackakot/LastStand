@@ -1,17 +1,18 @@
 
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.EventSystems; 
 
 public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
-{     
+{
+    private Transform trnasformItem;
     private RectTransform pickItemTransform;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
      
     private void Awake()    
-    {    
+    {
+        trnasformItem = GetComponent<Transform>();
         pickItemTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = pickItemTransform.GetComponentInParent<Canvas>(); 
@@ -21,7 +22,8 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
-        pickItemTransform.SetParent(pickItemTransform.root);
+        trnasformItem = transform.parent;
+        pickItemTransform.SetParent(transform.root);
         pickItemTransform.SetAsLastSibling(); 
     } 
     public void OnDrag(PointerEventData eventData)
@@ -32,6 +34,6 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        pickItemTransform.SetParent(pickItemTransform.parent);
+        pickItemTransform.SetParent(trnasformItem);
     }  
 }

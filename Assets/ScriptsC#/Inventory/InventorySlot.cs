@@ -65,6 +65,6 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHa
 
     public void OnDrop(PointerEventData eventData)
     {
-       
+       transformItem.position = transformSlot.position;
     }   
 }
