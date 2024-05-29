@@ -5,35 +5,40 @@ using UnityEngine.EventSystems;
 
 public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    private Transform trnasformItem;
+    [HideInInspector] public Transform originalParent;
     private RectTransform pickItemTransform;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
-     
-    private void Awake()    
+
+    private void Awake()
     {
-        trnasformItem = GetComponent<Transform>();
         pickItemTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        canvas = pickItemTransform.GetComponentInParent<Canvas>(); 
+        canvas = pickItemTransform.GetComponentInParent<Canvas>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
-        trnasformItem = transform.parent;
-        pickItemTransform.SetParent(transform.root);
-        pickItemTransform.SetAsLastSibling(); 
-    } 
+        originalParent = transform.parent;
+        pickItemTransform.SetParent(canvas.transform);
+        pickItemTransform.SetAsLastSibling();
+    }
     public void OnDrag(PointerEventData eventData)
     {
-        pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; 
-    } 
+        pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+    }
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
-        pickItemTransform.SetParent(trnasformItem);
-    }  
+        pickItemTransform.SetParent(originalParent); 
+        // If the item was not dropped on a valid slot, return it to its original position
+        if(transform.parent == canvas.transform)
+        {
+            pickItemTransform.SetParent(originalParent);
+            pickItemTransform.anchoredPosition = Vector2.zero;
+        }
+    }
 }

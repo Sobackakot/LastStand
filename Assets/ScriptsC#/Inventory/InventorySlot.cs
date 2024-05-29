@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IDropHandler
+public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    private ItemScrObj itemScrObj; 
-
+    private ItemScrObj itemScrObj;
+     
     private RectTransform transformSlot;
-    private RectTransform transformItem;
+    private Transform transformItem;
 
     private Image itemIcon;
     private TextMeshProUGUI itemName;
@@ -17,9 +17,9 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHa
     
      
     private void Awake()
-    {
+    { 
         transformSlot = GetComponent<RectTransform>();
-        transformItem = transformSlot.GetChild(0).GetComponent<RectTransform>();
+        transformItem = transformSlot.GetChild(0).GetComponent<Transform>();
         itemIcon = transformSlot.GetChild(0).GetComponent<Image>();
         itemName = itemIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         itemAmount = itemIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>(); 
@@ -48,6 +48,22 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHa
             CleareSlot(); 
         } 
     }
+    public void OnDrop(PointerEventData eventData)
+    {
+        DragAndDropItem droppedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
+        transformItem.SetParent(droppedItem.originalParent); 
+        droppedItem.originalParent = transformSlot;
+    }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+         
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
          
@@ -55,16 +71,6 @@ public class InventorySlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
-    }
-    public void OnPointerDown(PointerEventData eventData)
-    {
          
     }
-  
-
-    public void OnDrop(PointerEventData eventData)
-    {
-       transformItem.position = transformSlot.position;
-    }   
 }
