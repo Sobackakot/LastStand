@@ -23,8 +23,7 @@ public class DragAndDropItem : MonoBehaviour
         canvas = pickItemTransform.GetComponentInParent<Canvas>();
         iconItem = GetComponent<Image>();
         nameItem = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        amountItem = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        canvasGroup.blocksRaycasts = false;
+        amountItem = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>(); 
     }
 
     public void OnBeginDragItem()
@@ -34,7 +33,7 @@ public class DragAndDropItem : MonoBehaviour
     }
     public void OnDragItem()
     {
-        if (!isDragging) return;
+        if (!isDragging) return; 
         pickItemTransform.position = Input.mousePosition;
         Debug.Log("Drugg");
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI; 
 
-public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class InventorySlot : MonoBehaviour,IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private InventoryContoller inventorySystem;
     private ItemScrObj dataItem;
@@ -37,6 +37,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
     }
     public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
     {   
+        if(newItem == null) return;
         dataItem = newItem; 
         itemName.text = dataItem.NameItem;
         itemAmount.text = dataItem.item.itemAmount.ToString();
@@ -58,16 +59,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
         {
             CleareSlot(); 
         } 
-    }
-    public void OnDrop(PointerEventData eventData)
-    {
-        Debug.Log("Drop");
-        inventorySystem.currentItem.DropItemInSlot(out dataItem);
-        AddItemToSlot(dataItem); 
-    }
+    } 
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (dataItem == null) return;
         inventorySystem.currentItem.OnPointerDownItem();
         inventorySystem.currentItem.PickUpItemInSlot(dataItem);
         inventorySystem.currentItem.OnBeginDragItem();
@@ -78,6 +74,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
     {
         inventorySystem.currentItem.OnPointerUpItem();
         inventorySystem.currentItem.OnEndDragItem();
+        if (dataItem == null)
+        {
+            inventorySystem.currentItem.DropItemInSlot(out dataItem);
+            AddItemToSlot(dataItem);
+            Debug.Log("Drop");
+        }
         Debug.Log("PointerUpSlot");
     }
 
