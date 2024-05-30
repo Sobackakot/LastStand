@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler,IPointerDownHandler,IPointerUpHandler
+public class DragAndDropItem : MonoBehaviour
 { 
     private RectTransform pickItemTransform;
     private CanvasGroup canvasGroup;
@@ -24,30 +24,30 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         iconItem = GetComponent<Image>();
         nameItem = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>();
         amountItem = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        canvasGroup.blocksRaycasts = false;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void OnBeginDragItem()
     {
-        canvasGroup.alpha = 0.9f;
-        canvasGroup.blocksRaycasts = false;
+        canvasGroup.alpha = 0.6f; 
         Debug.Log("BeginDrugg");
     }
-    public void OnDrag(PointerEventData eventData)
+    public void OnDragItem()
     {
-        pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        if (!isDragging) return;
+        pickItemTransform.position = Input.mousePosition;
         Debug.Log("Drugg");
     }
-    public void OnEndDrag(PointerEventData eventData)
+    public void OnEndDragItem()
     {
-        canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
+        canvasGroup.alpha = 1f; 
         Debug.Log("EndDrugg");
     }
 
     public void UpdatePointEnter(RectTransform enterPoint)
     {
-        gameObject.SetActive(true);
-        canvasGroup.alpha = 0.2f;
+        gameObject.SetActive(true); 
+        canvasGroup.alpha = 0.2f; 
         pickItemTransform.position = enterPoint.position;
     }
     public void PickUpItemInSlot(ItemScrObj newData)
@@ -57,17 +57,27 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         nameItem.text = dataItem.NameItem;
         amountItem.text = dataItem.item.itemAmount.ToString();
     }
+    public void DropItemInSlot(out ItemScrObj currentData)
+    {
+        currentData = dataItem; 
+        dataItem = null;
+        iconItem.sprite = null;
+        nameItem.text = " ";
+        amountItem.text = " ";
+        gameObject.SetActive(false);
+    }
     public bool IsDragging()
     {
-        return isDragging;
+        Debug.Log("isDrugging = " + isDragging);
+        return isDragging; 
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDownItem()
     {
         isDragging = true;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public void OnPointerUpItem()
     {
         isDragging = false;
     }

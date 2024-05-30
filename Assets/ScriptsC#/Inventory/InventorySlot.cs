@@ -16,7 +16,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
     
-    
+    private bool isDraggingItem = false;
+
     private void Awake()
     { 
         transformSlot = GetComponent<RectTransform>();
@@ -28,6 +29,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
     private void Start()
     {
         inventorySystem = InventoryContoller.Instance;
+    }
+    private void LateUpdate()
+    {   
+        if(isDraggingItem)
+            inventorySystem.currentItem.OnDragItem();
     }
     public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
     {   
@@ -54,29 +60,35 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
         } 
     }
     public void OnDrop(PointerEventData eventData)
-    {    
-        
-        
+    {
+        Debug.Log("Drop");
+        inventorySystem.currentItem.DropItemInSlot(out dataItem);
+        AddItemToSlot(dataItem); 
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("DownSlot");
+        inventorySystem.currentItem.OnPointerDownItem();
         inventorySystem.currentItem.PickUpItemInSlot(dataItem);
+        inventorySystem.currentItem.OnBeginDragItem();
+        CleareSlot();
+        Debug.Log("PointerDownSlot"); 
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-       
+        inventorySystem.currentItem.OnPointerUpItem();
+        inventorySystem.currentItem.OnEndDragItem();
+        Debug.Log("PointerUpSlot");
     }
 
     
      
     public void OnPointerEnter(PointerEventData eventData)
     {
-        bool isDrugg = inventorySystem.currentItem.IsDragging();
-        if (isDrugg) return;
+        isDraggingItem = inventorySystem.currentItem.IsDragging();
+        if (isDraggingItem) return;
         inventorySystem.currentItem.UpdatePointEnter(transformSlot);
-        Debug.Log("EnterSlot");
+        Debug.Log("PointerEntert");
     }
 
     public void OnPointerExit(PointerEventData eventData)
