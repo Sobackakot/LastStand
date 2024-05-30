@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryContoller : MonoBehaviour
 {    
     public static InventoryContoller Instance;
+    private Transform inventorySystem;
 
     [HideInInspector] public DragAndDropItem currentItem; 
 
@@ -23,7 +24,9 @@ public class InventoryContoller : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject); 
+        DontDestroyOnLoad(gameObject);
+        inventorySystem = GetComponent<Transform>();  
+        currentItem = inventorySystem.GetChild(2).GetComponent<DragAndDropItem>();   
     } 
     public bool AddItemToInventoty(ItemScrObj newItem) //call from  PickUpItems 
     {

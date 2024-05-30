@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    private InventoryContoller inventorySystem;
     private ItemScrObj itemScrObj;
      
     private RectTransform transformSlot;
@@ -15,7 +16,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
     
-     
+    
     private void Awake()
     { 
         transformSlot = GetComponent<RectTransform>();
@@ -23,7 +24,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
         itemIcon = transformSlot.GetChild(0).GetComponent<Image>();
         itemName = itemIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         itemAmount = itemIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>(); 
-    } 
+    }
+    private void Start()
+    {
+        inventorySystem = InventoryContoller.Instance;
+    }
     public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
     {   
         itemScrObj = newItem; 
@@ -49,33 +54,27 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerUpHandler, IPo
         } 
     }
     public void OnDrop(PointerEventData eventData)
-    {
-        DragAndDropItem droppedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
-        Transform formerPosition = droppedItem.originalParent;
-        if(formerPosition!=transformSlot)
-        {
-            droppedItem.originalParent = transformSlot;
-            droppedItem.transform.SetParent(transformSlot);
-        } 
-        if (transformSlot.childCount == 0)
-        {
-            transformItem.SetParent(transformSlot);
-        }
-        else transformItem.SetParent(formerPosition);
-    }
-    public void OnPointerUp(PointerEventData eventData)
-    {
+    {    
+        
         
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-         
+        Debug.Log("DownSlot");
+    }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+       
     }
 
+    
+     
     public void OnPointerEnter(PointerEventData eventData)
     {
-         
+        bool isDragg = inventorySystem.currentItem.IsDragging();
+        inventorySystem.currentItem.UpdatePointEnter(transformSlot);
+        Debug.Log("isDragg = " + isDragg);
     }
 
     public void OnPointerExit(PointerEventData eventData)
