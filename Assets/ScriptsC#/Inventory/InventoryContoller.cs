@@ -6,13 +6,12 @@ using UnityEngine;
 public class InventoryContoller : MonoBehaviour
 {    
     public static InventoryContoller Instance;
-    private Transform inventorySystem;
 
     [HideInInspector] public DragAndDropItem currentItem; 
 
     public readonly List<ItemScrObj> itemsList = new List<ItemScrObj>();
 
-    public event Action onUpdateInventorySlots;
+    public event Action onUpdateInventorySlots; // Event for class InventoryUI
 
     private int space = 48;
 
@@ -24,9 +23,7 @@ public class InventoryContoller : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-        inventorySystem = GetComponent<Transform>();  
-        currentItem = inventorySystem.GetChild(2).GetComponent<DragAndDropItem>();   
+        DontDestroyOnLoad(gameObject); 
     } 
     public bool AddItemToInventoty(ItemScrObj newItem) //call from  PickUpItems 
     {

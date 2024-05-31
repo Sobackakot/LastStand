@@ -1,16 +1,15 @@
 
- 
+
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventotyUI : MonoBehaviour
 {
-    private InventoryContoller inventory;
-    private Transform trnasformInventoty;
-    private InventorySlot[] slots;
+    private InventoryContoller inventory; 
+    private List<InventorySlot> slots = new List<InventorySlot>();
     private void Awake()
     { 
-        trnasformInventoty = GetComponent<Transform>();
-        slots = trnasformInventoty.GetComponentsInChildren<InventorySlot>(); 
+        slots.AddRange(GetComponentsInChildren<InventorySlot>(false));
     }
     private void Start()
     {
@@ -23,7 +22,7 @@ public class InventotyUI : MonoBehaviour
     }
     private void UpdateInventorySlots() //coll from InventoryContoller
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++)
         {
             if (i < inventory.itemsList.Count)
             {

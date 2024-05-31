@@ -1,40 +1,26 @@
 
-using TMPro;
+using TMPro; 
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI; 
 
-public class InventorySlot : MonoBehaviour,IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
-{
-    private InventoryContoller inventorySystem;
+public class InventorySlot : MonoBehaviour, IDropHandler
+{ 
     private ItemScrObj dataItem;
      
     private RectTransform transformSlot;
-    private Transform transformItem;
 
     private Image itemIcon;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
     
-    private bool isDraggingItem = false;
-
     private void Awake()
-    { 
-        transformSlot = GetComponent<RectTransform>();
-        transformItem = transformSlot.GetChild(0).GetComponent<Transform>();
+    {   
+        transformSlot = GetComponent<RectTransform>();  
         itemIcon = transformSlot.GetChild(0).GetComponent<Image>();
         itemName = itemIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         itemAmount = itemIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>(); 
-    }
-    private void Start()
-    {
-        inventorySystem = InventoryContoller.Instance;
-    }
-    private void LateUpdate()
-    {   
-        if(isDraggingItem)
-            inventorySystem.currentItem.OnDragItem();
-    }
+    } 
     public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
     {   
         if(newItem == null) return;
@@ -61,40 +47,23 @@ public class InventorySlot : MonoBehaviour,IPointerUpHandler, IPointerDownHandle
         } 
     } 
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (dataItem == null) return;
-        inventorySystem.currentItem.OnPointerDownItem();
-        inventorySystem.currentItem.PickUpItemInSlot(dataItem);
-        inventorySystem.currentItem.OnBeginDragItem();
-        CleareSlot();
-        Debug.Log("PointerDownSlot"); 
-    }
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        inventorySystem.currentItem.OnPointerUpItem();
-        inventorySystem.currentItem.OnEndDragItem();
-        if (dataItem == null)
+    public void OnDrop(PointerEventData eventData)
+    { 
+        DragAndDropItem dropedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();   
+        if(dropedItem == null) return;
+        Transform originalPoint = dropedItem.currentTransform;
+        // Swap items between the current slot and the dropped item's slot
+        if (originalPoint != transformSlot)
         {
-            inventorySystem.currentItem.DropItemInSlot(out dataItem);
-            AddItemToSlot(dataItem);
-            Debug.Log("Drop");
-        }
-        Debug.Log("PointerUpSlot");
+            // Move the current item (if any) to the dropped item's original slot
+            if (transformSlot.childCount > 0)
+            {
+                Transform currentPoint = transformSlot.GetChild(0);
+                currentPoint.SetParent(originalPoint);
+            }
+            // Move the dropped item to the current slot
+            dropedItem.currentTransform = transformSlot;
+        } 
     }
 
-    
-     
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        isDraggingItem = inventorySystem.currentItem.IsDragging();
-        if (isDraggingItem) return;
-        inventorySystem.currentItem.UpdatePointEnter(transformSlot);
-        Debug.Log("PointerEntert");
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-         
-    }
 }
