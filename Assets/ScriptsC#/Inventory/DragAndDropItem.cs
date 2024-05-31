@@ -5,38 +5,37 @@ using UnityEngine.EventSystems;
 public class DragAndDropItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 { 
     private RectTransform pickItemTransform;
-    [HideInInspector] public Transform currentTransform;
+    [HideInInspector] public Transform originalParent;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
-     
-
+      
     private void Awake()
     {   
-        currentTransform = GetComponent<Transform>();
+        originalParent = GetComponent<Transform>();
         pickItemTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        canvas = pickItemTransform.GetComponentInParent<Canvas>();
-    }
-
+        canvas = pickItemTransform.GetComponentInParent<Canvas>(); 
+    }  
     public void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f;
-        currentTransform = transform.parent;
+        originalParent = transform.parent;
         pickItemTransform.SetParent(canvas.transform);
-        pickItemTransform.SetAsLastSibling();
-        Debug.Log("BeginDrugg");
+        pickItemTransform.SetAsLastSibling(); 
     }
     public void OnDrag(PointerEventData eventData)
     {
-        pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        Debug.Log("Drugg");
+        pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; 
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (eventData.pointerEnter != null)
+        {
+            originalParent.GetComponent<InventorySlot>().CleareSlot(); 
+        }
         canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f; 
-        pickItemTransform.SetParent(currentTransform);
-        Debug.Log("EndDrugg");
-    }
+        canvasGroup.alpha = 1f;
+        pickItemTransform.SetParent(originalParent);
+    } 
 }

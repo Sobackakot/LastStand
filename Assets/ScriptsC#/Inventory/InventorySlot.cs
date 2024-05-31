@@ -5,7 +5,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI; 
 
 public class InventorySlot : MonoBehaviour, IDropHandler
-{ 
+{
+    InventoryContoller inventotySystem;
     private ItemScrObj dataItem;
      
     private RectTransform transformSlot;
@@ -20,7 +21,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         itemIcon = transformSlot.GetChild(0).GetComponent<Image>();
         itemName = itemIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         itemAmount = itemIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>(); 
-    } 
+    }
+    private void Start()
+    {
+        inventotySystem = InventoryContoller.Instance;
+    }
     public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
     {   
         if(newItem == null) return;
@@ -45,13 +50,16 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             CleareSlot(); 
         } 
-    } 
-
+    }  
     public void OnDrop(PointerEventData eventData)
+    {
+        DragAndDropItem dropedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
+        if (dropedItem == null) return;
+        Transform originalPoint = dropedItem.originalParent;
+        DropItemInSlot(originalPoint, dropedItem); 
+    }
+    private void DropItemInSlot(Transform originalPoint, DragAndDropItem dropedItem)
     { 
-        DragAndDropItem dropedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();   
-        if(dropedItem == null) return;
-        Transform originalPoint = dropedItem.currentTransform;
         // Swap items between the current slot and the dropped item's slot
         if (originalPoint != transformSlot)
         {
@@ -62,8 +70,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 currentPoint.SetParent(originalPoint);
             }
             // Move the dropped item to the current slot
-            dropedItem.currentTransform = transformSlot;
-        } 
+            dropedItem.originalParent = transformSlot;
+        }
+    }
+    private void DropItemInExit(Transform originalPoint, DragAndDropItem dropedItem)
+    { 
+
     }
 
 }
