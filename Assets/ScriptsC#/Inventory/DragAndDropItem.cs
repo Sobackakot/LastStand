@@ -30,10 +30,6 @@ public class DragAndDropItem : MonoBehaviour, IDragHandler, IBeginDragHandler, I
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (eventData.pointerEnter != null)
-        {
-            originalParent.GetComponent<InventorySlot>().CleareSlot(); 
-        }
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
         pickItemTransform.SetParent(originalParent);

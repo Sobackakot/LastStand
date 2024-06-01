@@ -17,7 +17,7 @@ public class PickUpItems : Interactable
     }
     private void PickUpItem()
     {   
-        if(item.isDefaultItem)
+        if(!item.isDefaultItem)
         {
             bool isPickUp = inventoty.AddItemToInventoty(item);
             if (isPickUp)
