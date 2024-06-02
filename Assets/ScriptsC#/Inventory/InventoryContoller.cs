@@ -24,7 +24,7 @@ public class InventoryContoller : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); 
-    } 
+    }
     public bool AddItemToInventoty(ItemScrObj newItem) //call from  PickUpItems 
     {
         if (itemsList.Count >= space) return false;
@@ -37,4 +37,5 @@ public class InventoryContoller : MonoBehaviour
         itemsList.Remove(newItem);
         onUpdateInventorySlots?.Invoke();
     }
+    
 }

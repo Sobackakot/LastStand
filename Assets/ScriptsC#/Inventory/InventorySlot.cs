@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI; 
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
 {
     InventoryContoller inventotySystem;
     private ItemScrObj dataItem;
@@ -78,4 +78,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {   
+            dataItem?.Use();
+        }
+    }
 }

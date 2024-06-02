@@ -11,9 +11,13 @@ public class ItemScrObj : ScriptableObject
     public float Weight;
     public bool isDefaultItem;
     public bool isStackable;
-
+    
     public virtual void Use()
     {
-         
+
+    }
+    public void RemoveItemFromInventorySlot()
+    {
+        InventoryContoller.Instance.RemoveItemFromInventoty(this);
     }
 }

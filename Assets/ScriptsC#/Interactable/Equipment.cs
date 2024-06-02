@@ -10,9 +10,11 @@ public class Equipment : ItemScrObj
     public override void Use()
     {
         base.Use();
+        EquipmentController.Instance.EquipItem(this);
+        RemoveItemFromInventorySlot();
     }
 }
-public enum EquipItem
+public enum EquipItem : byte
 {
     Helmet,
     T_shirt,
