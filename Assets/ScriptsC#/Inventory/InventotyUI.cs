@@ -6,10 +6,10 @@ using UnityEngine;
 public class InventotyUI : MonoBehaviour
 {
     private InventoryContoller inventory; 
-    private List<InventorySlot> slots = new List<InventorySlot>();
+    private List<ItemInSlot> slots = new List<ItemInSlot>();
     private void Awake()
     { 
-        slots.AddRange(GetComponentsInChildren<InventorySlot>(false));
+        slots.AddRange(GetComponentsInChildren<ItemInSlot>(false));
     }
     private void Start()
     {
@@ -26,12 +26,12 @@ public class InventotyUI : MonoBehaviour
         {
             if (i < inventory.itemsList.Count)
             {
-                slots[i].AddItemToSlot(inventory.itemsList[i]);
+                slots[i].AddItemInSlot(inventory.itemsList[i]); 
             }
             else
             {
-                slots[i].CleareSlot();
+                slots[i].CleareInSlot();
             }
         }
-    }
+    } 
 }

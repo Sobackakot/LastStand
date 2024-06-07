@@ -5,9 +5,7 @@ using UnityEngine;
 
 public class InventoryContoller : MonoBehaviour
 {    
-    public static InventoryContoller Instance;
-
-    [HideInInspector] public DragAndDropItem currentItem; 
+    public static InventoryContoller Instance; 
 
     public readonly List<ItemScrObj> itemsList = new List<ItemScrObj>();
 
@@ -36,6 +34,5 @@ public class InventoryContoller : MonoBehaviour
     { 
         itemsList.Remove(newItem);
         onUpdateInventorySlots?.Invoke();
-    }
-    
+    } 
 }

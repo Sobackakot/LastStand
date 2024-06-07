@@ -1,88 +1,37 @@
 
-using TMPro; 
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
-{
-    InventoryContoller inventotySystem;
-    private ItemScrObj dataItem;
-     
-    private RectTransform transformSlot;
-
-    private Image itemIcon;
-    private TextMeshProUGUI itemName;
-    private TextMeshProUGUI itemAmount;
+public class InventorySlot : MonoBehaviour, IDropHandler   
+{ 
+    private RectTransform transformSlot; 
     
     private void Awake()
     {   
-        transformSlot = GetComponent<RectTransform>();  
-        itemIcon = transformSlot.GetChild(0).GetComponent<Image>();
-        itemName = itemIcon.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        itemAmount = itemIcon.transform.GetChild(1).GetComponent<TextMeshProUGUI>(); 
-    }
-    private void Start()
-    {
-        inventotySystem = InventoryContoller.Instance;
-    }
-    public void AddItemToSlot(ItemScrObj newItem) // coll from InventotyUI
-    {   
-        if(newItem == null) return;
-        dataItem = newItem; 
-        itemName.text = dataItem.NameItem;
-        itemAmount.text = dataItem.item.itemAmount.ToString();
-        itemIcon.sprite = dataItem.IconItem;
-        itemIcon.enabled = true; 
-    }
-    public void CleareSlot() // coll from InventotyUI
-    {
-        dataItem = null; 
-        itemIcon.sprite = null;
-        itemIcon.enabled = false;
-        itemName.text = " ";
-        itemAmount.text = " ";
-    }
-
-    public void CheckCurrentItemInSlot()
-    {
-        if (dataItem != null && dataItem.item.itemAmount < 1)
-        {
-            CleareSlot(); 
-        } 
+        transformSlot = GetComponent<RectTransform>();   
     }  
     public void OnDrop(PointerEventData eventData)
     {
-        DragAndDropItem dropedItem = eventData.pointerDrag.GetComponent<DragAndDropItem>();
+        ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
         if (dropedItem == null) return;
-        Transform originalPoint = dropedItem.originalParent;
-        DropItemInSlot(originalPoint, dropedItem); 
+        Transform originalParent = dropedItem.originalParent;
+        DropItemInSlot(originalParent, dropedItem); 
     }
-    private void DropItemInSlot(Transform originalPoint, DragAndDropItem dropedItem)
+    private void DropItemInSlot(Transform originalParent, ItemInSlot dropedItem)
     { 
-        // Swap items between the current slot and the dropped item's slot
-        if (originalPoint != transformSlot)
+        // Swap items between the current originalSlot and the dropped item's originalSlot
+        if (originalParent != transformSlot)
         {
-            // Move the current item (if any) to the dropped item's original slot
+            // Move the current item (if any) to the dropped item's original originalSlot
             if (transformSlot.childCount > 0)
             {
                 Transform currentPoint = transformSlot.GetChild(0);
-                currentPoint.SetParent(originalPoint);
+                currentPoint.SetParent(originalParent);
             }
-            // Move the dropped item to the current slot
+            // Move the dropped item to the current originalSlot
             dropedItem.originalParent = transformSlot;
         }
-    }
-    private void DropItemInExit(Transform originalPoint, DragAndDropItem dropedItem)
-    { 
-
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if(eventData.button == PointerEventData.InputButton.Left)
-        {   
-            dataItem?.Use();
-        }
-    }
+    }  
 }
