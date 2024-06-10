@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler 
 {
     [Header("Additional components required!!!")]
     [Header("1). Image - avatar ")]
@@ -45,22 +45,14 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler, IPointerEnte
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            HandleClick(); 
+            HandleClick();
+            frameCellImage.SetActive(true);
         }
         else
         {
             ActiveButtonRemove();
         }
-    }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        frameCellImage.SetActive(true); 
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        frameCellImage.SetActive(false); 
-    }
+    }  
     public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
     {
         personDataUI = personData;

@@ -22,7 +22,21 @@ public class SelectPersonsSystem : MonoBehaviour
     {
         characterSystem = CharacterSwitchSystem.Instance; 
     }
-
+    private void OnEnable()
+    {
+        OnPointerEnterUI.onPointerEnterUI += IsPointerEnterUI;
+        isPointerEnterUI = false; // Reset flage
+    }
+    private void OnDisable()
+    {
+        OnPointerEnterUI.onPointerEnterUI -= IsPointerEnterUI;
+        isPointerEnterUI = true; // Reset flage
+    }
+    private void IsPointerEnterUI(bool isPointer)
+    {
+        isPointerEnterUI = isPointer;
+        Debug.Log("select "+ isPointerEnterUI);
+    }
     // OnGUI is called for rendering and handling GUI events.
     private void OnGUI()
     { 
@@ -66,7 +80,7 @@ public class SelectPersonsSystem : MonoBehaviour
     // Method to start the selection process.
     private void StartSelect()
     {
-        if (EventSystem.current.IsPointerOverGameObject()) return; //checking that the mouse cursor is not on the ui element
+        if (isPointerEnterUI) return; //checking that the mouse cursor does not fall into ui elements
         if (Input.GetMouseButtonDown(0))
         { 
             startPoint = Input.mousePosition; // Record the starting point of the selection.

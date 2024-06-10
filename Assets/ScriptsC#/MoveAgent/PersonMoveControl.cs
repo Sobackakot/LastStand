@@ -79,7 +79,6 @@ public class PersonMoveControl : MonoBehaviour
     // Method to update the focus to an interactable object.
     private void UpdateFocusInteract()
     {
-        if (isPointerEnterUI) return; //checking that the mouse cursor does not fall into ui elements
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayDistance))

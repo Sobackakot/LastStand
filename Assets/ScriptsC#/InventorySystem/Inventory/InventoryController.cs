@@ -25,7 +25,7 @@ public class InventoryController : MonoBehaviour
         itemsArray = new ItemScrObj[space];
     }
 
-    public bool AddItemToInventory(ItemScrObj newItem)
+    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController
     {
         for (int i = 0; i < itemsArray.Length; i++)
         {
@@ -39,7 +39,7 @@ public class InventoryController : MonoBehaviour
         return false; // Inventory is full
     }
 
-    public void RemoveItemFromInventory(ItemScrObj item)
+    public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemScrObj
     {
         for (int i = 0; i < itemsArray.Length; i++)
         {

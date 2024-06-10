@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Terra
   - Focus
+  - UI
   layers:
   - Default
   - TransparentFX

@@ -69,4 +69,5 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             dataItem?.Use();
         }
     }
+
 }
