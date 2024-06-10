@@ -1,8 +1,6 @@
-
-using TMPro;
+ 
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.EventSystems; 
 
 public class InventorySlot : MonoBehaviour, IDropHandler   
 { 

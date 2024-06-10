@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "InventoryContoller/Equip Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "InventoryController/Equip Item")]
 public class Equipment : ItemScrObj
 {
     public float Armor;

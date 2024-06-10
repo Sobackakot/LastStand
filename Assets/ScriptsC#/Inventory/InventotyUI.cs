@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventotyUI : MonoBehaviour
 {
-    private InventoryContoller inventory; 
+    private InventoryController inventory; 
     private List<ItemInSlot> slots = new List<ItemInSlot>();
     private void Awake()
     { 
@@ -13,22 +13,22 @@ public class InventotyUI : MonoBehaviour
     }
     private void Start()
     {
-        inventory = InventoryContoller.Instance;
+        inventory = InventoryController.Instance;
         inventory.onUpdateInventorySlots += UpdateInventorySlots;
     }
     private void OnDisable()
     {
         inventory.onUpdateInventorySlots -= UpdateInventorySlots;
     }
-    private void UpdateInventorySlots() //coll from InventoryContoller
+    private void UpdateInventorySlots() //coll from InventoryController
     {
         for (int i = 0; i < slots.Count; i++)
         {
-            if (i < inventory.itemsList.Count)
+            if (i < inventory.itemsArray.Length)
             {
-                slots[i].AddItemInSlot(inventory.itemsList[i]); 
+                slots[i].AddItemInSlot(inventory.itemsArray[i]); 
             }
-            else
+            if(inventory.itemsArray[i] == null)
             {
                 slots[i].CleareInSlot();
             }

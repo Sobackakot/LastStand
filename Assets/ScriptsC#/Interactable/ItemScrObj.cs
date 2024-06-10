@@ -1,7 +1,7 @@
  
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "InventoryContoller/Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "InventoryController/Item")]
 public class ItemScrObj : ScriptableObject
 {
     public Item item;
@@ -18,6 +18,6 @@ public class ItemScrObj : ScriptableObject
     }
     public void RemoveItemFromInventorySlot()
     {
-        InventoryContoller.Instance.RemoveItemFromInventoty(this);
+        InventoryController.Instance.RemoveItemFromInventory(this);
     }
 }

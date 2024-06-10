@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EquipmentController : MonoBehaviour
 {
-    private InventoryContoller inventorySystem;
+    private InventoryController inventorySystem;
     public static EquipmentController Instance;
     private Equipment[] equipmentCurrent;
     private void Awake()
@@ -20,7 +20,7 @@ public class EquipmentController : MonoBehaviour
     {
         int indexSlot = System.Enum.GetNames(typeof(EquipItem)).Length;
         equipmentCurrent = new Equipment[indexSlot];
-        inventorySystem = InventoryContoller.Instance;
+        inventorySystem = InventoryController.Instance;
     }
     public void EquipItem(Equipment newItem)
     {
@@ -29,7 +29,7 @@ public class EquipmentController : MonoBehaviour
         if (equipmentCurrent[currentIndex] != null)
         {
             oldItem = equipmentCurrent[currentIndex];
-            inventorySystem.AddItemToInventoty(oldItem);
+            inventorySystem.AddItemToInventory(oldItem);
         }
         equipmentCurrent[currentIndex] = newItem;
     }
@@ -38,7 +38,7 @@ public class EquipmentController : MonoBehaviour
         if (equipmentCurrent[currentIndex] != null)
         {
             Equipment oldItem = equipmentCurrent[currentIndex];
-            inventorySystem.AddItemToInventoty(oldItem);
+            inventorySystem.AddItemToInventory(oldItem);
             equipmentCurrent[currentIndex] = null;
         }
     }
