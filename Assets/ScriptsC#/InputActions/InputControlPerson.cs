@@ -9,10 +9,10 @@ public class InputControlPerson : MonoBehaviour
     public event Action onLeftMouseButton; //This Event for calss PersonMoveControl
 
     //Input Keyboard CharacterAnimatorControl
-    public event Action onCtrlButton; //This Event for calss CharacterAnimatorController
-    public event Action onSpaceButton;//This Event for calss CharacterAnimatorController  
+    public event Action onCtrlButton; //This Event for class CharacterAnimatorController
+    public event Action onSpaceButton;//This Event for class CharacterAnimatorController  
 
-    public event Action<bool> onActiveInventory;
+    public event Action<bool> onActiveInventory; //This Event for class SwitchActiveUI
 
     private InputActions inputActions;
 

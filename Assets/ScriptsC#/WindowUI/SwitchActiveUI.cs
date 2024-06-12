@@ -20,7 +20,7 @@ public class SwitchActiveUI : MonoBehaviour
     {
         inputPerson.onActiveInventory -= ActiveInventory;
     }
-    private void ActiveInventory(bool isSwitchActiv)
+    private void ActiveInventory(bool isSwitchActiv) //coll from InputControlPerson
     {
         if (isSwitchActiv)
         {
