@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class PersonData  
 { 
-    private string id;
+    private string id; 
     public string ID { get { return id; } private set { id = value; } }
      
     [Range(1, 100)]

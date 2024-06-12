@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "InventoryKey",
+                    "type": "Button",
+                    "id": "1f090498-89ba-4045-82fa-57f5e1220324",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -228,6 +237,17 @@
                     "processors": "ScaleVector2",
                     "groups": "",
                     "action": "SelectMouseDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15e67ab6-6658-4b9f-bba2-52c1d61874d3",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InventoryKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

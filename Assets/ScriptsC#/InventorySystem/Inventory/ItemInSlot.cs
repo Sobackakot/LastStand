@@ -27,7 +27,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemName = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>();
         itemAmount = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>();
     }
-    public void AddItemInSlot(ItemScrObj newItem) // coll from InventotyUI
+    public void AddItemInSlot(ItemScrObj newItem) // coll from InventoryUI
     {
         if (newItem == null) return;
         dataItem = newItem;
@@ -36,7 +36,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemIcon.sprite = dataItem.IconItem;
         itemIcon.enabled = true;
     }
-    public void CleareInSlot() // coll from InventotyUI
+    public void CleareInSlot() // coll from InventoryUI
     {
         dataItem = null;
         itemIcon.sprite = null;

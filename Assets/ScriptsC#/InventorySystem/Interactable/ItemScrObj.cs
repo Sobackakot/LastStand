@@ -20,4 +20,8 @@ public class ItemScrObj : ScriptableObject
     {
         InventoryController.Instance.RemoveItemFromInventory(this);
     }
+    public void SetIdFromNewItem()
+    { 
+
+    }
 }

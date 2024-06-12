@@ -1,7 +1,6 @@
 
 using System;
-using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine; 
 using UnityEngine.InputSystem;
 
 public class InputControlPerson : MonoBehaviour
@@ -13,7 +12,11 @@ public class InputControlPerson : MonoBehaviour
     public event Action onCtrlButton; //This Event for calss CharacterAnimatorController
     public event Action onSpaceButton;//This Event for calss CharacterAnimatorController  
 
-    private InputActions inputActions; 
+    public event Action<bool> onActiveInventory;
+
+    private InputActions inputActions;
+
+    private bool isSwitchInventoryActiv = false;
 
     private void OnEnable()
     {
@@ -24,8 +27,25 @@ public class InputControlPerson : MonoBehaviour
 
         inputActions.ActionMaps.CtrlButton.performed += ctx => CtrlButton_performed(ctx);
         inputActions.ActionMaps.SpaceButton.performed += ctx => SpaceButton_performed(ctx);
+
+        inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
+
     }
-     
+
+    private void InventoryKey_performed(InputAction.CallbackContext context)
+    {
+        if (context.performed && !isSwitchInventoryActiv)
+        {
+            onActiveInventory.Invoke(true);
+            isSwitchInventoryActiv= true;
+        } 
+        else
+        {
+            onActiveInventory.Invoke(false);
+            isSwitchInventoryActiv= false;
+        }
+    }
+
     private void OnDisable()
     {
         inputActions.Disable();

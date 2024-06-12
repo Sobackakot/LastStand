@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventotyUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
     private InventoryController inventory; 
     private List<ItemInSlot> slots = new List<ItemInSlot>();

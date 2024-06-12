@@ -36,7 +36,7 @@ public class InventoryController : MonoBehaviour
                 return true;
             }
         }
-        return false; // Inventory is full
+        return false; // InventoryPerson is full
     }
 
     public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemScrObj

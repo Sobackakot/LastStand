@@ -15,7 +15,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     [HideInInspector] public readonly Dictionary<PickUpPerson, PersonMoveControl> MoveComponents = new Dictionary<PickUpPerson, PersonMoveControl>();//components
 
 
-    private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30); //List persons UI slots 
+    private List<PickUpPersonUI> personsUISquad = new List<PickUpPersonUI>(30); //List persons UI slots  
       
     public event Action<bool, PickUpPerson> onResetFocusCamera; // This Event for calss CameraLookTarget   
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager
@@ -33,7 +33,7 @@ public class CharacterSwitchSystem : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         // Automatically fill the personsUISquad list with child PickUpPersonUI components
-        personsUISquad.AddRange(GetComponentsInChildren<PickUpPersonUI>(true));
+        personsUISquad.AddRange(GetComponentsInChildren<PickUpPersonUI>(true)); 
     }
     public void RemovePerson(string id) // call from PickUpPersonUI
     {   

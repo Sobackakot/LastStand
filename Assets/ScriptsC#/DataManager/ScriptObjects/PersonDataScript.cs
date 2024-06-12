@@ -8,5 +8,7 @@ public class PersonDataScript : ScriptableObject
 
     public Sprite spritePerson; 
 
-    public PersonData data; 
+    public PersonData data;
+
+    public InventoryPerson inventoryPerson;
 }

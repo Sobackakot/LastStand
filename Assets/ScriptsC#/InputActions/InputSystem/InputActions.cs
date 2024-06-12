@@ -107,6 +107,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""InventoryKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""1f090498-89ba-4045-82fa-57f5e1220324"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +261,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""SelectMouseDelta"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15e67ab6-6658-4b9f-bba2-52c1d61874d3"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +289,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_SpaceButton = m_ActionMaps.FindAction("SpaceButton", throwIfNotFound: true);
         m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
         m_ActionMaps_SelectMouseDelta = m_ActionMaps.FindAction("SelectMouseDelta", throwIfNotFound: true);
+        m_ActionMaps_InventoryKey = m_ActionMaps.FindAction("InventoryKey", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -339,6 +360,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_SpaceButton;
     private readonly InputAction m_ActionMaps_GetAxisDirectionMove;
     private readonly InputAction m_ActionMaps_SelectMouseDelta;
+    private readonly InputAction m_ActionMaps_InventoryKey;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -352,6 +374,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @SpaceButton => m_Wrapper.m_ActionMaps_SpaceButton;
         public InputAction @GetAxisDirectionMove => m_Wrapper.m_ActionMaps_GetAxisDirectionMove;
         public InputAction @SelectMouseDelta => m_Wrapper.m_ActionMaps_SelectMouseDelta;
+        public InputAction @InventoryKey => m_Wrapper.m_ActionMaps_InventoryKey;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -388,6 +411,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @SelectMouseDelta.started += instance.OnSelectMouseDelta;
             @SelectMouseDelta.performed += instance.OnSelectMouseDelta;
             @SelectMouseDelta.canceled += instance.OnSelectMouseDelta;
+            @InventoryKey.started += instance.OnInventoryKey;
+            @InventoryKey.performed += instance.OnInventoryKey;
+            @InventoryKey.canceled += instance.OnInventoryKey;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -419,6 +445,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @SelectMouseDelta.started -= instance.OnSelectMouseDelta;
             @SelectMouseDelta.performed -= instance.OnSelectMouseDelta;
             @SelectMouseDelta.canceled -= instance.OnSelectMouseDelta;
+            @InventoryKey.started -= instance.OnInventoryKey;
+            @InventoryKey.performed -= instance.OnInventoryKey;
+            @InventoryKey.canceled -= instance.OnInventoryKey;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -447,5 +476,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnSpaceButton(InputAction.CallbackContext context);
         void OnGetAxisDirectionMove(InputAction.CallbackContext context);
         void OnSelectMouseDelta(InputAction.CallbackContext context);
+        void OnInventoryKey(InputAction.CallbackContext context);
     }
 }
