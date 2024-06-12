@@ -7,9 +7,9 @@ public class Equipment : ItemScrObj
     public float Armor;
     public float Damage;
     public EquipItem IndexOfSlot;
-    public override void Use()
+    public override void UseItem()
     {
-        base.Use();
+        base.UseItem();
         EquipmentController.Instance.EquipItem(this);
         RemoveItemFromInventorySlot();
     }

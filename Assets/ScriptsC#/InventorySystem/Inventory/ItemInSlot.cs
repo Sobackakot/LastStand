@@ -66,7 +66,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            dataItem?.Use();
+            dataItem?.UseItem();
         }
     }
 

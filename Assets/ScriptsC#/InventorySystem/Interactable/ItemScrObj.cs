@@ -12,7 +12,7 @@ public class ItemScrObj : ScriptableObject
     public bool isDefaultItem;
     public bool isStackable;
     
-    public virtual void Use()
+    public virtual void UseItem()
     {
 
     }

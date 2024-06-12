@@ -1,6 +1,7 @@
  
 using System;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine; 
 
 public class CharacterSwitchSystem : MonoBehaviour
@@ -55,41 +56,7 @@ public class CharacterSwitchSystem : MonoBehaviour
         AddComponentsByDictionary(person); //Cached new person components
         DisableComponentsPerson(person); //if there is such an object in the list, then turn off the components in advance 
     }
-    private void RemovePersonList(PickUpPerson person, PersonDataScript dataScript) // Remove new person my group ...
-    {
-        ResetDataPerson(dataScript);
-        DisableComponentsPerson(person);
-        RemoveComponentsByDictionary(person);
-        PersonsSquad.Remove(person);  
-    }
-    private void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
-    {   
-        dataScript.data.SetNewPersonId(); // set new id person for PersonData
-        onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList from PersonDataManager
-        foreach (var uiGroup in personsUISquad)
-        {
-            if (!uiGroup.HasData()) //  check is first set  data for person. !!!need to add cells to the PickUpPersonUI list!!!
-            {
-                ActivePersonUI(uiGroup);
-                uiGroup.SetDataPersonUI(dataScript);
-                break; // Stop after finding the first empty slot
-            }
-        } 
-    }
-    private void ResetDataPerson(PersonDataScript dataScript)  //deletes all information in the ui and in the data
-    {   
-        string ID = dataScript.data.ID;
-       
-        onRemoveNewDataPerson?.Invoke(dataScript.data);// Remove data person for PersonsDataList from PersonDataManager 
-        foreach (var uiGroup in personsUISquad)
-        {
-            if (uiGroup.HasData() && uiGroup.id == ID) //  check is first set  data for person 
-            {
-                DeactivePersonUI(uiGroup); 
-                break; // Stop after finding the first empty slot
-            }
-        }
-    }
+   
 
     public void CharacterPick(string id) //click on the character to enable all components
     {
@@ -105,6 +72,7 @@ public class CharacterSwitchSystem : MonoBehaviour
                 DisableComponentsPerson(pick);
             }
         }
+        PickPersonUiFromCell(id);
     }
     public void ÑharacterSwitch(string id) //set focus camera for PickUpPersonUI 
     { 
@@ -122,6 +90,72 @@ public class CharacterSwitchSystem : MonoBehaviour
             }
         }
     }
+    public void EnableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
+    {
+        pick.isActive = true;
+        if (InputComponents.ContainsKey(pick))
+            InputComponents[pick].OnEnableComponent(); // next pick person Activating components
+        if (MoveComponents.ContainsKey(pick))
+            MoveComponents[pick].OnEnableComponent();
+    }
+    public void DisableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
+    {
+        pick.isActive = false;
+        if (InputComponents.ContainsKey(pick))
+            InputComponents[pick].OnDisableComponent();// Deactive  current person components
+        if (MoveComponents.ContainsKey(pick))
+            MoveComponents[pick].OnDisableComponent();
+    }
+
+
+
+
+
+
+    private void PickPersonUiFromCell(string id)
+    {
+        foreach(PickUpPersonUI pick in personsUISquad)
+        {
+            if(pick.id == id)
+                pick.EnableFrameByCell();
+            else pick.DisableFrameByCell();
+        }
+    } 
+    private void RemovePersonList(PickUpPerson person, PersonDataScript dataScript) // Remove new person my group ...
+    {
+        ResetDataPerson(dataScript);
+        DisableComponentsPerson(person);
+        RemoveComponentsByDictionary(person);
+        PersonsSquad.Remove(person);
+    }
+    private void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
+    {
+        dataScript.data.SetNewPersonId(); // set new id person for PersonData
+        onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList from PersonDataManager
+        foreach (var uiGroup in personsUISquad)
+        {
+            if (!uiGroup.HasData()) //  check is first set  data for person. !!!need to add cells to the PickUpPersonUI list!!!
+            {
+                ActivePersonUI(uiGroup);
+                uiGroup.SetDataPersonUI(dataScript);
+                break; // Stop after finding the first empty slot
+            }
+        }
+    }
+    private void ResetDataPerson(PersonDataScript dataScript)  //deletes all information in the ui and in the data
+    {
+        string ID = dataScript.data.ID;
+
+        onRemoveNewDataPerson?.Invoke(dataScript.data);// Remove data person for PersonsDataList from PersonDataManager 
+        foreach (var uiGroup in personsUISquad)
+        {
+            if (uiGroup.HasData() && uiGroup.id == ID) //  check is first set  data for person 
+            {
+                DeactivePersonUI(uiGroup);
+                break; // Stop after finding the first empty slot
+            }
+        }
+    }
     private void SetFocusCamera(PickUpPerson pick)
     {
         onResetFocusCamera?.Invoke(false, pick);// ResetLookPoint follow camera focus on selected for pick up Person
@@ -132,7 +166,7 @@ public class CharacterSwitchSystem : MonoBehaviour
         uiSlot.gameObject.SetActive(true);
         onUpdateCellSizeGrid?.Invoke(); //sets the size of character cells in the UI grid
     }
-    public void DeactivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group 
+    private void DeactivePersonUI(PickUpPersonUI uiSlot) //Deactive new person my ui slot group 
     {
         uiSlot.gameObject.SetActive(false);
         onUpdateCellSizeGrid?.Invoke();//sets the size of character cells in the UI grid
@@ -157,21 +191,5 @@ public class CharacterSwitchSystem : MonoBehaviour
             InputComponents.Remove(person);
             MoveComponents.Remove(person); 
         }      
-    }
-    public void EnableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
-    {
-        pick.isActive = true;
-        if (InputComponents.ContainsKey(pick))
-            InputComponents[pick].OnEnableComponent(); // next pick person Activating components
-        if (MoveComponents.ContainsKey(pick))
-            MoveComponents[pick].OnEnableComponent();
-    }
-    public void DisableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
-    {
-        pick.isActive = false;
-        if (InputComponents.ContainsKey(pick))
-            InputComponents[pick].OnDisableComponent();// Deactive  current person components
-        if (MoveComponents.ContainsKey(pick))
-            MoveComponents[pick].OnDisableComponent();
-    }
+    } 
 }

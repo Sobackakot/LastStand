@@ -41,12 +41,20 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         characterSystem = CharacterSwitchSystem.Instance;
         id = personDataUI.data.ID;
     }
+
+    public void EnableFrameByCell()
+    {
+        frameCellImage?.SetActive(true);
+    }
+    public void DisableFrameByCell()
+    {
+        frameCellImage?.SetActive(false);
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            HandleClick();
-            frameCellImage.SetActive(true);
+            HandleClick(); 
         }
         else
         {
@@ -83,7 +91,7 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         }
         else
         {
-            characterSystem?.CharacterPick(id); //activating a character to control it
+            characterSystem?.CharacterPick(id); //activating a character to control it 
         }
         lastClickTime = Time.time;
     }  
