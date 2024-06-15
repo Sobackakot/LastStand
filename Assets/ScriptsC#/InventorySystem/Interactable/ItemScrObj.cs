@@ -23,5 +23,5 @@ public class ItemScrObj : ScriptableObject
     public void SetIdFromNewItem()
     { 
 
-    }
+    } 
 }

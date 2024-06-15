@@ -5,7 +5,8 @@ public class EquipmentController : MonoBehaviour
 {
     private InventoryController inventorySystem;
     public static EquipmentController Instance;
-    private Equipment[] equipmentCurrent;
+    private EquipmentPerson equipmentPerson;
+
     private void Awake()
     {
         if (Instance != null)
@@ -18,34 +19,34 @@ public class EquipmentController : MonoBehaviour
     }
     private void Start()
     {
-        int indexSlot = System.Enum.GetNames(typeof(EquipItem)).Length;
-        equipmentCurrent = new Equipment[indexSlot];
         inventorySystem = InventoryController.Instance;
+        inventorySystem.onUpdateEquipmentSlot += UpdateEquipmentSlot;
     }
-    public void EquipItem(Equipment newItem)
+    private void OnEnable()
+    { 
+        
+    }
+    private void OnDisable()
     {
-        Debug.Log("Equip");
-        int currentIndex = (int)newItem.IndexOfSlot;
-        Equipment oldItem = null;
-        if (equipmentCurrent[currentIndex] != null)
-        {
-            oldItem = equipmentCurrent[currentIndex];
-            inventorySystem.AddItemToInventory(oldItem);
-        }
-        equipmentCurrent[currentIndex] = newItem;
+        inventorySystem.onUpdateEquipmentSlot -= UpdateEquipmentSlot;
+    }
+
+    private void UpdateEquipmentSlot(PersonDataScript person)
+    {
+        equipmentPerson = person.equipmentPerson;
+    }
+
+    public void EquipItem(Equipment newItem)
+    {   
+        equipmentPerson.EquipItemOnPerson(newItem);
     }
     public void UnEquipItem(int currentIndex)
-    { 
-        if (equipmentCurrent[currentIndex] != null)
-        {
-            Equipment oldItem = equipmentCurrent[currentIndex];
-            inventorySystem.AddItemToInventory(oldItem);
-            equipmentCurrent[currentIndex] = null;
-        }
+    {
+        equipmentPerson.UnEquipItemFromPerson(currentIndex);
     }
     private void UnEquipItemsAll()
     {
-       for(int i = 0; i< equipmentCurrent.Length; i++)
+       for(int i = 0; i< equipmentPerson.equipmentItem.Count; i++)
        {
             UnEquipItem(i);
        }

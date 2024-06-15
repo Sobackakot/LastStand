@@ -8,6 +8,7 @@ public class InventoryController : MonoBehaviour
     public static InventoryController Instance; 
 
     public event Action onUpdateInventorySlots; // Event for InventoryUI
+    public event Action<PersonDataScript> onUpdateEquipmentSlot;
     private InventoryPerson inventoryPerson;
 
 
@@ -28,7 +29,8 @@ public class InventoryController : MonoBehaviour
     public void SetPersonInventory(PersonDataScript person)
     {
         inventoryPerson = person.inventoryPerson;
-        onUpdateInventorySlots?.Invoke();
+        onUpdateInventorySlots?.Invoke(); 
+        onUpdateEquipmentSlot?.Invoke(person);
     }
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController
