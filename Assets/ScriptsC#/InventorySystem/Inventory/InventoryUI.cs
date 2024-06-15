@@ -6,7 +6,6 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     private InventoryController inventory;
-    private CharacterSwitchSystem personSystem;
 
     private List<ItemInSlot> slots = new List<ItemInSlot>();
 

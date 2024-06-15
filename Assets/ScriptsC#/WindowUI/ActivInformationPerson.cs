@@ -1,15 +1,19 @@
- 
+
 using UnityEngine;
 
-public class SwitchActiveUI : MonoBehaviour
+public class ActivInformationPerson : MonoBehaviour
 {
-    [SerializeField] private GameObject InventoryPerson;
-
+    [SerializeField] private GameObject InventoryPerson; 
     private InputControlPerson inputPerson;
-
+    private InventoryController inventory;
+     
     private void Awake()
     {
         inputPerson = GetComponent<InputControlPerson>();
+    }
+    private void Start()
+    {
+        inventory = InventoryController.Instance;
     }
 
     private void OnEnable()
@@ -25,6 +29,7 @@ public class SwitchActiveUI : MonoBehaviour
         if (isSwitchActiv)
         {
             InventoryPerson.SetActive(true);
+            inventory.UpdateInventory();
         }
         else
         {

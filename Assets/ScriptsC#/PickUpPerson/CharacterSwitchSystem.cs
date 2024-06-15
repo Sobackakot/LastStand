@@ -22,8 +22,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     public event Action<PersonData> onAddNewDataPerson; //This Event for PersonDataManager
     public event Action<PersonData> onRemoveNewDataPerson; //This Event for PersonDataManager  
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
-    public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson
-    public event Action onUpdateInventoryPerson;
+    public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson 
     
     private void Awake()
     {

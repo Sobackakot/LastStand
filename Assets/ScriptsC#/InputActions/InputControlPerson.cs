@@ -12,7 +12,7 @@ public class InputControlPerson : MonoBehaviour
     public event Action onCtrlButton; //This Event for class CharacterAnimatorController
     public event Action onSpaceButton;//This Event for class CharacterAnimatorController  
 
-    public event Action<bool> onActiveInventory; //This Event for class SwitchActiveUI
+    public event Action<bool> onActiveInventory; //This Event for class ActivInformationPerson
 
     private InputActions inputActions;
 

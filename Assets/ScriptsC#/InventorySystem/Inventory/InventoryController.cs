@@ -20,8 +20,11 @@ public class InventoryController : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject); 
-    } 
-
+    }
+    public void UpdateInventory()
+    {
+        onUpdateInventorySlots?.Invoke();
+    }
     public void SetPersonInventory(PersonDataScript person)
     {
         inventoryPerson = person.inventoryPerson;
