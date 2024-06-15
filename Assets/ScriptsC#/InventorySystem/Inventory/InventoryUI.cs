@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    private InventoryController inventory; 
+    private InventoryController inventory;
+    private CharacterSwitchSystem personSystem;
+
     private List<ItemInSlot> slots = new List<ItemInSlot>();
 
     private void Awake()
@@ -13,16 +15,17 @@ public class InventoryUI : MonoBehaviour
         slots.AddRange(GetComponentsInChildren<ItemInSlot>(false));
     } 
     private void OnEnable()
-    {
-        inventory = InventoryController.Instance;
-        inventory.onUpdateInventorySlots += UpdateInventorySlots;
+    {    
+        inventory = InventoryController.Instance; 
+        inventory.onUpdateInventorySlots += UpdateInventorySlots; 
     }
     private void OnDisable()
     {
-        inventory.onUpdateInventorySlots -= UpdateInventorySlots;
+        inventory.onUpdateInventorySlots -= UpdateInventorySlots; 
     }
     private void UpdateInventorySlots() //coll from InventoryController
     {
+        Debug.Log("UpdateInventory");
         List<ItemScrObj> items = inventory.GetCurrentInventory();
         for (int i = 0; i < slots.Count; i++)
         {

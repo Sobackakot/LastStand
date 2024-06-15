@@ -25,6 +25,7 @@ public class InventoryController : MonoBehaviour
     public void SetPersonInventory(PersonDataScript person)
     {
         inventoryPerson = person.inventoryPerson;
+        onUpdateInventorySlots?.Invoke();
     }
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController

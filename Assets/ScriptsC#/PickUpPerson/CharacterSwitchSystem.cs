@@ -1,7 +1,6 @@
  
 using System;
-using System.Collections.Generic;
-using UnityEditor.Rendering;
+using System.Collections.Generic; 
 using UnityEngine; 
 
 public class CharacterSwitchSystem : MonoBehaviour
@@ -24,6 +23,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     public event Action<PersonData> onRemoveNewDataPerson; //This Event for PersonDataManager  
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
     public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson
+    public event Action onUpdateInventoryPerson;
     
     private void Awake()
     {
@@ -71,6 +71,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             if (pick.id == id)
             {
                 EnableComponentsPerson(pick);
+                inventory?.SetPersonInventory(pick.personData);
                 continue;
             }
             if (pick.isActive)
@@ -87,8 +88,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             if (pick.id == id)
             {
                 SetFocusCamera(pick);
-                EnableComponentsPerson(pick);
-                inventory?.SetPersonInventory(pick.personData);
+                EnableComponentsPerson(pick); 
                 continue;
             }
             if (pick.isActive)
