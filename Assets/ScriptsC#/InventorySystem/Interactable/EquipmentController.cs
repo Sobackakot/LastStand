@@ -11,11 +11,11 @@ public class EquipmentController : MonoBehaviour
     {
         if (Instance != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
     }
     private void Start()
     {
@@ -23,8 +23,9 @@ public class EquipmentController : MonoBehaviour
         inventorySystem.onUpdateEquipmentSlot += UpdateEquipmentSlot;
     }
     private void OnEnable()
-    { 
-        
+    {
+        //inventorySystem = InventoryController.Instance;
+        //inventorySystem.onUpdateEquipmentSlot += UpdateEquipmentSlot; 
     }
     private void OnDisable()
     {
