@@ -24,6 +24,7 @@ public class EquipmentController : MonoBehaviour
     }
     public void EquipItem(Equipment newItem)
     {
+        Debug.Log("Equip");
         int currentIndex = (int)newItem.IndexOfSlot;
         Equipment oldItem = null;
         if (equipmentCurrent[currentIndex] != null)

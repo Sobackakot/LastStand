@@ -34,8 +34,7 @@ public class SelectPersonsSystem : MonoBehaviour
     }
     private void IsPointerEnterUI(bool isPointer)
     {
-        isPointerEnterUI = isPointer;
-        Debug.Log("select "+ isPointerEnterUI);
+        isPointerEnterUI = isPointer; 
     }
     // OnGUI is called for rendering and handling GUI events.
     private void OnGUI()

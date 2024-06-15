@@ -7,11 +7,12 @@ public class InventoryUI : MonoBehaviour
 {
     private InventoryController inventory; 
     private List<ItemInSlot> slots = new List<ItemInSlot>();
+
     private void Awake()
     { 
         slots.AddRange(GetComponentsInChildren<ItemInSlot>(false));
-    }
-    private void Start()
+    } 
+    private void OnEnable()
     {
         inventory = InventoryController.Instance;
         inventory.onUpdateInventorySlots += UpdateInventorySlots;
@@ -22,13 +23,14 @@ public class InventoryUI : MonoBehaviour
     }
     private void UpdateInventorySlots() //coll from InventoryController
     {
+        List<ItemScrObj> items = inventory.GetCurrentInventory();
         for (int i = 0; i < slots.Count; i++)
         {
-            if (i < inventory.itemsArray.Length)
+            if (i < items.Count)
             {
-                slots[i].AddItemInSlot(inventory.itemsArray[i]); 
+                slots[i].AddItemInSlot(items[i]); 
             }
-            if(inventory.itemsArray[i] == null)
+            if(items[i] == null)
             {
                 slots[i].CleareInSlot();
             }

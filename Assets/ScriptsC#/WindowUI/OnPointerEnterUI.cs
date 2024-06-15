@@ -11,13 +11,11 @@ public class OnPointerEnterUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         onPointerEnterUI?.Invoke(true);
         isPointer = true;
-        Debug.Log("onPointer " + isPointer);
     }
 
     public void OnPointerExit(PointerEventData eventData) //checks the position of the mouse cursor on ui elements
     {
         onPointerEnterUI?.Invoke(false);
         isPointer = false;
-        Debug.Log("onPointer " + isPointer);
     }
 }

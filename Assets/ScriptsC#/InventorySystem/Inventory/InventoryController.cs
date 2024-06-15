@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    public static InventoryController Instance;
+    public static InventoryController Instance; 
 
-    public ItemScrObj[] itemsArray; // Fixed-size array
     public event Action onUpdateInventorySlots; // Event for InventoryUI
+    private InventoryPerson inventoryPerson;
 
-    private int space = 48;
 
     private void Awake()
     {
@@ -20,35 +19,31 @@ public class InventoryController : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject); 
+    } 
 
-        itemsArray = new ItemScrObj[space];
+    public void SetPersonInventory(PersonDataScript person)
+    {
+        inventoryPerson = person.inventoryPerson;
     }
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController
     {
-        for (int i = 0; i < itemsArray.Length; i++)
+        if (inventoryPerson.AddItemToInventory(newItem))
         {
-            if (itemsArray[i] == null)
-            {
-                itemsArray[i] = newItem;
-                onUpdateInventorySlots?.Invoke();
-                return true;
-            }
+            onUpdateInventorySlots?.Invoke(); 
+            return true;
         }
-        return false; // InventoryPerson is full
+        return false;
     }
 
     public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemScrObj
     {
-        for (int i = 0; i < itemsArray.Length; i++)
-        {
-            if (itemsArray[i] == item)
-            {
-                itemsArray[i] = null;
-                onUpdateInventorySlots?.Invoke();
-                return;
-            }
-        }
+        inventoryPerson.RemoveItemFromInventory(item);
+        onUpdateInventorySlots?.Invoke();
+    }
+    public List<ItemScrObj> GetCurrentInventory()
+    {
+        return inventoryPerson.itemsInventory;
     }
 }

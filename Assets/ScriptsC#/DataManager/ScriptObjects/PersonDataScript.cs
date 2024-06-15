@@ -11,4 +11,11 @@ public class PersonDataScript : ScriptableObject
     public PersonData data;
 
     public InventoryPerson inventoryPerson;
+    private void OnEnable()
+    {
+        if (inventoryPerson == null)
+        {
+            inventoryPerson = new InventoryPerson();
+        }
+    }
 }

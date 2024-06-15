@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class CharacterSwitchSystem : MonoBehaviour
 {
-    public static CharacterSwitchSystem Instance; 
-     
+    public static CharacterSwitchSystem Instance;
+
+    private InventoryController inventory;
+
 
     [HideInInspector] public readonly List<PickUpPerson> PersonsSquad = new List<PickUpPerson>(30); //List persons squad
 
@@ -34,6 +36,10 @@ public class CharacterSwitchSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         // Automatically fill the personsUISquad list with child PickUpPersonUI components
         personsUISquad.AddRange(GetComponentsInChildren<PickUpPersonUI>(true)); 
+    }
+    private void Start()
+    {
+        inventory = InventoryController.Instance; 
     }
     public void RemovePerson(string id) // call from PickUpPersonUI
     {   
@@ -82,6 +88,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             {
                 SetFocusCamera(pick);
                 EnableComponentsPerson(pick);
+                inventory?.SetPersonInventory(pick.personData);
                 continue;
             }
             if (pick.isActive)
@@ -117,7 +124,9 @@ public class CharacterSwitchSystem : MonoBehaviour
         foreach(PickUpPersonUI pick in personsUISquad)
         {
             if(pick.id == id)
+            { 
                 pick.EnableFrameByCell();
+            } 
             else pick.DisableFrameByCell();
         }
     } 
