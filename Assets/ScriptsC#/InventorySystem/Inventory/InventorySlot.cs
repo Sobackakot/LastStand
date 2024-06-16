@@ -1,15 +1,24 @@
  
 using UnityEngine;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
 
 public class InventorySlot : MonoBehaviour, IDropHandler   
 { 
-    private RectTransform transformSlot; 
+    private RectTransform transformSlot;
     
     private void Awake()
     {   
         transformSlot = GetComponent<RectTransform>();   
-    }  
+    }   
+
+    public void AddItemInSlot(ItemInSlot item, ItemScrObj data)
+    {
+        item.SetItem(data);
+    }
+    public void RemoveItemInSlot(ItemInSlot item)
+    {
+        item.CleareItem();
+    }
     public void OnDrop(PointerEventData eventData)
     {
         ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
@@ -32,4 +41,5 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             dropedItem.originalParent = transformSlot;
         }
     }  
+    
 }

@@ -19,7 +19,6 @@ public class InventoryPerson
     { 
         for (int i = 0; i < itemsInventory.Count; i++)
         {
-            Debug.Log("item Inslot");
             if (itemsInventory[i] == null)
             {
                 itemsInventory[i] = newItem;

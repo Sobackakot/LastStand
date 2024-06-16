@@ -7,6 +7,7 @@ TagManager:
   - Terra
   - Focus
   - UI
+  - sdf
   layers:
   - Default
   - TransparentFX
