@@ -10,7 +10,8 @@ public class InventoryController : MonoBehaviour
     public event Action onUpdateInventorySlots; // Event for InventoryUI
     public event Action<PersonDataScript> onUpdateEquipmentSlot;
     private InventoryPerson inventoryPerson;
-
+    [Header("Inventory Panel UI gameObject")]
+    [SerializeField] private GameObject inventoryPanel;
 
     private void Awake()
     {
@@ -22,10 +23,23 @@ public class InventoryController : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject); 
     }
-    public void UpdateInventory()
-    {
-        onUpdateInventorySlots?.Invoke();
+    private void OnEnable()
+    { 
+        InputControlPerson.onActiveInventory += ActiveInventory;
     }
+
+    private void OnDisable()
+    { 
+        InputControlPerson.onActiveInventory -= ActiveInventory;
+    }
+    private void ActiveInventory(bool isSwitchActive) // Called from InputControlPerson
+    {
+        inventoryPanel.SetActive(isSwitchActive);
+        if (isSwitchActive)
+        {
+            onUpdateInventorySlots?.Invoke();
+        }
+    } 
     public void SetPersonInventory(PersonDataScript person)
     {
         inventoryPerson = person.inventoryPerson;

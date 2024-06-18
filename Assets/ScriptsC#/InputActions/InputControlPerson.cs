@@ -12,11 +12,11 @@ public class InputControlPerson : MonoBehaviour
     public event Action onCtrlButton; //This Event for class CharacterAnimatorController
     public event Action onSpaceButton;//This Event for class CharacterAnimatorController  
 
-    public event Action<bool> onActiveInventory; //This Event for class ActivInformationPerson
+    public static event Action<bool> onActiveInventory; //This Event for class ActivInformationPerson
 
     private InputActions inputActions;
 
-    private bool isSwitchInventoryActiv = false;
+    private bool isSwitchInventoryActive = false;
 
     private void OnEnable()
     {
@@ -31,24 +31,18 @@ public class InputControlPerson : MonoBehaviour
         inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
 
     }
-
-    private void InventoryKey_performed(InputAction.CallbackContext context)
-    {
-        if (context.performed && !isSwitchInventoryActiv)
-        {
-            onActiveInventory.Invoke(true);
-            isSwitchInventoryActiv= true;
-        } 
-        else
-        {
-            onActiveInventory.Invoke(false);
-            isSwitchInventoryActiv= false;
-        }
-    }
-
     private void OnDisable()
     {
         inputActions.Disable();
+    }
+
+    private void InventoryKey_performed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        { 
+            isSwitchInventoryActive = !isSwitchInventoryActive;
+            onActiveInventory.Invoke(isSwitchInventoryActive);
+        }
     }
 
     private void LeftMouseButton_performed(InputAction.CallbackContext context)

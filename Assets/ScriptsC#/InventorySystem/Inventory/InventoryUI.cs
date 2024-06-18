@@ -6,7 +6,7 @@ using UnityEngine;
 public class InventoryUI : MonoBehaviour
 {
     private InventoryController inventory;
-
+    [SerializeField] private GameObject InventoryPerson; 
     private List<ItemInSlot> ItemsInSlot = new List<ItemInSlot>();
     private List<InventorySlot> Slots = new List<InventorySlot>();
 
@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         ItemsInSlot.AddRange(GetComponentsInChildren<ItemInSlot>(false));
-        Slots.AddRange(GetComponentsInChildren<InventorySlot>(false));
+        Slots.AddRange(GetComponentsInChildren<InventorySlot>(false)); 
     } 
     private void OnEnable()
     {    
@@ -39,5 +39,6 @@ public class InventoryUI : MonoBehaviour
                 Slots[i].RemoveItemInSlot(ItemsInSlot[i]);
             }
         }
-    } 
+    }
+      
 }
