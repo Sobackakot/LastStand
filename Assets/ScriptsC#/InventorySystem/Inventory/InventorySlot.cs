@@ -11,15 +11,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         transformSlot = GetComponent<RectTransform>();   
     }   
 
-    public void AddItemInSlot(ItemInSlot item, ItemScrObj data)
+    public virtual void AddItemInSlot(ItemInSlot item, ItemScrObj data)
     {
         item.SetItem(data);
     }
-    public void RemoveItemInSlot(ItemInSlot item)
+    public virtual void RemoveItemInSlot(ItemInSlot item)
     {
         item.CleareItem();
     }
-    public void OnDrop(PointerEventData eventData)
+    public virtual void OnDrop(PointerEventData eventData)
     {
         ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
         if (dropedItem == null) return;

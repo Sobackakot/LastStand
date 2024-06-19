@@ -27,7 +27,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemName = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>();
         itemAmount = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>();
     }
-    public void SetItem(ItemScrObj newItem) // coll from InventoryUI
+    public virtual void SetItem(ItemScrObj newItem) // coll from InventoryUI
     {
         if (newItem == null) return;
         dataItem = newItem;
@@ -36,7 +36,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemIcon.sprite = dataItem.IconItem;
         itemIcon.enabled = true;
     }
-    public void CleareItem() // coll from InventoryUI
+    public virtual void CleareItem() // coll from InventoryUI
     {
         dataItem = null;
         itemIcon.sprite = null;
@@ -44,7 +44,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemName.text = " ";
         itemAmount.text = " ";
     }
-    public void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f;
@@ -52,11 +52,11 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         pickItemTransform.SetParent(canvas.transform);
         pickItemTransform.SetAsLastSibling(); 
     }
-    public void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; 
     }
-    public void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
