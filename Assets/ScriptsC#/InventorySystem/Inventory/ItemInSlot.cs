@@ -69,5 +69,9 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             dataItem?.UseItem();
         }
     }
+    public ItemScrObj GetItemData()
+    {
+        return dataItem;
+    }
 
 }

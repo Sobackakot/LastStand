@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour
     {
         ItemsInSlot.AddRange(GetComponentsInChildren<ItemInSlot>(false));
         Slots.AddRange(GetComponentsInChildren<InventorySlot>(false)); 
-    } 
+    }
     private void OnEnable()
     {
         inventory = InventoryController.Instance;

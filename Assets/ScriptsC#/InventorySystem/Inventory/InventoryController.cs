@@ -36,9 +36,7 @@ public class InventoryController : MonoBehaviour
     {
         inventoryPanel.SetActive(isSwitchActive);
         if (isSwitchActive)
-        {
             onUpdateInventorySlots?.Invoke();
-        }
     } 
     public void SetPersonInventory(PersonDataScript person)
     {
