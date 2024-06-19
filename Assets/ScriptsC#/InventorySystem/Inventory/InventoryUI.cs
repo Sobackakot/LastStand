@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-    private InventoryController inventory;
-    [SerializeField] private GameObject InventoryPerson; 
+    private InventoryController inventory; 
     private List<ItemInSlot> ItemsInSlot = new List<ItemInSlot>();
     private List<InventorySlot> Slots = new List<InventorySlot>();
 
@@ -17,9 +16,9 @@ public class InventoryUI : MonoBehaviour
         Slots.AddRange(GetComponentsInChildren<InventorySlot>(false)); 
     } 
     private void OnEnable()
-    {    
-        inventory = InventoryController.Instance; 
-        inventory.onUpdateInventorySlots += UpdateInventorySlots; 
+    {
+        inventory = InventoryController.Instance;
+        inventory.onUpdateInventorySlots += UpdateInventorySlots;
     }
     private void OnDisable()
     {
