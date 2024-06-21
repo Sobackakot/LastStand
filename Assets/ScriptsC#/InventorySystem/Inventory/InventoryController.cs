@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    public static InventoryController Instance; 
+    public static InventoryController Instance;
+    public InventoryUI inventoryUi;
 
     public event Action onUpdateInventorySlots; // Event for InventoryUI
     public event Action<PersonDataScript> onUpdateEquipmentSlot;
@@ -62,7 +63,7 @@ public class InventoryController : MonoBehaviour
     }
 
     public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
-    {
+    { 
         inventoryPerson.SetItemInSlot(slotIndex, newItem);
     }
     public ItemScrObj GetItemInSlot(int slotIndex)

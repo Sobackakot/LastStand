@@ -1,5 +1,6 @@
  
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using UnityEngine;
 
 public class InventoryPerson  
 {
@@ -10,8 +11,8 @@ public class InventoryPerson
         itemsInventory = new List<ItemScrObj>(space);
         for (int i = 0; i < space; i++)
         {
-            itemsInventory.Add(null); // Initialize the list with null values
-        }
+            itemsInventory.Add(null); // Initialize the list with null values 
+        } 
     }
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from InventoryController
@@ -46,10 +47,21 @@ public class InventoryPerson
     }
 
     public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
+    { 
+        if (slotIndex >= 0 && slotIndex < space)
+        {
+            UpdateInventoryPerson(newItem);
+            itemsInventory[slotIndex] = newItem; 
+        }
+    }
+    private void UpdateInventoryPerson(ItemScrObj newItem)
     {
-        if (slotIndex > 0 && slotIndex < space)
-        { 
-            itemsInventory[slotIndex] = newItem;
+        for (int i = 0; i < itemsInventory.Count; i++)
+        {
+            if (itemsInventory.Contains(newItem))
+            {
+                itemsInventory[i] = null;
+            }
         }
     }
 }

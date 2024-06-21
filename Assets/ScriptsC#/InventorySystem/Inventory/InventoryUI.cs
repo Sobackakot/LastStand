@@ -15,6 +15,13 @@ public class InventoryUI : MonoBehaviour
         ItemsInSlot.AddRange(GetComponentsInChildren<ItemInSlot>(false));
         Slots.AddRange(GetComponentsInChildren<InventorySlot>(false)); 
     }
+    private void Start()
+    {
+        for(int i  =0; i < ItemsInSlot.Count; i++)
+        {
+            ItemsInSlot[i].slotIndex = i;
+        }
+    }
     private void OnEnable()
     {
         inventory = InventoryController.Instance;
@@ -28,23 +35,23 @@ public class InventoryUI : MonoBehaviour
     { 
         List<ItemScrObj> items = inventory.GetCurrentInventory();
         for (int i = 0; i < Slots.Count; i++)
-        {
-            if (i < items.Count)
-            {
-                Slots[i].AddItemInSlot(ItemsInSlot[i],items[i]); 
-            }
-            if(items[i] == null)
+        {    
+            if(ItemsInSlot[i].dataItem != null)
             {
                 Slots[i].RemoveItemInSlot(ItemsInSlot[i]);
             }
+            if (i < items.Count && items[i]!=null)
+            {
+                Slots[i].AddItemInSlot(ItemsInSlot[i], items[i]);
+            }
         }
     }
-    private void SwapItemsInSlot(ItemInSlot fromItem, ItemInSlot toItem)
+    public void SwapItemsInSlot(ItemInSlot fromItem, ItemInSlot toItem)
     {
         int fromIndex = fromItem.slotIndex;
         int toIndex = toItem.slotIndex;
         inventory.SetItemInSlot(fromIndex, toItem.dataItem);
-        inventory.SetItemInSlot(toIndex, fromItem.dataItem);
+        inventory.SetItemInSlot(toIndex, fromItem.dataItem); 
     }
       
 }

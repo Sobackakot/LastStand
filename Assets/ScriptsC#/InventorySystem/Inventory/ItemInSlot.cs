@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    public int slotIndex {  get; private set; }
+    public int slotIndex {  get; set; }
     public ItemScrObj dataItem { get; private set;}
 
     private RectTransform pickItemTransform;
