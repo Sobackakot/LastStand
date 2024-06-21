@@ -1,17 +1,19 @@
  
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic; 
 
 public class InventoryPerson  
 {
+    private Dictionary<int, ItemScrObj> itemsInSlotInventoryPerson;
     public List<ItemScrObj> itemsInventory;
     private int space = 48;
     public InventoryPerson()
     {
+        itemsInSlotInventoryPerson = new Dictionary<int, ItemScrObj>();
         itemsInventory = new List<ItemScrObj>(space);
         for (int i = 0; i < space; i++)
         {
             itemsInventory.Add(null); // Initialize the list with null values
+            itemsInSlotInventoryPerson.Add(i, null);
         }
     }
 
@@ -37,6 +39,22 @@ public class InventoryPerson
                 itemsInventory[i] = null; 
                 return;
             }
+        }
+    }
+    public ItemScrObj GetItemInSlot(int slotIndex)
+    {
+        if (itemsInSlotInventoryPerson.TryGetValue(slotIndex, out ItemScrObj item))
+        {
+            return item;
+        }
+        return null;
+    }
+
+    public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
+    {
+        if (itemsInSlotInventoryPerson.ContainsKey(slotIndex))
+        {
+            itemsInSlotInventoryPerson[slotIndex] = newItem;
         }
     }
 }

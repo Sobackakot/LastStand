@@ -23,7 +23,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();  
         ItemScrObj originItemData = dropedItem.GetItemData();
-        if (transformSlot.childCount > 0)
+        if (transformSlot.childCount > 0 && originItemData!=null)
             DropItemInSlot(originItemData, dropedItem);
     }
     private void DropItemInSlot(ItemScrObj originItemData, ItemInSlot dropedItemInSlot)
