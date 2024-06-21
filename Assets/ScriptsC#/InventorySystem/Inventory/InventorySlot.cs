@@ -22,14 +22,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     public virtual void OnDrop(PointerEventData eventData)
     {
         ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();  
-        ItemScrObj originItemData = dropedItem.GetItemData();
+        ItemScrObj originItemData = dropedItem.dataItem;
         if (transformSlot.childCount > 0 && originItemData!=null)
             DropItemInSlot(originItemData, dropedItem);
     }
     private void DropItemInSlot(ItemScrObj originItemData, ItemInSlot dropedItemInSlot)
     {    
         ItemInSlot pickItemInSlot = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
-        ItemScrObj currentItemData = pickItemInSlot.GetItemData();
+        ItemScrObj currentItemData = pickItemInSlot.dataItem;
         pickItemInSlot.SetItem(originItemData);
         if (currentItemData != null)
             dropedItemInSlot.SetItem(currentItemData);

@@ -39,5 +39,11 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+    private void SwapItemsInSlot(ItemInSlot fromItem, ItemInSlot toItem)
+    {
+        int fromIndex = fromItem.slotIndex;
+        int toIndex = toItem.slotIndex;
+        inventory.SetItemInSlot(fromIndex,toItem.dataItem);
+    }
       
 }

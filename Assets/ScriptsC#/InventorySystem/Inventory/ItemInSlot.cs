@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    private ItemScrObj dataItem;
+    public int slotIndex {  get; private set; }
+    public ItemScrObj dataItem { get; private set;}
+
     private RectTransform pickItemTransform;
     [HideInInspector] public Transform originalParent;
     private CanvasGroup canvasGroup;
@@ -68,10 +70,5 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         {
             dataItem?.UseItem();
         }
-    }
-    public ItemScrObj GetItemData()
-    {
-        return dataItem;
-    }
-
+    } 
 }

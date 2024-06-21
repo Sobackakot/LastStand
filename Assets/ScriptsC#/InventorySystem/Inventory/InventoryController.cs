@@ -60,6 +60,15 @@ public class InventoryController : MonoBehaviour
         inventoryPerson.RemoveItemFromInventory(item);
         onUpdateInventorySlots?.Invoke();
     }
+
+    public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
+    {
+        inventoryPerson.SetItemInSlot(slotIndex, newItem);
+    }
+    public ItemScrObj GetItemInSlot(int slotIndex)
+    { 
+        return inventoryPerson.GetItemInSlot(slotIndex);
+    }
     public List<ItemScrObj> GetCurrentInventory()
     {
         return inventoryPerson.itemsInventory;
