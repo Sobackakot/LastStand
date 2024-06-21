@@ -43,7 +43,8 @@ public class InventoryUI : MonoBehaviour
     {
         int fromIndex = fromItem.slotIndex;
         int toIndex = toItem.slotIndex;
-        inventory.SetItemInSlot(fromIndex,toItem.dataItem);
+        inventory.SetItemInSlot(fromIndex, toItem.dataItem);
+        inventory.SetItemInSlot(toIndex, fromItem.dataItem);
     }
       
 }

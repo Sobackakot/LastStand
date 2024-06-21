@@ -3,17 +3,14 @@ using System.Collections.Generic;
 
 public class InventoryPerson  
 {
-    private Dictionary<int, ItemScrObj> itemsInSlotInventoryPerson;
     public List<ItemScrObj> itemsInventory;
     private int space = 48;
     public InventoryPerson()
     {
-        itemsInSlotInventoryPerson = new Dictionary<int, ItemScrObj>();
         itemsInventory = new List<ItemScrObj>(space);
         for (int i = 0; i < space; i++)
         {
             itemsInventory.Add(null); // Initialize the list with null values
-            itemsInSlotInventoryPerson.Add(i, null);
         }
     }
 
@@ -43,18 +40,16 @@ public class InventoryPerson
     }
     public ItemScrObj GetItemInSlot(int slotIndex)
     {
-        if (itemsInSlotInventoryPerson.TryGetValue(slotIndex, out ItemScrObj item))
-        {
-            return item;
-        }
+        if (slotIndex > 0 && slotIndex < space)
+            return itemsInventory[slotIndex];
         return null;
     }
 
     public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
     {
-        if (itemsInSlotInventoryPerson.ContainsKey(slotIndex))
-        {
-            itemsInSlotInventoryPerson[slotIndex] = newItem;
+        if (slotIndex > 0 && slotIndex < space)
+        { 
+            itemsInventory[slotIndex] = newItem;
         }
     }
 }
