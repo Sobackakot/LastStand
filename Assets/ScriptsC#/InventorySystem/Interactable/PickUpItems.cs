@@ -11,8 +11,8 @@ public class PickUpItems : Interactable
         inventory = InventoryController.Instance; 
     }
     public override void Interaction()
-    {
-        base.Interaction();
+    {   
+        base.Interaction(); 
         PickUpItem();
     }
     private void PickUpItem()

@@ -8,7 +8,9 @@ public class InventoryController : MonoBehaviour
     public static InventoryController Instance;
     public InventoryUI inventoryUi;
 
-    public event Action onUpdateInventorySlots; // Event for InventoryUI
+    public event Action onUpdateInventoryPerson;
+    public event Action<int> onResetItemByInventoryCell;
+    public event Action<int> onSetNewItemByInventoryCell; // Event for InventoryUI
     public event Action<PersonDataScript> onUpdateEquipmentSlot;
     private InventoryPerson inventoryPerson;
     [Header("Inventory Panel UI gameObject")]
@@ -37,20 +39,21 @@ public class InventoryController : MonoBehaviour
     {
         inventoryPanel.SetActive(isSwitchActive); // active inventory Panel 
         if (isSwitchActive)
-            onUpdateInventorySlots?.Invoke(); // update inventory for pick person
-    } 
+            onUpdateInventoryPerson?.Invoke(); // update inventory for pick person
+    }
     public void GetPersonByInventory(PersonDataScript person) // coll from class CharacterSwitchSystem
     {
         inventoryPerson = person.inventoryPerson; // get pick person for inventory
-        onUpdateInventorySlots?.Invoke(); // update inventory slots for new pick person
+        onUpdateInventoryPerson?.Invoke(); // update inventory slots for new pick person
         onUpdateEquipmentSlot?.Invoke(person); //get person for Equipment slots
     }
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
     {
-        if (inventoryPerson.AddItemToInventory(newItem))
+        int slotIndex = 0;
+        if (inventoryPerson.AddItemToInventory(out slotIndex,newItem))
         {
-            onUpdateInventorySlots?.Invoke(); // update inventory slots
+            onSetNewItemByInventoryCell?.Invoke(slotIndex); // update inventory slots
             return true;
         }
         return false;
@@ -58,18 +61,15 @@ public class InventoryController : MonoBehaviour
 
     public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemScrObj
     {
-        inventoryPerson.RemoveItemFromInventory(item);
-        onUpdateInventorySlots?.Invoke(); // update inventory slots
+        int slotIndex = 0; 
+        inventoryPerson.RemoveItemFromInventory(out slotIndex,item);
+        onResetItemByInventoryCell?.Invoke(slotIndex);// update inventory slots
     }
 
-    public void SetItemInSlot(int slotIndex, ItemScrObj newItem) // coll from class InventorySlot
+    public void SwapItemInSlot(int slotIndex, ItemScrObj newItem) // coll from class InventorySlot
     { 
-        inventoryPerson.SetItemInSlot(slotIndex, newItem); // set new slot for item on Drop
-    }
-    public ItemScrObj GetItemInSlot(int slotIndex)
-    { 
-        return inventoryPerson.GetItemInSlot(slotIndex);
-    }
+        inventoryPerson.SwapItemInSlot(slotIndex, newItem); // set new slot for item on Drop  
+    } 
     public List<ItemScrObj> GetCurrentInventory()
     {
         return inventoryPerson.itemsInventory;

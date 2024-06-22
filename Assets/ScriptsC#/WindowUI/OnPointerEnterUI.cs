@@ -17,5 +17,5 @@ public class OnPointerEnterUI : MonoBehaviour, IPointerEnterHandler, IPointerExi
     {
         onPointerEnterUI?.Invoke(false);
         isPointer = false;
-    }
+    } 
 }

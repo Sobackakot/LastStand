@@ -1,6 +1,7 @@
 
 
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -25,33 +26,46 @@ public class InventoryUI : MonoBehaviour
     private void OnEnable()
     {
         inventory = InventoryController.Instance;
-        inventory.onUpdateInventorySlots += UpdateInventorySlots;
+        inventory.onSetNewItemByInventoryCell += SetNewItemByInventoryCell;
+        inventory.onResetItemByInventoryCell += ResetItemByInventoryCell;
+        inventory.onUpdateInventoryPerson += UpdateInventorySlots;
     }
     private void OnDisable()
     {
-        inventory.onUpdateInventorySlots -= UpdateInventorySlots; 
+        inventory.onSetNewItemByInventoryCell -= SetNewItemByInventoryCell;
+        inventory.onResetItemByInventoryCell -= ResetItemByInventoryCell;
+        inventory.onUpdateInventoryPerson -= UpdateInventorySlots;
     }
-    private void UpdateInventorySlots() //coll from InventoryController
+    private void SetNewItemByInventoryCell(int slotIndex) //coll from InventoryController
     { 
         List<ItemScrObj> items = inventory.GetCurrentInventory();
+        if (slotIndex < items.Count && items[slotIndex] != null)
+        {
+            Slots[slotIndex].AddItemInSlot(ItemsInSlot[slotIndex], items[slotIndex]);
+        }
+    }
+    private void ResetItemByInventoryCell(int slotIndex)
+    {
+        List<ItemScrObj> items = inventory.GetCurrentInventory();
+        if (slotIndex < items.Count)
+        {
+            Slots[slotIndex].RemoveItemInSlot(ItemsInSlot[slotIndex]);
+        }
+    }
+    private void UpdateInventorySlots() //coll from InventoryController
+    {
+        Debug.Log("Update all slots");
+        List<ItemScrObj> items = inventory.GetCurrentInventory();
         for (int i = 0; i < Slots.Count; i++)
-        {    
-            if(ItemsInSlot[i].dataItem != null)
+        {
+            if (ItemsInSlot[i].dataItem != null)
             {
                 Slots[i].RemoveItemInSlot(ItemsInSlot[i]);
             }
-            if (i < items.Count && items[i]!=null)
+            if (i < items.Count && items[i] != null)
             {
                 Slots[i].AddItemInSlot(ItemsInSlot[i], items[i]);
             }
         }
-    }
-    public void SwapItemsInSlot(ItemInSlot fromItem, ItemInSlot toItem)
-    {
-        int fromIndex = fromItem.slotIndex;
-        int toIndex = toItem.slotIndex;
-        inventory.SetItemInSlot(fromIndex, toItem.dataItem);
-        inventory.SetItemInSlot(toIndex, fromItem.dataItem); 
-    }
-      
+    } 
 }

@@ -1,5 +1,5 @@
  
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using UnityEngine;
 
 public class InventoryPerson  
@@ -15,53 +15,56 @@ public class InventoryPerson
         } 
     }
 
-    public bool AddItemToInventory(ItemScrObj newItem) //coll from InventoryController
+    public bool AddItemToInventory(out int indexSlot, ItemScrObj newItem) //coll from InventoryController
     { 
         for (int i = 0; i < itemsInventory.Count; i++)
         {
             if (itemsInventory[i] == null)
             {
                 itemsInventory[i] = newItem;
+                indexSlot = i;
+                Debug.Log("InventoryPerson Add " + newItem.NameItem + "  " + i);
                 return true; 
             }
         } 
+        indexSlot = -1;
         return false; // InventoryPerson is full
     }
 
-    public void RemoveItemFromInventory(ItemScrObj newItem) // coll from InventoryController
+    public void RemoveItemFromInventory(out int slotIndex, ItemScrObj newItem) // coll from InventoryController
     {
         for (int i = 0; i < itemsInventory.Count; i++)
         {
             if (itemsInventory[i] == newItem)
             {
-                itemsInventory[i] = null; 
+                itemsInventory[i] = null;
+                slotIndex = i;
+                Debug.Log("InventoryPerson Remove " + newItem.NameItem + "  " + i);
                 return;
             }
         }
-    }
-    public ItemScrObj GetItemInSlot(int slotIndex)
-    {
-        if (slotIndex > 0 && slotIndex < space)
-            return itemsInventory[slotIndex];
-        return null;
-    }
+        slotIndex = -1;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+    } 
 
-    public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
+    public void SwapItemInSlot(int slotIndex, ItemScrObj newItem)
     { 
         if (slotIndex >= 0 && slotIndex < space)
         {
             UpdateInventoryPerson(newItem);
-            itemsInventory[slotIndex] = newItem; 
+            itemsInventory[slotIndex] = newItem;
+            Debug.Log("InventoryPerson  ToSet " + newItem.NameItem + "  " + slotIndex);
         }
     }
     private void UpdateInventoryPerson(ItemScrObj newItem)
     {
         for (int i = 0; i < itemsInventory.Count; i++)
         {
-            if (itemsInventory.Contains(newItem))
+            if (itemsInventory[i] == newItem)
             {
-                itemsInventory[i] = null;
+                itemsInventory[i] = null; 
+                Debug.Log("InventoryPerson FromSet " + newItem.NameItem + "  " + i);
+                return;
             }
-        }
-    }
+        } 
+    } 
 }

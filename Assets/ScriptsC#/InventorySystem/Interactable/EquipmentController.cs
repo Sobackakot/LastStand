@@ -22,11 +22,7 @@ public class EquipmentController : MonoBehaviour
         inventorySystem = InventoryController.Instance;
         inventorySystem.onUpdateEquipmentSlot += GetPersonByEquipment;
     }
-    private void OnEnable()
-    {
-        //inventorySystem = InventoryController.Instance;
-        //inventorySystem.onUpdateEquipmentSlot += GetPersonByEquipment; 
-    }
+  
     private void OnDisable()
     {
         inventorySystem.onUpdateEquipmentSlot -= GetPersonByEquipment;

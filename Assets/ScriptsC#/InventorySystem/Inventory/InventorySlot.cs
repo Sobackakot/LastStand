@@ -38,16 +38,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {    
         ItemInSlot pickItemInSlot = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
         ItemScrObj currentItemData = pickItemInSlot.dataItem;
-
-        inventory.SetItemInSlot(pickItemInSlot.slotIndex, originItemData);
+        inventory.SwapItemInSlot(pickItemInSlot.slotIndex, originItemData);
         pickItemInSlot.SetItem(originItemData);
 
         if (currentItemData != null)
-        {
-            inventory.SetItemInSlot(dropedItemInSlot.slotIndex, currentItemData);
+        { 
+            inventory.SwapItemInSlot(dropedItemInSlot.slotIndex, currentItemData);
             dropedItemInSlot.SetItem(currentItemData);
         } 
-        else dropedItemInSlot.CleareItem(); 
+        else dropedItemInSlot.CleareItem();
     }
 
 }

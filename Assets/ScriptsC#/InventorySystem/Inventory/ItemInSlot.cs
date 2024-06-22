@@ -37,14 +37,16 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemAmount.text = dataItem.item.itemAmount.ToString();
         itemIcon.sprite = dataItem.IconItem;
         itemIcon.enabled = true;
+        Debug.Log("ItemInSlot Set " + dataItem.NameItem + "  " + slotIndex);
     }
     public virtual void CleareItem() // coll from InventoryUI
     {
+        Debug.Log("ItemInSlot  Cler " + dataItem.NameItem + "  " + slotIndex);
         dataItem = null;
         itemIcon.sprite = null;
         itemIcon.enabled = false;
         itemName.text = " ";
-        itemAmount.text = " ";
+        itemAmount.text = " "; 
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
