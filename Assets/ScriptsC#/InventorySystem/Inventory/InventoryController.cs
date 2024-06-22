@@ -35,22 +35,22 @@ public class InventoryController : MonoBehaviour
     }
     private void ActiveInventory(bool isSwitchActive) // Called from InputControlPerson
     {
-        inventoryPanel.SetActive(isSwitchActive);
+        inventoryPanel.SetActive(isSwitchActive); // active inventory Panel 
         if (isSwitchActive)
-            onUpdateInventorySlots?.Invoke();
+            onUpdateInventorySlots?.Invoke(); // update inventory for pick person
     } 
-    public void SetPersonInventory(PersonDataScript person)
+    public void GetPersonByInventory(PersonDataScript person) // coll from class CharacterSwitchSystem
     {
-        inventoryPerson = person.inventoryPerson;
-        onUpdateInventorySlots?.Invoke(); 
-        onUpdateEquipmentSlot?.Invoke(person);
+        inventoryPerson = person.inventoryPerson; // get pick person for inventory
+        onUpdateInventorySlots?.Invoke(); // update inventory slots for new pick person
+        onUpdateEquipmentSlot?.Invoke(person); //get person for Equipment slots
     }
 
-    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController
+    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
     {
         if (inventoryPerson.AddItemToInventory(newItem))
         {
-            onUpdateInventorySlots?.Invoke(); 
+            onUpdateInventorySlots?.Invoke(); // update inventory slots
             return true;
         }
         return false;
@@ -59,12 +59,12 @@ public class InventoryController : MonoBehaviour
     public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemScrObj
     {
         inventoryPerson.RemoveItemFromInventory(item);
-        onUpdateInventorySlots?.Invoke();
+        onUpdateInventorySlots?.Invoke(); // update inventory slots
     }
 
-    public void SetItemInSlot(int slotIndex, ItemScrObj newItem)
+    public void SetItemInSlot(int slotIndex, ItemScrObj newItem) // coll from class InventorySlot
     { 
-        inventoryPerson.SetItemInSlot(slotIndex, newItem);
+        inventoryPerson.SetItemInSlot(slotIndex, newItem); // set new slot for item on Drop
     }
     public ItemScrObj GetItemInSlot(int slotIndex)
     { 

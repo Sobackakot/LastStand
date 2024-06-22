@@ -20,28 +20,28 @@ public class EquipmentController : MonoBehaviour
     private void Start()
     {
         inventorySystem = InventoryController.Instance;
-        inventorySystem.onUpdateEquipmentSlot += UpdateEquipmentSlot;
+        inventorySystem.onUpdateEquipmentSlot += GetPersonByEquipment;
     }
     private void OnEnable()
     {
         //inventorySystem = InventoryController.Instance;
-        //inventorySystem.onUpdateEquipmentSlot += UpdateEquipmentSlot; 
+        //inventorySystem.onUpdateEquipmentSlot += GetPersonByEquipment; 
     }
     private void OnDisable()
     {
-        inventorySystem.onUpdateEquipmentSlot -= UpdateEquipmentSlot;
+        inventorySystem.onUpdateEquipmentSlot -= GetPersonByEquipment;
     }
 
-    private void UpdateEquipmentSlot(PersonDataScript person)
+    private void GetPersonByEquipment(PersonDataScript person) //get a link to the current character. coll from class InvectoryController
     {
         equipmentPerson = person.equipmentPerson;
     }
 
-    public void EquipItem(Equipment newItem)
+    public void EquipItem(Equipment newItem) //coll from Equipment
     {   
         equipmentPerson.EquipItemOnPerson(newItem);
     }
-    public void UnEquipItem(int currentIndex)
+    private void UnEquipItem(int currentIndex)
     {
         equipmentPerson.UnEquipItemFromPerson(currentIndex);
     }
@@ -52,7 +52,7 @@ public class EquipmentController : MonoBehaviour
             UnEquipItem(i);
        }
     }
-    private void Update()
+    private void LateUpdate() //......
     {
         if (Input.GetKeyDown(KeyCode.X))
         {

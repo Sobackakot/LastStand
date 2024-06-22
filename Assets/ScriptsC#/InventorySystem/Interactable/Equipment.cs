@@ -6,7 +6,7 @@ public class Equipment : ItemScrObj
 {
     public float Armor;
     public float Damage;
-    public EquipItem IndexOfSlot;
+    public EquipItem IndexOfSlot; //slots for equipping items
     public override void UseItem()
     {
         base.UseItem();

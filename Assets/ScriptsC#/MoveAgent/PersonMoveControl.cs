@@ -125,11 +125,11 @@ public class PersonMoveControl : MonoBehaviour
     // Method to set the focus to a new interactable object.
     private void SetFocus(Interactable newFocus)
     {
-        if (newFocus != interactFocus)
+        if (newFocus != interactFocus) //if the selected item is not equal to the current one
         {
             if (interactFocus != null)
                 interactFocus.OnDefocus(); // Defocus the previous interactable object.
-            interactFocus = newFocus;
+            interactFocus = newFocus; //change to new focus
             focusTrnasform = newFocus.transform; // Set the new focus transform.
         }
         newFocus.OnFocused(person); // Notify the new interactable object that it is focused.
@@ -145,13 +145,13 @@ public class PersonMoveControl : MonoBehaviour
     }
 
     // Method to enable the component.
-    public void OnEnableComponent()
+    public void OnEnableComponent()  //coll from class CharacterSwitchSystem
     {
         enabled = true;
     }
 
     // Method to disable the component.
-    public void OnDisableComponent()
+    public void OnDisableComponent() //coll from class CharacterSwitchSystem
     {
         enabled = false;
     }

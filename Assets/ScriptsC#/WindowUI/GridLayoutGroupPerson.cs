@@ -31,7 +31,7 @@ public class GridLayoutGroupPerson : MonoBehaviour
         {
             //if the number of cells is less than 6, then the size will be from 170 to 130
             float cellSize = Mathf.Lerp(minCellSize, maxCellSize, (maxSlots - minSlots) / (currentSlotsCount + minSlots));
-            grid.cellSize = new Vector2(cellSize, cellSize);
+            grid.cellSize = new Vector2(cellSize, cellSize); // Set cell size by GridLayoutGroup persons
         }
         else  
         {
@@ -51,6 +51,6 @@ public class GridLayoutGroupPerson : MonoBehaviour
                 currentSlotsCount++; 
             }
         }
-        return currentSlotsCount;
+        return currentSlotsCount; // Get amount active cell from GridLayoutGroup persons
     }
 }

@@ -47,8 +47,8 @@ public class CharacterSwitchSystem : MonoBehaviour
         {
             if (pick.id == id)
             {
-               personToRemove = pick;   
-               break;
+               personToRemove = pick;   //get a link to the character by his id
+                break;
             }
         }
         if(personToRemove != null)
@@ -56,8 +56,8 @@ public class CharacterSwitchSystem : MonoBehaviour
     }
     public void AddPersonList(PickUpPerson person, PersonDataScript dataScript) // Add new person my group for PickUpPerson
     {
-        SetDataPerson(dataScript);
-        PersonsSquad.Add(person); 
+        SetDataPerson(dataScript); // set new first data for PickUpPerson
+        PersonsSquad.Add(person); //add to character list
         AddComponentsByDictionary(person); //Cached new person components
         DisableComponentsPerson(person); //if there is such an object in the list, then turn off the components in advance 
     }
@@ -70,7 +70,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             if (pick.id == id)
             {
                 EnableComponentsPerson(pick);
-                inventory?.SetPersonInventory(pick.personData);
+                inventory?.GetPersonByInventory(pick.personData); // get pick person and Update inventory for new picl person
                 continue;
             }
             if (pick.isActive)
@@ -78,9 +78,9 @@ public class CharacterSwitchSystem : MonoBehaviour
                 DisableComponentsPerson(pick);
             }
         }
-        PickPersonUiFromCell(id);
+        ActiveFrameForPickPersonUI(id); // active ui frame by cell person
     }
-    public void ÑharacterSwitch(string id) //set focus camera for PickUpPersonUI 
+    public void ÑharacterSwitch(string id) //changing camera focus on a character for PickUpPersonUI 
     { 
         foreach (PickUpPerson pick in PersonsSquad)
         {
@@ -118,7 +118,7 @@ public class CharacterSwitchSystem : MonoBehaviour
 
 
 
-    private void PickPersonUiFromCell(string id)
+    private void ActiveFrameForPickPersonUI(string id) //visually activates a cell with a character when clicked
     {
         foreach(PickUpPersonUI pick in personsUISquad)
         {
@@ -129,7 +129,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             else pick.DisableFrameByCell();
         }
     } 
-    private void RemovePersonList(PickUpPerson person, PersonDataScript dataScript) // Remove new person my group ...
+    private void RemovePersonList(PickUpPerson person, PersonDataScript dataScript) // Remove new person my squad 
     {
         ResetDataPerson(dataScript);
         DisableComponentsPerson(person);
@@ -164,7 +164,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             }
         }
     }
-    private void SetFocusCamera(PickUpPerson pick)
+    private void SetFocusCamera(PickUpPerson pick) //set focus camera 
     {
         onResetFocusCamera?.Invoke(false, pick);// ResetLookPoint follow camera focus on selected for pick up Person
         onSetNewTargetFolowCamera?.Invoke(pick.transform);// Set new target follow camera, clamping circle radius
@@ -192,7 +192,7 @@ public class CharacterSwitchSystem : MonoBehaviour
             MoveComponents[person] = moveControl;    
         }
     }
-    private void RemoveComponentsByDictionary(PickUpPerson person) // Remove components by Dictionary
+    private void RemoveComponentsByDictionary(PickUpPerson person) // Remove components Person by Dictionary
     {
         if (PersonsSquad.Contains(person))
         {

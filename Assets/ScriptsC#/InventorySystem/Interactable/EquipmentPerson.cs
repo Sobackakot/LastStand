@@ -6,32 +6,32 @@ public class EquipmentPerson
     public List<Equipment> equipmentItem;
      
     public EquipmentPerson()
-    {
-        int indexSlot = System.Enum.GetNames(typeof(EquipItem)).Length;
+    {   
+        int indexSlot = System.Enum.GetNames(typeof(EquipItem)).Length; //get the number of slots for equipment items
         equipmentItem = new List<Equipment>(indexSlot);
         for(int i =0; i< indexSlot; i++)
         {
-            equipmentItem.Add(null);
+            equipmentItem.Add(null); //initialize item equipment slots
         }
     }
-    public void EquipItemOnPerson(Equipment newItem)
+    public void EquipItemOnPerson(Equipment newItem) 
     {
-        int currentIndex = (int)newItem.IndexOfSlot;
+        int currentIndex = (int)newItem.IndexOfSlot; // convert from Equipment Slot to index
         Equipment oldItem = null;
-        if (equipmentItem[currentIndex] != null)
+        if (equipmentItem[currentIndex] != null) //if such an item is already equipped
         {
-            oldItem = equipmentItem[currentIndex];
+            oldItem = equipmentItem[currentIndex]; //return the item back to inventory
             InventoryController.Instance.AddItemToInventory(oldItem);
         }
-        equipmentItem[currentIndex] = newItem;
+        equipmentItem[currentIndex] = newItem;//equip pick item  from inventory cell 
     }
     public void UnEquipItemFromPerson(int currentIndex)
     {
-        if (equipmentItem[currentIndex] != null)
+        if (equipmentItem[currentIndex] != null)//if such an item is already equipped
         {
-            Equipment oldItem = equipmentItem[currentIndex];
+            Equipment oldItem = equipmentItem[currentIndex];//return the item back to inventory
             InventoryController.Instance.AddItemToInventory(oldItem);
-            equipmentItem[currentIndex] = null;
+            equipmentItem[currentIndex] = null;//reset an item's equipment slot
         }
     }
 }

@@ -44,7 +44,7 @@ public class Interactable : MonoBehaviour
     }
 
     // Method to handle when the object is focused.
-    public void OnFocused(Transform _player)
+    public void OnFocused(Transform _player) // coll from class PersonMoveControl
     {
         player = _player;
         isFocus = true;
@@ -52,7 +52,7 @@ public class Interactable : MonoBehaviour
     }
 
     // Method to handle when the object is defocused.
-    public void OnDefocus()
+    public void OnDefocus() // coll from class PersonMoveControl
     {
         player = null;
         isFocus = false;

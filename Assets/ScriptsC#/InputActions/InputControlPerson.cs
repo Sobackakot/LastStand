@@ -41,36 +41,36 @@ public class InputControlPerson : MonoBehaviour
         if (context.performed)
         { 
             isSwitchInventoryActive = !isSwitchInventoryActive;
-            onActiveInventory.Invoke(isSwitchInventoryActive);
+            onActiveInventory.Invoke(isSwitchInventoryActive); //Switcher  activate  inventory person
         }
     }
 
     private void LeftMouseButton_performed(InputAction.CallbackContext context)
     {
             if (context.performed)
-            onLeftMouseButton?.Invoke(); //UpdateFocusInteract
+            onLeftMouseButton?.Invoke(); // event for metod UpdateFocusInteract()
     }
     private void RightMouseButton_performed(InputAction.CallbackContext context)
     {
             if (context.performed)
-            onRightMouseButton?.Invoke();//MoveAgent()
+            onRightMouseButton?.Invoke();//event for metod MoveAgent()
     }
     private void CtrlButton_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onCtrlButton?.Invoke(); //WalkSittingAnim()
+            onCtrlButton?.Invoke(); //event for metod WalkSittingAnim()
     }
     private void SpaceButton_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onSpaceButton?.Invoke(); //MoveStandingAnim()
+            onSpaceButton?.Invoke(); //event for metod MoveStandingAnim()
     }
-    public void OnEnableComponent()
+    public void OnEnableComponent() //coll from class CharacterSwitchSystem
     {
         enabled = true;
     }
 
-    public void OnDisableComponent()
+    public void OnDisableComponent()//coll from class CharacterSwitchSystem
     {
         enabled = false;
     }
