@@ -13,25 +13,25 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
 
     private CharacterSwitchSystem characterSystem;
 
-    [SerializeField] private PersonDataScript personDataUI;
-    private TextMeshProUGUI namePerson;
-    private GameObject buttonDelataPerson;
-    private GameObject frameCellImage;
+    [SerializeField] private PersonDataScript personDataUI; // ScriptableObject data of Person
+    private TextMeshProUGUI namePerson; 
+    private GameObject buttonDelataPerson; //  UI Button for Disable person cell 
+    private GameObject frameCellImage; // Frame UI Image for show current pick person 
 
 
-    private Transform transformUIPerson;
-    private Image perImage;
+    private Transform transformUIPerson; // current position UI cell from grid
+    private Image personAvatar; // current Ui Image for person from cell
 
-    private float lastClickTime = 0f;
-    private float doubleClickThreshold = 0.3f;
-    private bool _hasData = false;
-     
-    [HideInInspector] public string id {  get; private set; }
+    private float lastClickTime = 0f; //seconds to check the elapsed time between clicks
+    private float doubleClickThreshold = 0.3f; //time between double clicks
+    private bool _hasData = false; //checkbox to check initialization of character data
+
+    public string id {  get; private set; } // get a unique character ID
 
     private void Awake()
     {
         transformUIPerson = GetComponent<Transform>();
-        perImage = GetComponent<Image>();
+        personAvatar = GetComponent<Image>();
         namePerson = transformUIPerson.GetChild(0).GetComponent<TextMeshProUGUI>();
         buttonDelataPerson = transformUIPerson.GetChild(1).gameObject;  
         frameCellImage = transformUIPerson.GetChild(2).gameObject; 
@@ -42,11 +42,11 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         id = personDataUI.data.ID;
     }
 
-    public void EnableFrameByCell()
+    public void EnableFrameByCell() //coll from class CharacterSwitchSystem 
     {
         frameCellImage?.SetActive(true);
     }
-    public void DisableFrameByCell()
+    public void DisableFrameByCell() //coll from class CharacterSwitchSystem 
     {
         frameCellImage?.SetActive(false);
     }
@@ -60,24 +60,26 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
         {
             ActiveButtonRemove();
         }
-    }  
-    public void SetDataPersonUI(PersonDataScript personData) // Set first data new person in Ui slot from CharacterSwitchSystem
+    }
+    // Set first data new person in Ui slot  
+    public void SetDataPersonUI(PersonDataScript personData) //coll from class CharacterSwitchSystem
     {
         personDataUI = personData;
         id = personDataUI.data.ID;
-        perImage.sprite = personDataUI.spritePerson;
+        personAvatar.sprite = personDataUI.spritePerson;
         namePerson.text = personDataUI.namePerson;
         _hasData = true; 
     }
-    public void RemoveDataPersonUI() // clear person data in Ui slot from button in cell
+    public void RemoveDataPersonUI() //Button clear person data in Ui slot from button in cell
     {
         characterSystem?.RemovePerson(id);
         personDataUI = null;
-        perImage.sprite = null;
+        personAvatar.sprite = null;
         namePerson.text = null;
         _hasData = false;
     }
-    public bool HasData() // check has data in ui person slot from CharacterSwitchSystem
+    // check has data in ui person slot
+    public bool HasData() //coll from class CharacterSwitchSystem 
     {
         return _hasData;
     } 
@@ -97,6 +99,6 @@ public class PickUpPersonUI : MonoBehaviour , IPointerClickHandler
     }  
     private void ActiveButtonRemove()
     {
-        buttonDelataPerson.SetActive(true); //active button in cell
+        buttonDelataPerson.SetActive(true); //active button from cell
     }  
 }

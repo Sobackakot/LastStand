@@ -14,11 +14,11 @@ public class ItemScrObj : ScriptableObject
     public bool isStackable;
 
     private bool isInstaled;
-    public virtual void UseItem()
+    public virtual void UseItem() //coll from class ItemInSlot 
     {
 
     }
-    public void RemoveItemFromInventorySlot()
+    public void RemoveItemFromInventorySlot() //coll from class Equipment
     {
         InventoryController.Instance.RemoveItemFromInventory(this);
     }

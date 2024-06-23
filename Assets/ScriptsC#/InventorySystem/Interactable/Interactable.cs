@@ -4,7 +4,7 @@ using UnityEngine;
 // Class representing an interactable object. 
 public class Interactable : MonoBehaviour
 {
-    public float radius = 3f; // Interaction radius.
+    public readonly float radius = 3f; // Interaction radius.
     private bool isFocus = false; // Is the object in focus.
     private bool isHasInteract = false; // Has the interaction occurred.
     private Transform player; // Reference to the player.

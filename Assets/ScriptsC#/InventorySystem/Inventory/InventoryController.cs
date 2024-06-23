@@ -6,12 +6,11 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     public static InventoryController Instance;
-    public InventoryUI inventoryUi;
 
-    public event Action onUpdateInventoryPerson;
-    public event Action<int> onResetItemByInventoryCell;
-    public event Action<int> onSetNewItemByInventoryCell; // Event for InventoryUI
-    public event Action<PersonDataScript> onUpdateEquipmentSlot;
+    public event Action onUpdateInventoryPerson; // event for class InventoryUI
+    public event Action<int> onResetItemByInventoryCell;// event for class InventoryUI
+    public event Action<int> onSetNewItemByInventoryCell; // event for class InventoryUI
+    public event Action<PersonDataScript> onUpdateEquipmentSlot; // event for class EquipmentController
     private InventoryPerson inventoryPerson;
     [Header("Inventory Panel UI gameObject")]
     [SerializeField] private GameObject inventoryPanel;
@@ -70,7 +69,7 @@ public class InventoryController : MonoBehaviour
     { 
         inventoryPerson.SwapItemInSlot(slotIndex, newItem); // set new slot for item on Drop  
     } 
-    public List<ItemScrObj> GetCurrentInventory()
+    public List<ItemScrObj> GetCurrentInventory() //get a list of items from a character's inventory
     {
         return inventoryPerson.itemsInventory;
     }

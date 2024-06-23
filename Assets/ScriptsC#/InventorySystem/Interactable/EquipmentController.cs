@@ -2,9 +2,10 @@
 using UnityEngine;
 
 public class EquipmentController : MonoBehaviour
-{
-    private InventoryController inventorySystem;
+{ 
     public static EquipmentController Instance;
+
+    private InventoryController inventorySystem;
     private EquipmentPerson equipmentPerson;
 
     private void Awake()

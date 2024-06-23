@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class EquipmentPerson 
 {
-    public List<Equipment> equipmentItem;
+    public readonly List<Equipment> equipmentItem;
      
     public EquipmentPerson()
     {   

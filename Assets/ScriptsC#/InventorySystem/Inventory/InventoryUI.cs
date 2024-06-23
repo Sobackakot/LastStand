@@ -1,7 +1,6 @@
 
 
 using System.Collections.Generic;
-using Unity.Entities.UniversalDelegates;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -39,24 +38,23 @@ public class InventoryUI : MonoBehaviour
     private void SetNewItemByInventoryCell(int slotIndex) //coll from InventoryController
     { 
         List<ItemScrObj> items = inventory.GetCurrentInventory();
-        if (slotIndex < items.Count && items[slotIndex] != null)
+        if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventory user interface, those slots that have been changed
         {
             Slots[slotIndex].AddItemInSlot(ItemsInSlot[slotIndex], items[slotIndex]);
         }
     }
-    private void ResetItemByInventoryCell(int slotIndex)
+    private void ResetItemByInventoryCell(int slotIndex) //coll from InventoryController
     {
         List<ItemScrObj> items = inventory.GetCurrentInventory();
-        if (slotIndex < items.Count)
+        if (slotIndex < items.Count) //updates the inventory user interface, those slots that have been changed
         {
             Slots[slotIndex].RemoveItemInSlot(ItemsInSlot[slotIndex]);
         }
     }
     private void UpdateInventorySlots() //coll from InventoryController
-    {
-        Debug.Log("Update all slots");
+    { 
         List<ItemScrObj> items = inventory.GetCurrentInventory();
-        for (int i = 0; i < Slots.Count; i++)
+        for (int i = 0; i < Slots.Count; i++) //Updates the inventory UI completely when changing characters
         {
             if (ItemsInSlot[i].dataItem != null)
             {

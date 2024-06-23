@@ -7,14 +7,14 @@ public class Equipment : ItemScrObj
     public float Armor;
     public float Damage;
     public EquipItem IndexOfSlot; //slots for equipping items
-    public override void UseItem()
+    public override void UseItem() 
     {
-        base.UseItem();
+        base.UseItem();//coll from class ItemInSlot
         EquipmentController.Instance.EquipItem(this);
         RemoveItemFromInventorySlot();
     }
 }
-public enum EquipItem : byte
+public enum EquipItem : byte  
 {
     Helmet,
     T_shirt,

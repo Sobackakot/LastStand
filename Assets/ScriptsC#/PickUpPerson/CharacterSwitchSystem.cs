@@ -98,7 +98,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     }
     public void EnableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
     {
-        pick.isActive = true;
+        pick.PersonActivationSwitch(true);
         if (InputComponents.ContainsKey(pick))
             InputComponents[pick].OnEnableComponent(); // next pick person Activating components
         if (MoveComponents.ContainsKey(pick))
@@ -106,7 +106,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     }
     public void DisableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
     {
-        pick.isActive = false;
+        pick.PersonActivationSwitch(false);
         if (InputComponents.ContainsKey(pick))
             InputComponents[pick].OnDisableComponent();// Deactive  current person components
         if (MoveComponents.ContainsKey(pick))

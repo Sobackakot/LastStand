@@ -10,7 +10,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public ItemScrObj dataItem { get; private set;}
 
     private RectTransform pickItemTransform;
-    [HideInInspector] public Transform originalParent;
+    private Transform originalParent;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
 
@@ -20,16 +20,16 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void Awake()
     {   
-        originalParent = GetComponent<Transform>();
-        pickItemTransform = GetComponent<RectTransform>();
+        originalParent = GetComponent<Transform>();  //transform parent object
+        pickItemTransform = GetComponent<RectTransform>();//current position of the item
         canvasGroup = GetComponent<CanvasGroup>();
-        canvas = pickItemTransform.GetComponentInParent<Canvas>();
+        canvas = pickItemTransform.GetComponentInParent<Canvas>(); //UI canvas with inventory
 
-        itemIcon = GetComponent<Image>();
-        itemName = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        itemAmount = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        itemIcon = GetComponent<Image>(); //image of the current item
+        itemName = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>(); //name of the current item
+        itemAmount = pickItemTransform.GetChild(1).GetComponent<TextMeshProUGUI>(); //amount of current item
     }
-    public virtual void SetItem(ItemScrObj newItem) // coll from InventoryUI
+    public virtual void SetItem(ItemScrObj newItem) // coll from InventorySlot
     {
         if (newItem == null) return;
         dataItem = newItem;
@@ -37,11 +37,9 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemAmount.text = dataItem.item.itemAmount.ToString();
         itemIcon.sprite = dataItem.IconItem;
         itemIcon.enabled = true;
-        Debug.Log("ItemInSlot Set " + dataItem.NameItem + "  " + slotIndex);
     }
-    public virtual void CleareItem() // coll from InventoryUI
+    public virtual void CleareItem() // coll from InventorySlot
     {
-        Debug.Log("ItemInSlot  Cler " + dataItem.NameItem + "  " + slotIndex);
         dataItem = null;
         itemIcon.sprite = null;
         itemIcon.enabled = false;
@@ -52,11 +50,11 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f;
-        originalParent = transform.parent;
-        pickItemTransform.SetParent(canvas.transform);
-        pickItemTransform.SetAsLastSibling(); 
+        originalParent = transform.parent; //save the parent object of the item
+        pickItemTransform.SetParent(canvas.transform); //changing the parent object of an item
+        pickItemTransform.SetAsLastSibling(); //sets item display priority
     }
-    public virtual void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData) //moves an item to the mouse cursor position
     {
         pickItemTransform.anchoredPosition += eventData.delta / canvas.scaleFactor; 
     }
@@ -64,13 +62,13 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
-        pickItemTransform.SetParent(originalParent);
+        pickItemTransform.SetParent(originalParent); //returns the item to the original position of the parent object
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            dataItem?.UseItem();
+            dataItem?.UseItem(); //equip an item
         }
     } 
 }

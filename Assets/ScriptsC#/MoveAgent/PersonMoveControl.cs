@@ -1,9 +1,7 @@
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 // This class controls the movement of a person in the game.
@@ -64,7 +62,7 @@ public class PersonMoveControl : MonoBehaviour
     }
 
     // Method to move the agent to the clicked position.
-    private void MoveAgent()
+    private void MoveAgent()// coll from class InputControlPerson
     {
         if (isPointerEnterUI) return; //checking that the mouse cursor does not fall into ui elements
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
@@ -77,7 +75,7 @@ public class PersonMoveControl : MonoBehaviour
     }
 
     // Method to update the focus to an interactable object.
-    private void UpdateFocusInteract()
+    private void UpdateFocusInteract() // coll from class InputControlPerson
     {
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue()); // Create a ray from the camera through the mouse position.
         RaycastHit hit;

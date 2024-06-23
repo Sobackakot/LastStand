@@ -1,7 +1,5 @@
-
-using System.Xml.Serialization;
-using UnityEngine;
-using UnityEngine.EventSystems;
+ 
+using UnityEngine; 
 
 // Class to manage the selection of persons.
 public class SelectPersonsSystem : MonoBehaviour
