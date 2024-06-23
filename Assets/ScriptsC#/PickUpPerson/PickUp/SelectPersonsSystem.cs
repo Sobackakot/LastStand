@@ -1,5 +1,5 @@
- 
-using UnityEngine; 
+
+using UnityEngine;
 
 // Class to manage the selection of persons.
 public class SelectPersonsSystem : MonoBehaviour
@@ -14,8 +14,8 @@ public class SelectPersonsSystem : MonoBehaviour
     private Vector2 endPoint; // Ending point of the selection box.
     private int sortingLayer = 99; // Sorting layer for the GUI.
     private float selectionThreshold = 10f; // Minimum distance to start drawing the frame.
-    private bool isPointerEnterUI = false;
-   
+    private bool isPointerEnterUI = false; // to check if the mouse cursor is on the UI
+
     private void Start()
     {
         characterSystem = CharacterSwitchSystem.Instance; 
@@ -91,8 +91,8 @@ public class SelectPersonsSystem : MonoBehaviour
         if (Input.GetMouseButton(0) && drawFrame)
         {
             endPoint = Input.mousePosition; // Update the ending point of the selection.
-            if (Vector2.Distance(startPoint, endPoint) > selectionThreshold)
-            { 
+            if (Vector2.Distance(startPoint, endPoint) > selectionThreshold) //check minimum frame size
+            {
                 // Calculate the inverted rectangle for the selection box.
                 rectTransform = GetInvertRectByScreenPoint(startPoint, endPoint); 
                 GUI.Box(rectTransform, ""); // Draw the selection box.
@@ -119,12 +119,12 @@ public class SelectPersonsSystem : MonoBehaviour
         float minPointY = Mathf.Min(endPoint.y, startPoint.y);// This determines the bottom edge of the rectangle. 
         float maxPointY = Mathf.Max(endPoint.y, startPoint.y);// This determines the top edge of the rectangle.
          
-        float pointsX = minPointX;// This is the left edge of the rectangle. 
-        float pointsY = Screen.height - maxPointY;// subtract the top edge value from the screen height. 
+        float posX = minPointX;// This is the left edge of the rectangle. 
+        float posY = Screen.height - maxPointY;// subtract the top edge value from the screen height. 
         float widthX = maxPointX - minPointX; // This is the difference between the maximum and minimum x-coordinates. 
         float heightY = maxPointY - minPointY; // This is the difference between the maximum and minimum y-coordinates.
 
         // Create and return a new Rect with the calculated x, y, width, and height.
-        return new Rect(pointsX, pointsY, widthX, heightY);
+        return new Rect(posX, posY, widthX, heightY);
     }
 }

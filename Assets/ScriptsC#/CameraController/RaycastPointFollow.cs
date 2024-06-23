@@ -61,11 +61,11 @@ public class RaycastPointFollow : MonoBehaviour
         enabled = false;
     }
 
-    private void UpdateRaycastPoint(Transform newPoint) // call from CameraLookTarget
+    private void UpdateRaycastPoint(Transform newPoint) // for envent coll from class CameraLookTarget
     {
         rayPoint.position = new Vector3(newPoint.position.x, rayPoint.position.y, newPoint.position.z);
     }
-    private void SetInputAxisMove(Vector2 inputAxis)  
+    private void SetInputAxisMove(Vector2 inputAxis)  // for envent coll from class InputControlCamera
     {   
         inputAxisX = inputAxis.x;
         inputAxisZ = inputAxis.y; 

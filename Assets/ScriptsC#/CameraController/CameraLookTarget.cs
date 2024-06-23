@@ -10,10 +10,10 @@ public class CameraLookTarget : MonoBehaviour
     [SerializeField] private RaycastPointFollow raycastPointFollow;
 
     [Header("Transform: Target Look Point")]
-    [SerializeField] private Transform lookFreePoint; 
+    [SerializeField] private Transform lookFreePoint; //position of the point of intersection of the ray with the surface
     [Header("Current Camera position")]
-    [SerializeField] private Vector3 offset; 
-     
+    [SerializeField] private Vector3 offset; //distance between camera and intersection point
+
     [Range(0.3f,3)] private float sensitivity = 0.5f;
     [Range(-75, 0)] private float minAngle = -45f;
     [Range(0, 75)] private float maxAngle = 75f;
@@ -25,13 +25,12 @@ public class CameraLookTarget : MonoBehaviour
       
     private Transform cameraPoint;// camera starting position
     private Transform currentLookPoint; // current camera tracking point
+    private Transform newTransformRaycast; //last position ray
 
-    public event Action<Transform> onUpdateRaycastPoint;
+    public event Action<Transform> onUpdateRaycastPoint; // event for class RaycastPointFollow
 
     private float deltaX;
     private float deltaY;
-
-    private Transform newTransformRaycast;
 
     private void OnEnable()
     {
@@ -40,13 +39,6 @@ public class CameraLookTarget : MonoBehaviour
         raycastPointFollow.onResetTargetLookPoint += ResetLookPoint; //RaycastPointFollow
 
     }
-    private void OnDisable()
-    {
-        inputContorlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
-        inputContorlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
-        raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
-        CharacterSwitchSystem.Instance.onResetFocusCamera -= ResetLookPoint;
-    }
     private void Start()
     {
         CharacterSwitchSystem.Instance.onResetFocusCamera += ResetLookPoint;
@@ -54,11 +46,19 @@ public class CameraLookTarget : MonoBehaviour
         currentLookPoint = lookFreePoint;
         offset = cameraPoint.position - currentLookPoint.position; // get the starting position of the camera from the target  
     }
+    private void OnDisable()
+    {
+        inputContorlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
+        inputContorlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
+        raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
+        CharacterSwitchSystem.Instance.onResetFocusCamera -= ResetLookPoint;
+    }
+  
     public void LateUpdate()
     {
         PositionUpdate(); 
     } 
-    private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //call from CharacterSwitchSystem
+    private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //for event call from class CharacterSwitchSystem, RaycastPointFollow
     {
         // either the camera follows the character selected from the list or freely follows the point
         if (isFreeCamera)
@@ -89,7 +89,7 @@ public class CameraLookTarget : MonoBehaviour
         //updating camera position when zooming
         cameraPoint.position = currentLookPoint.position - cameraPoint.forward * currentScrollPoint; 
     }
-    private void RotateCamera(Vector2 deltaMouse)
+    private void RotateCamera(Vector2 deltaMouse) //for event from class InputControllerCamera
     {    
         deltaX += deltaMouse.x * sensitivity; // get the rotation delta along X
         deltaY -= deltaMouse.y * sensitivity; // get rotation delta in Y
@@ -97,7 +97,7 @@ public class CameraLookTarget : MonoBehaviour
         // initialize camera rotation only with the button held down
         cameraPoint.localEulerAngles = new Vector3(deltaY, deltaX, 0); 
     }
-    private void ZoomCamera(Vector2 scrollMouse)
+    private void ZoomCamera(Vector2 scrollMouse) //for event from class InputControllerCamera
     {   
         currentScrollPoint-= scrollMouse.y * zoomSpeed * Time.deltaTime; // get camera Zoom values ​​forward/backward
         currentScrollPoint = Mathf.Clamp(currentScrollPoint, Mathf.Abs(minZoom), Mathf.Abs(maxZoom)); // Zoom restrictions 
