@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 503a7f364537cd94eac0d1d759e9de1a, type: 3}
-  m_Name: New Item
+  m_Name: sphere
   m_EditorClassIdentifier: 
   item:
-    itemAmount: 9
+    itemAmount: 1
     strengthPoints: 100
-  NameItem: Sphere
+  NameItem: sphere
   IconItem: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  Weight: 3
+  Weight: 0
   isDefaultItem: 0
   isStackable: 0

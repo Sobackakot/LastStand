@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b748bd21d7948fc4a98c0a4cfa1f5e15, type: 3}
+  m_Script: {fileID: 11500000, guid: 29c721c4a0b8a5745bce3f3ce62c0d9b, type: 3}
   m_Name: Gloves
   m_EditorClassIdentifier: 
   item:
     itemAmount: 1
     strengthPoints: 100
   NameItem: Gloves
-  IconItem: {fileID: 21300000, guid: 441067a78a2670142a4bb41517cb8911, type: 3}
-  Weight: 3
+  IconItem: {fileID: 21300000, guid: 8c63f7691890fda43b180ec76e7c7aff, type: 3}
+  Weight: 0
   isDefaultItem: 0
   isStackable: 0
-  Armor: 100
+  Armor: 0
   Damage: 0
   IndexOfSlot: 3

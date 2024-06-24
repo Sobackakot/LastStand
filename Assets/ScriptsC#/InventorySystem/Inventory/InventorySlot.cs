@@ -20,7 +20,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         item.SetItem(data);
     }
-    public virtual void RemoveItemInSlot(ItemInSlot item)////coll from class InventoryUI
+    public virtual void RemoveItemInSlot(ItemInSlot item)//coll from class InventoryUI
     {
         item.CleareItem();
     }

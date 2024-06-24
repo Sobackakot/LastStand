@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI: MonoBehaviour, IInventoryUI<int>
 {
     private InventoryController inventory; 
     private List<ItemInSlot> ItemsInSlot = new List<ItemInSlot>();
@@ -17,7 +17,7 @@ public class InventoryUI : MonoBehaviour
     }
     private void Start()
     {
-        for(int i  =0; i < ItemsInSlot.Count; i++)
+        for(int i  =0; i < Slots.Count; i++)
         {
             ItemsInSlot[i].slotIndex = i;
         }
@@ -35,7 +35,7 @@ public class InventoryUI : MonoBehaviour
         inventory.onResetItemByInventoryCell -= ResetItemByInventoryCell;
         inventory.onUpdateInventoryPerson -= UpdateInventorySlots;
     }
-    private void SetNewItemByInventoryCell(int slotIndex) //coll from InventoryController
+    public void SetNewItemByInventoryCell(int slotIndex) //coll from InventoryController
     { 
         List<ItemScrObj> items = inventory.GetCurrentInventory();
         if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventory user interface, those slots that have been changed
@@ -43,7 +43,7 @@ public class InventoryUI : MonoBehaviour
             Slots[slotIndex].AddItemInSlot(ItemsInSlot[slotIndex], items[slotIndex]);
         }
     }
-    private void ResetItemByInventoryCell(int slotIndex) //coll from InventoryController
+    public void ResetItemByInventoryCell(int slotIndex) //coll from InventoryController
     {
         List<ItemScrObj> items = inventory.GetCurrentInventory();
         if (slotIndex < items.Count) //updates the inventory user interface, those slots that have been changed
@@ -51,7 +51,7 @@ public class InventoryUI : MonoBehaviour
             Slots[slotIndex].RemoveItemInSlot(ItemsInSlot[slotIndex]);
         }
     }
-    private void UpdateInventorySlots() //coll from InventoryController
+    public void UpdateInventorySlots() //coll from InventoryController
     { 
         List<ItemScrObj> items = inventory.GetCurrentInventory();
         for (int i = 0; i < Slots.Count; i++) //Updates the inventory UI completely when changing characters

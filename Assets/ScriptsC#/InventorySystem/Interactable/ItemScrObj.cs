@@ -18,7 +18,7 @@ public class ItemScrObj : ScriptableObject
     {
 
     }
-    public void RemoveItemFromInventorySlot() //coll from class Equipment
+    public void RemoveItemFromInventorySlot() //coll from class EquipmentScrObj
     {
         InventoryController.Instance.RemoveItemFromInventory(this);
     }

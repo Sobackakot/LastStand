@@ -10,8 +10,11 @@ public class InventoryController : MonoBehaviour
     public event Action onUpdateInventoryPerson; // event for class InventoryUI
     public event Action<int> onResetItemByInventoryCell;// event for class InventoryUI
     public event Action<int> onSetNewItemByInventoryCell; // event for class InventoryUI
-    public event Action<PersonDataScript> onUpdateEquipmentSlot; // event for class EquipmentController
+    public event Action<PersonDataScript> onGetEquipmentPerson; // event for class EquipmentController
+    public event Action onActiveEquipmentPanel;// event for class EquipmentController
+
     private InventoryPerson inventoryPerson;
+
     [Header("Inventory Panel UI gameObject")]
     [SerializeField] private GameObject inventoryPanel;
 
@@ -38,13 +41,16 @@ public class InventoryController : MonoBehaviour
     {
         inventoryPanel.SetActive(isSwitchActive); // active inventory Panel 
         if (isSwitchActive)
+        {
             onUpdateInventoryPerson?.Invoke(); // update inventory for pick person
+            onActiveEquipmentPanel?.Invoke();   
+        }  
     }
     public void GetPersonByInventory(PersonDataScript person) // coll from class CharacterSwitchSystem
     {
         inventoryPerson = person.inventoryPerson; // get pick person for inventory
-        onUpdateInventoryPerson?.Invoke(); // update inventory slots for new pick person
-        onUpdateEquipmentSlot?.Invoke(person); //get person for Equipment slots
+        onGetEquipmentPerson?.Invoke(person); //get person for EquipmentScrObj slots
+        onUpdateInventoryPerson?.Invoke(); // update inventory slots for new pick person 
     }
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
