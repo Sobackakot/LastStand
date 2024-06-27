@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5474976854010444398}
   - component: {fileID: 5865244064713171193}
   - component: {fileID: 6190539399783805520}
-  - component: {fileID: 8752723933546380916}
   - component: {fileID: 3518536447710527737}
   m_Layer: 5
   m_Name: Slot
@@ -103,18 +102,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!225 &8752723933546380916
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7760340490159776347}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!114 &3518536447710527737
 MonoBehaviour:
   m_ObjectHideFlags: 0
