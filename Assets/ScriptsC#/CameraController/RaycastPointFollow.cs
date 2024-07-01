@@ -5,9 +5,7 @@ using Zenject;
 public class RaycastPointFollow : MonoBehaviour
 {
     private IInputController inputController;
-
-    [Header("EventSystem free move CameraLookTarget")]
-    [SerializeField] private CameraLookTarget cameraLookTarget;
+    private CameraLookTarget cameraLookTarget;
 
     [Header("Camera Person")]
     [SerializeField] private Transform mainCamera;
@@ -34,10 +32,10 @@ public class RaycastPointFollow : MonoBehaviour
     private float inputAxisZ;
 
     [Inject]
-    private void Container(IInputController inputController)
+    private void Container(IInputController inputController, CameraLookTarget cameraLookTarget)
     {
         this.inputController = inputController;
-        Debug.Log("Initialize");
+        this.cameraLookTarget = cameraLookTarget;
     }
 
     private void Start()

@@ -4,6 +4,7 @@ using Zenject;
 public class CameraSystemInstaller : MonoInstaller
 {
     [SerializeField] private RaycastPointFollow raycastPointFollow;
+    [SerializeField] private CameraLookTarget cameraLookTarget;
     public override void InstallBindings()
     {
         InputControllerCamera();
@@ -12,6 +13,6 @@ public class CameraSystemInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<InputControllerCamera>().AsSingle().NonLazy(); 
         Container.Bind<RaycastPointFollow>().FromInstance(raycastPointFollow).AsSingle();
-        Container.Bind<CameraLookTarget>().AsSingle();
+        Container.Bind<CameraLookTarget>().FromInstance(cameraLookTarget).AsSingle();
     }
 }
