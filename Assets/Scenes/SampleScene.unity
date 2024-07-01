@@ -23417,7 +23417,7 @@ GameObject:
   - component: {fileID: 1967459903}
   - component: {fileID: 1967459902}
   m_Layer: 0
-  m_Name: CameraInstaller
+  m_Name: CameraSystemInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23435,6 +23435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c268d19d2c1dff47a9fb83571dbb7dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  raycastPointFollow: {fileID: 196373488}
 --- !u!4 &1967459903
 Transform:
   m_ObjectHideFlags: 0
@@ -24622,7 +24623,7 @@ PrefabInstance:
         type: 3}
       propertyPath: inputContorlCamera
       value: 
-      objectReference: {fileID: 7166093947692530667}
+      objectReference: {fileID: 0}
     - target: {fileID: 4318120693312194363, guid: 7ad4463b45841c04da0de2d98a85ed54,
         type: 3}
       propertyPath: raycastPointFollow
@@ -24683,18 +24684,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ad4463b45841c04da0de2d98a85ed54, type: 3}
---- !u!114 &7166093947692530667 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7094672151618447498, guid: 7ad4463b45841c04da0de2d98a85ed54,
-    type: 3}
-  m_PrefabInstance: {fileID: 7166093947692530666}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c68282130838f41a2f78df640c6cd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7166093947692530669 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4318120693312194363, guid: 7ad4463b45841c04da0de2d98a85ed54,

@@ -5,10 +5,8 @@ using Zenject;
 
 public class CameraLookTarget : MonoBehaviour  
 { 
-    private IInputController inputController;
-
-    [Header("EventSystem RaycastPointFollow")]
-    [SerializeField] private RaycastPointFollow raycastPointFollow;
+    private IInputController inputController; 
+    private RaycastPointFollow raycastPointFollow;
 
     [Header("Transform: Target Look Point")]
     [SerializeField] private Transform lookFreePoint; //position of the point of intersection of the ray with the surface
@@ -34,10 +32,10 @@ public class CameraLookTarget : MonoBehaviour
     private float deltaY;
 
     [Inject]
-    private void Container(IInputController inputController)
+    private void Container(IInputController inputController, RaycastPointFollow raycastPointFollow)
     {
         this.inputController = inputController;
-        Debug.Log("Initialize");
+        this.raycastPointFollow = raycastPointFollow;
     }
 
     private void OnEnable()
