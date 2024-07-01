@@ -1,9 +1,10 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine; 
 using UnityEngine.InputSystem;
 
-public class InputContorlCamera : MonoBehaviour
+public class InputControllerCamera : IInputController , IDisposable
 {   
     //Rotate and Zoom CameraLookTarget
     public event Action<Vector2> onRotateMouse; //This Event for calss CameraLookTarget
@@ -12,27 +13,30 @@ public class InputContorlCamera : MonoBehaviour
 
     private InputActions inputActions;
 
-    private bool isPressedMiddleMouseButton = false;  
-
-    private void OnEnable()
+    private bool isPressedMiddleMouseButton = false;
+    public  InputControllerCamera()
     {
+        Debug.Log("OnEnable");
         inputActions = new InputActions();
         inputActions.Enable();
-      
+
         inputActions.ActionMaps.LookMouseDelta.performed += ctx => LookMouseDelta_performed(ctx);
         inputActions.ActionMaps.ScrollMouse.performed += ctx => ScrollMouse_performed(ctx);
 
         inputActions.ActionMaps.GetAxisDirectionMove.performed += ctx => RayPointMove_onInputGetAxis(ctx);
         inputActions.ActionMaps.GetAxisDirectionMove.canceled += ctx => RayPointMove_onInputGetAxis(ctx);
-         
+
         inputActions.ActionMaps.MiddleMouseButton.performed += ctx => isPressedMiddleMouseButton = true;
         inputActions.ActionMaps.MiddleMouseButton.canceled += ctx => isPressedMiddleMouseButton = false;
+        
     }
-    
-    private void OnDisable()
+
+    public void Dispose()
     {
-        inputActions.Disable();
+        Debug.Log("OnDisable");
+        inputActions.Disable(); 
     }
+
     private void RayPointMove_onInputGetAxis(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -53,5 +57,6 @@ public class InputContorlCamera : MonoBehaviour
         if (context.performed)
             onScrollMouse?.Invoke(context.ReadValue<Vector2>());//ZoomCamera(Vector2 scrollMouse)
         else onScrollMouse?.Invoke(Vector2.zero);
-    }
+    } 
+   
 }

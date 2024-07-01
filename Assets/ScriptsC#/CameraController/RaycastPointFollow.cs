@@ -1,10 +1,10 @@
 
 using System; 
-using UnityEngine;  
+using UnityEngine;
+using Zenject;
 public class RaycastPointFollow : MonoBehaviour
 {
-    [Header("EventSystem Input Controller Camera")]
-    [SerializeField] private InputContorlCamera inputControlCamera;
+    private IInputController inputController;
 
     [Header("EventSystem free move CameraLookTarget")]
     [SerializeField] private CameraLookTarget cameraLookTarget;
@@ -32,6 +32,14 @@ public class RaycastPointFollow : MonoBehaviour
 
     private float inputAxisX;
     private float inputAxisZ;
+
+    [Inject]
+    private void Container(IInputController inputController)
+    {
+        this.inputController = inputController;
+        Debug.Log("Initialize");
+    }
+
     private void Start()
     {
         rayPoint = GetComponent<Transform>();
@@ -39,11 +47,11 @@ public class RaycastPointFollow : MonoBehaviour
     } 
     private void OnEnable()
     { 
-        inputControlCamera.onInputGetAxis += SetInputAxisMove; 
+        inputController.onInputGetAxis += SetInputAxisMove; 
     }
     private void OnDisable()
     {
-        inputControlCamera.onInputGetAxis -= SetInputAxisMove;
+        inputController.onInputGetAxis -= SetInputAxisMove;
         cameraLookTarget.onUpdateRaycastPoint -= UpdateRaycastPoint;
     } 
     private void LateUpdate()
@@ -52,6 +60,8 @@ public class RaycastPointFollow : MonoBehaviour
         MoveRay();
         SetRaycastPoint();  
     }
+
+    
     public void EnableMoveRay()
     {
         enabled = true;

@@ -5,7 +5,8 @@ using Zenject;
 
 public class CameraLookTarget : MonoBehaviour  
 { 
-    private InputContorlCamera inputControlCamera;
+    private IInputController inputController;
+
     [Header("EventSystem RaycastPointFollow")]
     [SerializeField] private RaycastPointFollow raycastPointFollow;
 
@@ -32,10 +33,17 @@ public class CameraLookTarget : MonoBehaviour
     private float deltaX;
     private float deltaY;
 
+    [Inject]
+    private void Container(IInputController inputController)
+    {
+        this.inputController = inputController;
+        Debug.Log("Initialize");
+    }
+
     private void OnEnable()
     {
-        inputControlCamera.onRotateMouse += RotateCamera; // InputControllerCamera
-        inputControlCamera.onScrollMouse += ZoomCamera;// InputControllerCamera
+        inputController.onRotateMouse += RotateCamera; // InputControllerCamera
+        inputController.onScrollMouse += ZoomCamera;// InputControllerCamera
         raycastPointFollow.onResetTargetLookPoint += ResetLookPoint; //RaycastPointFollow
 
     }
@@ -48,8 +56,8 @@ public class CameraLookTarget : MonoBehaviour
     }
     private void OnDisable()
     {
-        inputControlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
-        inputControlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
+        inputController.onRotateMouse -= RotateCamera;// InputControllerCamera
+        inputController.onScrollMouse -= ZoomCamera;// InputControllerCamera
         raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
         CharacterSwitchSystem.Instance.onResetFocusCamera -= ResetLookPoint;
     }
@@ -59,11 +67,7 @@ public class CameraLookTarget : MonoBehaviour
         PositionUpdate(); 
     }
 
-    [Inject]
-    private void Container(InputContorlCamera inputControlCamera)
-    {
-        this.inputControlCamera = inputControlCamera;
-    }
+   
     private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //for event call from class CharacterSwitchSystem, RaycastPointFollow
     {
         // either the camera follows the character selected from the list or freely follows the point
