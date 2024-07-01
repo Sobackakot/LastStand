@@ -1,11 +1,11 @@
 ﻿
 using System; 
-using UnityEngine; 
+using UnityEngine;
+using Zenject;
 
 public class CameraLookTarget : MonoBehaviour  
-{
-    [Header("EventSystem Camera Input Contoller")]
-    [SerializeField] private InputContorlCamera inputContorlCamera;
+{ 
+    private InputContorlCamera inputControlCamera;
     [Header("EventSystem RaycastPointFollow")]
     [SerializeField] private RaycastPointFollow raycastPointFollow;
 
@@ -34,8 +34,8 @@ public class CameraLookTarget : MonoBehaviour
 
     private void OnEnable()
     {
-        inputContorlCamera.onRotateMouse += RotateCamera; // InputControllerCamera
-        inputContorlCamera.onScrollMouse += ZoomCamera;// InputControllerCamera
+        inputControlCamera.onRotateMouse += RotateCamera; // InputControllerCamera
+        inputControlCamera.onScrollMouse += ZoomCamera;// InputControllerCamera
         raycastPointFollow.onResetTargetLookPoint += ResetLookPoint; //RaycastPointFollow
 
     }
@@ -48,8 +48,8 @@ public class CameraLookTarget : MonoBehaviour
     }
     private void OnDisable()
     {
-        inputContorlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
-        inputContorlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
+        inputControlCamera.onRotateMouse -= RotateCamera;// InputControllerCamera
+        inputControlCamera.onScrollMouse -= ZoomCamera;// InputControllerCamera
         raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
         CharacterSwitchSystem.Instance.onResetFocusCamera -= ResetLookPoint;
     }
@@ -57,7 +57,13 @@ public class CameraLookTarget : MonoBehaviour
     public void LateUpdate()
     {
         PositionUpdate(); 
-    } 
+    }
+
+    [Inject]
+    private void Container(InputContorlCamera inputControlCamera)
+    {
+        this.inputControlCamera = inputControlCamera;
+    }
     private void ResetLookPoint(bool isFreeCamera, PickUpPerson person = null) //for event call from class CharacterSwitchSystem, RaycastPointFollow
     {
         // either the camera follows the character selected from the list or freely follows the point
