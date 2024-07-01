@@ -1,12 +1,16 @@
 using UnityEngine;
 using Zenject;
 
-public class InputControllerInstaller : MonoInstaller
+public class CameraSystemInstaller : MonoInstaller
 { 
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<InputControllerCamera>().AsSingle().NonLazy(); 
-        Container.Bind<CameraLookTarget>().FromComponentInHierarchy().AsSingle();
+        InputControllerCamera();
+    }
+    private void InputControllerCamera()
+    {
+        Container.BindInterfacesAndSelfTo<InputControllerCamera>().AsSingle().NonLazy();
+        Container.Bind<CameraLookTarget>().AsSingle();
         Container.Bind<RaycastPointFollow>().AsSingle();
     }
 }
