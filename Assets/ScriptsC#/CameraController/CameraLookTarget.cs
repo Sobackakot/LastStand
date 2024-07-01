@@ -10,8 +10,7 @@ public class CameraLookTarget : MonoBehaviour
 
     [Header("Transform: Target Look Point")]
     [SerializeField] private Transform lookFreePoint; //position of the point of intersection of the ray with the surface
-    [Header("Current Camera position")]
-    [SerializeField] private Vector3 offset; //distance between camera and intersection point
+   
 
     [Range(0.3f,3)] private float sensitivity = 0.5f;
     [Range(-75, 0)] private float minAngle = -45f;
@@ -21,7 +20,8 @@ public class CameraLookTarget : MonoBehaviour
     [Range(1, 10)] private float zoomSpeed = 2f;
     [Range(1, 6)] private float minZoom = 2f;
     [Range(25, 500)] private float maxZoom = 100f;
-      
+
+    private Vector3 offset; //distance between camera and intersection point
     private Transform cameraPoint;// camera starting position
     private Transform currentLookPoint; // current camera tracking point
     private Transform newTransformRaycast; //last position ray
