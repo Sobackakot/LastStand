@@ -120,7 +120,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5979978968027931991}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c27b25a0bb1c2a45b84dd2b9c206206, type: 3}
   m_Name: 
@@ -141,7 +141,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   terraLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!114 &4736641695933056650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,8 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   personData: {fileID: 11400000, guid: a013503c1dd8d2d43bd641add003be42, type: 2}
-  pointLookTarget: {fileID: 3041684037575099563}
-  isActive: 0
 --- !u!114 &927369696316025734
 MonoBehaviour:
   m_ObjectHideFlags: 0

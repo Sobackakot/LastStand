@@ -16,7 +16,6 @@ public class InputControllerCamera : IInputController , IDisposable
     private bool isPressedMiddleMouseButton = false;
     public  InputControllerCamera()
     {
-        Debug.Log("OnEnable");
         inputActions = new InputActions();
         inputActions.Enable();
 
@@ -33,7 +32,6 @@ public class InputControllerCamera : IInputController , IDisposable
 
     public void Dispose()
     {
-        Debug.Log("OnDisable");
         inputActions.Disable(); 
     }
 

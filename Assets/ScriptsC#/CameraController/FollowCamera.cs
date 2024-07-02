@@ -1,17 +1,28 @@
 
 using UnityEngine;
+using Zenject;
 
 public class FollowCamera : MonoBehaviour
 {
     
     [Header("RaycastPointFollow - Script")]
     [SerializeField] private Transform raycastPosition;
-    [Header("Follow new Person point")]
-    [SerializeField] private Transform currentTarget;
-
+ 
+    private Transform currentTarget;
+    private Transform transformPoint;
     private float maxRadius = 50f;
     private float smoothSpeed = 1f;
     private Vector3 direction;
+
+    [Inject]
+    private void Construct(Transform personTransform)
+    {
+        currentTarget = personTransform;
+    }
+    private void Awake()
+    {
+        transformPoint = GetComponent<Transform>(); 
+    }
     private void OnDisable()
     {
         CharacterSwitchSystem.Instance.onSetNewTargetFolowCamera -= SetTargetPlayer;
@@ -30,7 +41,7 @@ public class FollowCamera : MonoBehaviour
     }
     private void RadiusCameraClamp() //limiting the radius of free camera movement around the selected character
     { 
-        direction = transform.position - currentTarget.position;
+        direction = transformPoint.position - currentTarget.position;
         if (direction.sqrMagnitude > maxRadius * maxRadius)
         {
             direction.Normalize();

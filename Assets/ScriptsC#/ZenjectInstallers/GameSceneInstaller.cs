@@ -1,24 +1,27 @@
+ 
 using UnityEngine;
 using Zenject;
 
-public class CameraSystemInstaller : MonoInstaller
+public class GameSceneInstaller : MonoInstaller 
 {
     [SerializeField] private RaycastPointFollow raycastPointFollow;
     [SerializeField] private CameraLookTarget cameraLookTarget;
 
     [SerializeField] private Transform myPersonStartPoint;
     [SerializeField] private GameObject myPersonPrefab;
-     
+
     [SerializeField] private FollowCamera freePoint;
 
     [SerializeField] private PersonMoveControl personMoveControl;
-
+     
     public override void InstallBindings()
     {
         InputControllerCamera();
     }
     private void InputControllerCamera()
     {
+        Container.BindInterfacesAndSelfTo<GameSceneInstaller>().AsSingle();
+
         BindCameraInstaller();
 
         BindPrefabMyPerson();
@@ -39,5 +42,5 @@ public class CameraSystemInstaller : MonoInstaller
         Container.Bind<PickUpPerson>().FromInstance(myPerson).AsSingle();
         Container.Bind<Transform>().FromInstance(myPerson.transform).AsSingle();
         Container.Bind<FollowCamera>().FromInstance(freePoint).AsSingle();
-    }
+    } 
 }

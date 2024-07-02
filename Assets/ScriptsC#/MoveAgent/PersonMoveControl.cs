@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using Zenject;
 
 // This class controls the movement of a person in the game.
 public class PersonMoveControl : MonoBehaviour
@@ -12,7 +13,8 @@ public class PersonMoveControl : MonoBehaviour
     [Header("2). NavMeshAgent")]
     [Header("3). PersonCamera")]
      
-    [SerializeField] private Camera mainCamera;  
+    private Camera mainCamera;  
+
     [SerializeField] private LayerMask terraLayer; // Layer mask for the terrain.
 
     private InputControlPerson inputControllerPerson;  
@@ -24,6 +26,13 @@ public class PersonMoveControl : MonoBehaviour
     private bool isPointerEnterUI = false; //whether the mouse cursor is on the UI
 
     [Range(100, 1000)] private float rayDistance = 500f; // Distance for raycasting.
+
+
+    [Inject]
+    private void Construct(Camera camera)
+    {
+        mainCamera = camera;    
+    }
      
     private void Awake()
     {
