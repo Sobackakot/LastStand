@@ -19,8 +19,7 @@ public class GameSceneInstaller : MonoInstaller
         InputControllerCamera();
     }
     private void InputControllerCamera()
-    {
-        Container.BindInterfacesAndSelfTo<GameSceneInstaller>().AsSingle();
+    { 
 
         BindCameraInstaller();
 
