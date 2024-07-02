@@ -20421,6 +20421,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 514584242}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1906006859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8553208998512812954, guid: c5bcc478a07ea984fb609d1fa68390f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 8420708564831369139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56349bdd7e47ef14b8772ea1626d8895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1914385875
 GameObject:
   m_ObjectHideFlags: 0
@@ -20802,6 +20814,12 @@ MonoBehaviour:
   freePoint: {fileID: 55243898}
   personMoveControl: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
     type: 3}
+  characrterSwitch: {fileID: 1199347020}
+  pickUpPerson: {fileID: 701345186078337446, guid: 0ef2132312a3adf488b716038c0b0c1d,
+    type: 3}
+  pickUpPersonUI: {fileID: 1906006859}
+  selectPersonsSystem: {fileID: 1810419649}
+  gridLayoutGroupPerson: {fileID: 1810419650}
 --- !u!1 &1979127545
 GameObject:
   m_ObjectHideFlags: 0

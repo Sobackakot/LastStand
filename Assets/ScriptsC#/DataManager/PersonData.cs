@@ -16,12 +16,12 @@ public class PersonData
     private float z;
 
     private bool isInstalled;
-
+    
     public void SetNewPersonId() //coll from class CharacterSwitchSystem
     {
         if (!isInstalled) //set unique id
         {
-            id = Guid.NewGuid().ToString();
+            this.id = Guid.NewGuid().ToString();
             isInstalled = true; 
         } 
     }   

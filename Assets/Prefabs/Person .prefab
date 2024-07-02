@@ -138,7 +138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0de27d007d8db454685604d59b49dcd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   terraLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -166,7 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 585c29c9cfe422543922add656d336f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  personData: {fileID: 11400000, guid: a013503c1dd8d2d43bd641add003be42, type: 2}
+  <personData>k__BackingField: {fileID: 11400000, guid: 225543d2a1ae15d48bb408a7c712590f,
+    type: 2}
 --- !u!114 &927369696316025734
 MonoBehaviour:
   m_ObjectHideFlags: 0

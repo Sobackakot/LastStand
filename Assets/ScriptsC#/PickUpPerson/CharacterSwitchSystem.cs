@@ -128,7 +128,6 @@ public class CharacterSwitchSystem : MonoBehaviour
     }
     private void SetDataPerson(PersonDataScript dataScript) // set new first data for PickUpPerson
     {
-        dataScript.data.SetNewPersonId(); // set new id person for PersonData
         onAddNewDataPerson?.Invoke(dataScript.data);// Add new data person for PersonsDataList from PersonDataManager
         foreach (var uiGroup in personsUISquad)
         {

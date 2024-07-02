@@ -1,4 +1,5 @@
- 
+
+using System;
 using UnityEngine; 
 
 [CreateAssetMenu(fileName = "New Entity", menuName = "Entity/Person")]
@@ -11,8 +12,7 @@ public class PersonDataScript : ScriptableObject
     public PersonData data;
 
     public InventoryPerson inventoryPerson;
-    public EquipmentPerson equipmentPerson;
-
+    public EquipmentPerson equipmentPerson; 
     private void OnEnable()
     {
         if (inventoryPerson == null)
