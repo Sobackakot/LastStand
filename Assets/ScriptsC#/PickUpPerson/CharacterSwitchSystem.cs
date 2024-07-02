@@ -4,12 +4,9 @@ using System.Collections.Generic;
 using UnityEngine; 
 
 public class CharacterSwitchSystem : MonoBehaviour
-{
-    public static CharacterSwitchSystem Instance;
-
+{  
     private InventoryController inventory;
-
-
+     
     [HideInInspector] public readonly List<PickUpPerson> PersonsSquad = new List<PickUpPerson>(30); //List persons squad
 
     [HideInInspector] public readonly Dictionary<PickUpPerson, InputControlPerson> InputComponents = new Dictionary<PickUpPerson, InputControlPerson>(); //components
@@ -25,14 +22,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson 
     
     private void Awake()
-    {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+    { 
         // Automatically fill the personsUISquad list with child PickUpPersonUI components
         personsUISquad.AddRange(GetComponentsInChildren<PickUpPersonUI>(true)); 
     }

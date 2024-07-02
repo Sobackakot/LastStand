@@ -1,9 +1,12 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class GridLayoutGroupPerson : MonoBehaviour
 {
+    private CharacterSwitchSystem characrterSwitch;
+
     [SerializeField] private GridLayoutGroup grid;
 
     private readonly int minSlots = 1; 
@@ -14,14 +17,20 @@ public class GridLayoutGroupPerson : MonoBehaviour
     [Range(1, 18)] private int currentSlotsCount = 1; 
     [Range(100,170)] private float currentCellSize = 100;
 
+    [Inject]
+    private void Container(CharacterSwitchSystem characrterSwitch)
+    {
+        this.characrterSwitch = characrterSwitch;
+    }
+
     private void Start()
     {
-        CharacterSwitchSystem.Instance.onUpdateCellSizeGrid += Instance_onUpdateCellSizeGrid;
+        characrterSwitch.onUpdateCellSizeGrid += Instance_onUpdateCellSizeGrid;
         Instance_onUpdateCellSizeGrid();
     }
     private void OnDisable()
     {
-        CharacterSwitchSystem.Instance.onUpdateCellSizeGrid -= Instance_onUpdateCellSizeGrid;
+        characrterSwitch.onUpdateCellSizeGrid -= Instance_onUpdateCellSizeGrid;
     }
 
     private void Instance_onUpdateCellSizeGrid() // call from CharacterSwitchSystem - ActivePersonUI

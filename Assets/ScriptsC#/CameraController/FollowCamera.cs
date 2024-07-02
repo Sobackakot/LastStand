@@ -4,7 +4,8 @@ using Zenject;
 
 public class FollowCamera : MonoBehaviour
 {
-    
+    private CharacterSwitchSystem characrterSwitch;
+
     [Header("RaycastPointFollow - Script")]
     [SerializeField] private Transform raycastPosition;
  
@@ -15,9 +16,10 @@ public class FollowCamera : MonoBehaviour
     private Vector3 direction;
 
     [Inject]
-    private void Construct(Transform personTransform)
+    private void Construct(Transform personTransform, CharacterSwitchSystem characrterSwitch)
     {
         currentTarget = personTransform;
+        this.characrterSwitch = characrterSwitch;
     }
     private void Awake()
     {
@@ -25,11 +27,11 @@ public class FollowCamera : MonoBehaviour
     }
     private void OnDisable()
     {
-        CharacterSwitchSystem.Instance.onSetNewTargetFolowCamera -= SetTargetPlayer;
+        characrterSwitch.onSetNewTargetFolowCamera -= SetTargetPlayer;
     }
     private void Start()
     {
-        CharacterSwitchSystem.Instance.onSetNewTargetFolowCamera += SetTargetPlayer;
+        characrterSwitch.onSetNewTargetFolowCamera += SetTargetPlayer;
     }
     private void LateUpdate()
     {

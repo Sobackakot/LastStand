@@ -7,6 +7,7 @@ public class CameraLookTarget : MonoBehaviour
 { 
     private IInputController inputController; 
     private RaycastPointFollow raycastPointFollow;
+    private CharacterSwitchSystem characrterSwitch;
 
     [Header("Transform: Target Look Point")]
     [SerializeField] private Transform lookFreePoint; //position of the point of intersection of the ray with the surface
@@ -30,12 +31,13 @@ public class CameraLookTarget : MonoBehaviour
 
     private float deltaX;
     private float deltaY;
-
+     
     [Inject]
-    private void Container(IInputController inputController, RaycastPointFollow raycastPointFollow)
+    private void Container(IInputController inputController, RaycastPointFollow raycastPointFollow, CharacterSwitchSystem characrterSwitch)
     {
         this.inputController = inputController;
         this.raycastPointFollow = raycastPointFollow;
+        this.characrterSwitch = characrterSwitch;
     }
 
     private void OnEnable()
@@ -47,7 +49,7 @@ public class CameraLookTarget : MonoBehaviour
     }
     private void Start()
     {
-        CharacterSwitchSystem.Instance.onResetFocusCamera += ResetLookPoint;
+        characrterSwitch.onResetFocusCamera += ResetLookPoint;
         cameraPoint = GetComponent<Transform>();
         currentLookPoint = lookFreePoint;
         offset = cameraPoint.position - currentLookPoint.position; // get the starting position of the camera from the target  
@@ -57,7 +59,7 @@ public class CameraLookTarget : MonoBehaviour
         inputController.onRotateMouse -= RotateCamera;// InputControllerCamera
         inputController.onScrollMouse -= ZoomCamera;// InputControllerCamera
         raycastPointFollow.onResetTargetLookPoint -= ResetLookPoint;//RaycastPointFollow
-        CharacterSwitchSystem.Instance.onResetFocusCamera -= ResetLookPoint;
+        characrterSwitch.onResetFocusCamera -= ResetLookPoint;
     }
   
     public void LateUpdate()

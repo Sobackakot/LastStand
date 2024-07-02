@@ -1,10 +1,11 @@
 
 using UnityEngine;
+using Zenject;
 
 // Class to manage the selection of persons.
 public class SelectPersonsSystem : MonoBehaviour
 {
-    private CharacterSwitchSystem characterSystem; // Reference to the character switch system.
+    private CharacterSwitchSystem characrterSwitch; // Reference to the character switch system.
 
     public GUISkin GUISkin; // GUI skin for the selection box.
     private Rect rectTransform; // Rectangle representing the selection box.
@@ -16,10 +17,12 @@ public class SelectPersonsSystem : MonoBehaviour
     private float selectionThreshold = 10f; // Minimum distance to start drawing the frame.
     private bool isPointerEnterUI = false; // to check if the mouse cursor is on the UI
 
-    private void Start()
-    {
-        characterSystem = CharacterSwitchSystem.Instance; 
+    [Inject]
+    private void Container(CharacterSwitchSystem characrterSwitch)
+    { 
+        this.characrterSwitch = characrterSwitch;
     }
+    
     private void OnEnable()
     {
         OnPointerEnterUI.onPointerEnterUI += IsPointerEnterUI;
@@ -58,18 +61,18 @@ public class SelectPersonsSystem : MonoBehaviour
     // Method to select persons within the selection box.
     private void SelectPersons(Rect rectTransform)
     {
-        foreach (var pick in characterSystem.PersonsSquad)// Iterate over each person in the character system's squad.
+        foreach (var pick in characrterSwitch.PersonsSquad)// Iterate over each person in the character system's squad.
         {
             Vector2 positionFromSceen = CheckPersonsFromScreen(pick);// Get the screen position of the person.
             if (rectTransform.Contains(positionFromSceen)) // Check if the person's screen position is within the selection box.
             {
                 // Enable components for persons inside the selection box.
-                characterSystem.EnableComponentsPerson(pick); 
+                characrterSwitch.EnableComponentsPerson(pick); 
             }
             else
             {
                 // Disable components for persons outside the selection box.
-                characterSystem.DisableComponentsPerson(pick); 
+                characrterSwitch.DisableComponentsPerson(pick); 
             }
         }
     }

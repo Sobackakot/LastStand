@@ -13,17 +13,32 @@ public class GameSceneInstaller : MonoInstaller
     [SerializeField] private FollowCamera freePoint;
 
     [SerializeField] private PersonMoveControl personMoveControl;
-     
+
+    [SerializeField] private CharacterSwitchSystem characrterSwitch;
+
+    [SerializeField] private PickUpPerson pickUpPerson;
+    [SerializeField] private PickUpPersonUI pickUpPersonUI;
+    [SerializeField] private SelectPersonsSystem selectPersonsSystem;
+    [SerializeField] private GridLayoutGroupPerson gridLayoutGroupPerson;
     public override void InstallBindings()
     {
         InputControllerCamera();
     }
     private void InputControllerCamera()
-    { 
+    {
 
         BindCameraInstaller();
-
+        BindCharacterSwitch();
         BindPrefabMyPerson();
+    }
+
+    private void BindCharacterSwitch()
+    { 
+        Container.Bind<PersonDataManager>().FromNew().AsSingle().NonLazy();
+        Container.Bind<PickUpPersonUI>().FromInstance(pickUpPersonUI).AsSingle();
+        Container.Bind<SelectPersonsSystem>().FromInstance(selectPersonsSystem).AsSingle();
+        Container.Bind<GridLayoutGroupPerson>().FromInstance(gridLayoutGroupPerson).AsSingle();
+        Container.Bind<CharacterSwitchSystem>().FromInstance(characrterSwitch).AsSingle();
     }
 
     private void BindCameraInstaller()

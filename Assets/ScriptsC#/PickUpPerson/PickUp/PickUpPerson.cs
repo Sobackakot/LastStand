@@ -1,11 +1,12 @@
 
 using UnityEngine; 
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 { 
     public PersonDataScript personData;
-    private CharacterSwitchSystem characterSystem;
+    private CharacterSwitchSystem characrterSwitch;
 
     public Transform pointLookTarget { get; private set; } // use for class CameraLookTarget
      
@@ -13,11 +14,15 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 
     public bool isActive { get; private set; } // needed to check the asset or deactivate components
     public string id { get; private set; }
-     
+
+    [Inject]
+    private void Container(CharacterSwitchSystem characrterSwitch)
+    {
+        this.characrterSwitch = characrterSwitch;
+    }
     private void Start()
     {
-        pointLookTarget = transform.GetChild(0).GetComponent<Transform>();
-        characterSystem = CharacterSwitchSystem.Instance;
+        pointLookTarget = transform.GetChild(0).GetComponent<Transform>(); 
         if (isActive)
             PickPerson();
     }
@@ -25,7 +30,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     {   
         if(eventData.button == PointerEventData.InputButton.Left)
         {
-            characterSystem?.CharacterPick(id);  //activating a character to control it
+            characrterSwitch?.CharacterPick(id);  //activating a character to control it
         }
         else
         {
@@ -37,7 +42,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         if (!isInitialized)
         {
             isInitialized = true;
-            characterSystem?.AddPersonList(this, personData);//adds a new character to my squad list
+            characrterSwitch?.AddPersonList(this, personData);//adds a new character to my squad list
             id = personData.data.ID; //set a unique id for a new character
         }
     } 

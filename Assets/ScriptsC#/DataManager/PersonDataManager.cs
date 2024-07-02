@@ -1,19 +1,26 @@
 using System.IO; 
 using UnityEngine;
+using Zenject;
 
-public class PersonDataManager : MonoBehaviour
+public class PersonDataManager  
 {    
-    private PersonsDataList  dataList; 
+    private PersonsDataList  dataList;
+    private CharacterSwitchSystem characrterSwitch;
+     
+    private PersonDataManager(CharacterSwitchSystem characrterSwitch)
+    { 
+        this.characrterSwitch = characrterSwitch;
+    }
     private void Start()
     {
         dataList = new PersonsDataList();
-        CharacterSwitchSystem.Instance.onAddNewDataPerson += AddDataPerson;
-        CharacterSwitchSystem.Instance.onRemoveNewDataPerson += RemoveDataPerson;
+        characrterSwitch.onAddNewDataPerson += AddDataPerson;
+        characrterSwitch.onRemoveNewDataPerson += RemoveDataPerson;
     } 
     private void OnDisable()
     {
-        CharacterSwitchSystem.Instance.onAddNewDataPerson -= AddDataPerson;
-        CharacterSwitchSystem.Instance.onRemoveNewDataPerson -= RemoveDataPerson;
+        characrterSwitch.onAddNewDataPerson -= AddDataPerson;
+        characrterSwitch.onRemoveNewDataPerson -= RemoveDataPerson;
     }
     private void AddDataPerson(PersonData data) // add new person for PersonsDataList from CharacterSwitchSystem
     {
