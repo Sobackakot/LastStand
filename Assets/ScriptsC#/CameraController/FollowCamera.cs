@@ -6,8 +6,7 @@ public class FollowCamera : MonoBehaviour
 {
     private CharacterSwitchSystem characrterSwitch;
 
-    [Header("RaycastPointFollow - Script")]
-    [SerializeField] private Transform raycastPosition;
+    private Transform raycastPosition;
  
     private Transform currentTarget;
     private Transform transformPoint;
@@ -16,10 +15,11 @@ public class FollowCamera : MonoBehaviour
     private Vector3 direction;
 
     [Inject]
-    private void Construct(Transform personTransform, CharacterSwitchSystem characrterSwitch)
+    private void Construct(Transform personTransform, CharacterSwitchSystem characrterSwitch, [Inject(Id = "raycastPoint")]Transform raycastPosition)
     {
         currentTarget = personTransform;
         this.characrterSwitch = characrterSwitch;
+        this.raycastPosition = raycastPosition;
     }
     private void Awake()
     {

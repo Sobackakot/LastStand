@@ -9,8 +9,7 @@ public class CameraLookTarget : MonoBehaviour
     private RaycastPointFollow raycastPointFollow;
     private CharacterSwitchSystem characrterSwitch;
 
-    [Header("Transform: Target Look Point")]
-    [SerializeField] private Transform lookFreePoint; //position of the point of intersection of the ray with the surface
+    private Transform lookFreePoint; //position of the point of intersection of the ray with the surface
    
 
     [Range(0.3f,3)] private float sensitivity = 0.5f;
@@ -33,11 +32,15 @@ public class CameraLookTarget : MonoBehaviour
     private float deltaY;
      
     [Inject]
-    private void Container(IInputController inputController, RaycastPointFollow raycastPointFollow, CharacterSwitchSystem characrterSwitch)
+    private void Container(IInputController inputController, 
+        RaycastPointFollow raycastPointFollow, 
+        CharacterSwitchSystem characrterSwitch,
+        [Inject(Id = "lookFreePoint")] Transform lookFreePoint)
     {
         this.inputController = inputController;
         this.raycastPointFollow = raycastPointFollow;
         this.characrterSwitch = characrterSwitch;
+        this.lookFreePoint = lookFreePoint;
     }
 
     private void OnEnable()

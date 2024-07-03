@@ -6,12 +6,11 @@ public class GameSceneInstaller : MonoInstaller
 {
     [SerializeField] private RaycastPointFollow raycastPointFollow;
     [SerializeField] private CameraLookTarget cameraLookTarget;
+    [SerializeField] private FollowCamera freePoint;
 
     [SerializeField] private Transform myPersonStartPoint;
     [SerializeField] private GameObject myPersonPrefab;
-
-    [SerializeField] private FollowCamera freePoint;
-
+     
     [SerializeField] private PersonMoveControl personMoveControl;
 
     [SerializeField] private CharacterSwitchSystem characrterSwitch;
@@ -26,10 +25,21 @@ public class GameSceneInstaller : MonoInstaller
     }
     private void InputControllerCamera()
     {
-
-        BindCameraInstaller();
+        BindTransformCameraSystem();
+        BindInputCamera();
         BindCharacterSwitch();
         BindPrefabMyPerson();
+        
+    }
+
+    private void BindTransformCameraSystem()
+    {
+        Container.Bind<RaycastPointFollow>().FromInstance(raycastPointFollow).AsSingle();
+        Container.Bind<CameraLookTarget>().FromInstance(cameraLookTarget).AsSingle();
+        Container.Bind<FollowCamera>().FromInstance(freePoint).AsSingle();
+
+        Container.Bind<Transform>().WithId("raycastPoint").FromInstance(raycastPointFollow.transform); 
+        Container.Bind<Transform>().WithId("lookFreePoint").FromInstance(freePoint.transform);
     }
 
     private void BindCharacterSwitch()
@@ -41,20 +51,18 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<CharacterSwitchSystem>().FromInstance(characrterSwitch).AsSingle();
     }
 
-    private void BindCameraInstaller()
+    private void BindInputCamera()
     {
-        Container.BindInterfacesAndSelfTo<InputControllerCamera>().AsSingle().NonLazy();
-        Container.Bind<RaycastPointFollow>().FromInstance(raycastPointFollow).AsSingle();
-        Container.Bind<CameraLookTarget>().FromInstance(cameraLookTarget).AsSingle();
+        Container.BindInterfacesAndSelfTo<InputControllerCamera>().AsSingle().NonLazy(); 
         Container.Bind<Camera>().FromInstance(cameraLookTarget.gameObject.GetComponent<Camera>()).AsSingle();
         Container.Bind<PersonMoveControl>().FromInstance(personMoveControl).AsSingle();
     }
 
     private void BindPrefabMyPerson()
     {
-        PickUpPerson myPerson = Container.InstantiatePrefabForComponent<PickUpPerson>(myPersonPrefab, myPersonStartPoint.position, Quaternion.identity, null);
+        PickUpPerson myPerson = Container
+            .InstantiatePrefabForComponent<PickUpPerson>(myPersonPrefab, myPersonStartPoint.position, Quaternion.identity, null);
         Container.Bind<PickUpPerson>().FromInstance(myPerson).AsSingle();
-        Container.Bind<Transform>().FromInstance(myPerson.transform).AsSingle();
-        Container.Bind<FollowCamera>().FromInstance(freePoint).AsSingle();
+        Container.Bind<Transform>().FromInstance(myPerson.transform).AsSingle(); 
     } 
 }

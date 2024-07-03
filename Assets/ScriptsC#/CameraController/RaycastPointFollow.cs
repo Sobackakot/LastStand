@@ -7,11 +7,9 @@ public class RaycastPointFollow : MonoBehaviour
     private IInputController inputController;
     private CameraLookTarget cameraLookTarget;
 
-    [Header("Camera Person")]
-    [SerializeField] private Transform mainCamera;
+    private Transform mainCamera;
 
-    [Header("Target Look Point")]
-    [SerializeField] private Transform lookFreePoint; // target who the camera is following
+    private Transform lookFreePoint; // target who the camera is following
 
     [Header("Terrane Layer Mask")]
     [SerializeField] private LayerMask terraLayerMask; // layer Surface mask
@@ -32,19 +30,23 @@ public class RaycastPointFollow : MonoBehaviour
     private float inputAxisZ;
 
     [Inject]
-    private void Container(IInputController inputController, CameraLookTarget cameraLookTarget)
+    private void Container(IInputController inputController, 
+        CameraLookTarget cameraLookTarget, 
+        [Inject(Id = "lookFreePoint")] Transform lookFreePoint)
     {
         this.inputController = inputController;
-        this.cameraLookTarget = cameraLookTarget;
+        this.cameraLookTarget = cameraLookTarget; 
+        this.lookFreePoint = lookFreePoint;
+        mainCamera = cameraLookTarget.transform;
     }
 
-    private void Start()
+    private void Awake()
     {
-        rayPoint = GetComponent<Transform>();
-        cameraLookTarget.onUpdateRaycastPoint += UpdateRaycastPoint;
+        rayPoint = GetComponent<Transform>(); 
     } 
     private void OnEnable()
-    { 
+    {
+        cameraLookTarget.onUpdateRaycastPoint += UpdateRaycastPoint;
         inputController.onInputGetAxis += SetInputAxisMove; 
     }
     private void OnDisable()
