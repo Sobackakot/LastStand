@@ -84,7 +84,7 @@ public class SelectPersonsSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         { 
             startPoint = Input.mousePosition; // Record the starting point of the selection.
-            drawFrame = true; // Enable the drawing of the selection frame.
+            drawFrame = true; // Enable the drawing of the selection frame. 
         }
     }
 
@@ -99,7 +99,7 @@ public class SelectPersonsSystem : MonoBehaviour
                 // Calculate the inverted rectangle for the selection box.
                 rectTransform = GetInvertRectByScreenPoint(startPoint, endPoint); 
                 GUI.Box(rectTransform, ""); // Draw the selection box.
-                SelectPersons(rectTransform); // Select persons within the selection box. 
+                SelectPersons(rectTransform); // Select persons within the selection box.  
             }
         }
     }
@@ -110,7 +110,7 @@ public class SelectPersonsSystem : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             endPoint = Input.mousePosition; // Finalize the ending point of the selection.
-            drawFrame = false; // Disable the drawing of the selection frame.  
+            drawFrame = false; // Disable the drawing of the selection frame.   
         }
     }
 

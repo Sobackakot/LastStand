@@ -89,6 +89,7 @@ public class CharacterSwitchSystem : MonoBehaviour
     public void EnableComponentsPerson(PickUpPerson pick) // call from SelectPersonSystem
     {
         pick.PersonActivationSwitch(true);
+        inventory?.GetPersonByInventory(pick.personData);
         if (InputComponents.ContainsKey(pick))
             InputComponents[pick].OnEnableComponent(); // next pick person Activating components
         if (MoveComponents.ContainsKey(pick))

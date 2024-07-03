@@ -12,6 +12,7 @@ public class InventoryController : MonoBehaviour
     public event Action<int> onSetNewItemByInventoryCell; // event for class InventoryUI
     public event Action<PersonDataScript> onGetEquipmentPerson; // event for class EquipmentController
     public event Action onActiveEquipmentPanel;// event for class EquipmentController
+    public event Action onPointerExit;
 
     private InventoryPerson inventoryPerson;
 
@@ -39,12 +40,13 @@ public class InventoryController : MonoBehaviour
     }
     private void ActiveInventory(bool isSwitchActive) // Called from InputControlPerson
     {
-        inventoryPanel.SetActive(isSwitchActive); // active inventory Panel 
+        inventoryPanel.SetActive(isSwitchActive); // active inventory Panel  
         if (isSwitchActive)
         {
             onUpdateInventoryPerson?.Invoke(); // update inventory for pick person
             onActiveEquipmentPanel?.Invoke();   
         }  
+        else onPointerExit.Invoke();
     }
     public void GetPersonByInventory(PersonDataScript person) // coll from class CharacterSwitchSystem
     {
