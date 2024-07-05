@@ -1,9 +1,11 @@
- 
+
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class GameSceneInstaller : MonoInstaller 
+public class GameSceneInstaller : MonoInstaller, IInitializable
 {
+    
     [SerializeField] private RaycastPointFollow raycastPointFollow;
     [SerializeField] private CameraLookTarget cameraLookTarget;
     [SerializeField] private FollowCamera freePoint;
@@ -19,18 +21,32 @@ public class GameSceneInstaller : MonoInstaller
     [SerializeField] private PickUpPersonUI pickUpPersonUI;
     [SerializeField] private SelectPersonsSystem selectPersonsSystem;
     [SerializeField] private GridLayoutGroupPerson gridLayoutGroupPerson;
+
+    [SerializeField] private List<PersonSpawnPoint> points;
+
+    private const string Raycast_ID = "raycastPoint";
+    private const string LookPoint_ID = "lookFreePoint";
+
     public override void InstallBindings()
     {
-        InputControllerCamera();
-    }
-    private void InputControllerCamera()
-    {
+        Container.BindInterfacesAndSelfTo<GameSceneInstaller>().FromInstance(this).AsSingle();
+        Container.Bind<IPersonFactory>().To<PersonFactory>().AsSingle();
+
         BindTransformCameraSystem();
         BindInputCamera();
         BindCharacterSwitch();
         BindPrefabMyPerson();
-        
     }
+    public void Initialize()
+    {
+       var personFactory = Container.Resolve<IPersonFactory>();
+        personFactory.LoadPersons(); 
+        foreach(var point in points)
+        {
+            personFactory.CreatePerson(point.transformPoint.position);
+        }
+    }
+    
 
     private void BindTransformCameraSystem()
     {
@@ -38,8 +54,8 @@ public class GameSceneInstaller : MonoInstaller
         Container.Bind<CameraLookTarget>().FromInstance(cameraLookTarget).AsSingle();
         Container.Bind<FollowCamera>().FromInstance(freePoint).AsSingle();
 
-        Container.Bind<Transform>().WithId("raycastPoint").FromInstance(raycastPointFollow.transform); 
-        Container.Bind<Transform>().WithId("lookFreePoint").FromInstance(freePoint.transform);
+        Container.Bind<Transform>().WithId(Raycast_ID).FromInstance(raycastPointFollow.transform); 
+        Container.Bind<Transform>().WithId(LookPoint_ID).FromInstance(freePoint.transform);
     }
 
     private void BindCharacterSwitch()
@@ -64,5 +80,6 @@ public class GameSceneInstaller : MonoInstaller
             .InstantiatePrefabForComponent<PickUpPerson>(myPersonPrefab, myPersonStartPoint.position, Quaternion.identity, null);
         Container.Bind<PickUpPerson>().FromInstance(myPerson).AsSingle();
         Container.Bind<Transform>().FromInstance(myPerson.transform).AsSingle(); 
-    } 
+    }
+     
 }
