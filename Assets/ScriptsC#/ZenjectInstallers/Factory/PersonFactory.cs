@@ -1,4 +1,5 @@
- 
+
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -10,6 +11,7 @@ public class PersonFactory : IPersonFactory
     private AsyncOperationHandle<GameObject> otherPersonOpHandle;
     private readonly DiContainer diContainer; 
     public Vector3 point { get; private set; }
+    private GameObject _otherPerson;
 
     public PersonFactory(DiContainer diContainer, 
         [Inject(Id = "otherPersons")]AssetReferenceGameObject otherPersonsReference)
@@ -19,23 +21,21 @@ public class PersonFactory : IPersonFactory
     }
     public void Dispose()
     {
-        otherPersonOpHandle.Completed -= OnCreateOtherPersonAsync;
+        if (_otherPerson == null) return;
+        Addressables.Release(_otherPerson);
     }
     public void SetPointsSpawn(Vector3 point)
     {
-        this.point = point;
-    }
-    public void LoadPersons()
-    {
-        if (!otherPersonsReference.RuntimeKeyIsValid()) return; 
-        otherPersonOpHandle = Addressables.LoadAssetAsync<GameObject>(otherPersonsReference);
-        otherPersonOpHandle.Completed += OnCreateOtherPersonAsync;
-    }
-    public void OnCreateOtherPersonAsync(AsyncOperationHandle<GameObject> otherPerson)
-    {
-        if (otherPerson.Status == AsyncOperationStatus.Succeeded)
+        if (otherPersonOpHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            diContainer.InstantiatePrefab(otherPerson.Result, point, Quaternion.identity, null);
-        }
+            if(_otherPerson != null)
+                diContainer.InstantiatePrefab(_otherPerson, point, Quaternion.identity, null);
+        }  
     }
+    public async Task LoadPersonsAsync()
+    {
+        if (!otherPersonsReference.RuntimeKeyIsValid()) return;
+        otherPersonOpHandle = Addressables.LoadAssetAsync<GameObject>(otherPersonsReference);
+        _otherPerson = await otherPersonOpHandle.Task;
+    } 
 }

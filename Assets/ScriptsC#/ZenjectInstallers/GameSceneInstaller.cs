@@ -41,11 +41,11 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         BindCharacterSwitch();
         BindPrefabMyPerson();
     }
-    public void Initialize()
+    public async void Initialize()
     {
-       var personFactory = Container.Resolve<IPersonFactory>();
-        personFactory.LoadPersons(); 
-        foreach(var point in points)
+        var personFactory = Container.Resolve<IPersonFactory>();
+        await personFactory.LoadPersonsAsync();
+        foreach (var point in points)
         {
             personFactory.SetPointsSpawn(point.transformPoint.position);
         }
