@@ -10,7 +10,6 @@ public class PersonFactory : IPersonFactory
     private AssetReferenceGameObject otherPersonsReference;
     private AsyncOperationHandle<GameObject> otherPersonOpHandle;
     private readonly DiContainer diContainer; 
-    public Vector3 point { get; private set; }
     private GameObject _otherPerson;
 
     public PersonFactory(DiContainer diContainer, 
