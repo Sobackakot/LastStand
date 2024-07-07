@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IPersonFactory  
 {
     void LoadPersons();
-    void CreatePerson(Vector3 point);
+    void SetPointsSpawn(Vector3 point);
 }

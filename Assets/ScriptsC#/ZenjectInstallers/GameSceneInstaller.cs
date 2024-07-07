@@ -1,11 +1,13 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Zenject;
 
 public class GameSceneInstaller : MonoInstaller, IInitializable
 {
-    
+    [SerializeField] private AssetReferenceGameObject otherPersonsReference;
+
     [SerializeField] private RaycastPointFollow raycastPointFollow;
     [SerializeField] private CameraLookTarget cameraLookTarget;
     [SerializeField] private FollowCamera freePoint;
@@ -26,11 +28,13 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
 
     private const string Raycast_ID = "raycastPoint";
     private const string LookPoint_ID = "lookFreePoint";
+    private const string OtherPersons_ID = "otherPersons";
 
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<GameSceneInstaller>().FromInstance(this).AsSingle();
         Container.Bind<IPersonFactory>().To<PersonFactory>().AsSingle();
+        Container.Bind<AssetReferenceGameObject>().WithId(OtherPersons_ID).FromInstance(otherPersonsReference);
 
         BindTransformCameraSystem();
         BindInputCamera();
@@ -43,7 +47,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         personFactory.LoadPersons(); 
         foreach(var point in points)
         {
-            personFactory.CreatePerson(point.transformPoint.position);
+            personFactory.SetPointsSpawn(point.transformPoint.position);
         }
     }
     
