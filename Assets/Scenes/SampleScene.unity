@@ -16116,7 +16116,7 @@ PrefabInstance:
     - target: {fileID: 4733948965103377855, guid: e42b0067fa04613458d80fa6e322fdea,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4794991946865854955, guid: e42b0067fa04613458d80fa6e322fdea,
         type: 3}
@@ -21659,12 +21659,15 @@ MonoBehaviour:
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
+  firsPersonsReference:
+    m_AssetGUID: 0ef2132312a3adf488b716038c0b0c1d
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   raycastPointFollow: {fileID: 196373488}
   cameraLookTarget: {fileID: 7166093947692530669}
   freePoint: {fileID: 55243898}
   myPersonStartPoint: {fileID: 184923947}
-  myPersonPrefab: {fileID: 5979978968027931991, guid: 0ef2132312a3adf488b716038c0b0c1d,
-    type: 3}
   personMoveControl: {fileID: 6603612861164635218, guid: 0ef2132312a3adf488b716038c0b0c1d,
     type: 3}
   characrterSwitch: {fileID: 1199347020}

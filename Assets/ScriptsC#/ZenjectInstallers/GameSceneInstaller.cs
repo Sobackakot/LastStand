@@ -7,13 +7,13 @@ using Zenject;
 public class GameSceneInstaller : MonoInstaller, IInitializable
 {
     [SerializeField] private AssetReferenceGameObject otherPersonsReference;
+    [SerializeField] private AssetReferenceGameObject firsPersonsReference;
 
     [SerializeField] private RaycastPointFollow raycastPointFollow;
     [SerializeField] private CameraLookTarget cameraLookTarget;
     [SerializeField] private FollowCamera freePoint;
 
-    [SerializeField] private Transform myPersonStartPoint;
-    [SerializeField] private GameObject myPersonPrefab;
+    [SerializeField] private Transform myPersonStartPoint; 
      
     [SerializeField] private PersonMoveControl personMoveControl;
 
@@ -29,25 +29,30 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
     private const string Raycast_ID = "raycastPoint";
     private const string LookPoint_ID = "lookFreePoint";
     private const string OtherPersons_ID = "otherPersons";
+    private const string FirstPersons_ID = "firstPerson";
 
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<GameSceneInstaller>().FromInstance(this).AsSingle();
-        Container.Bind<IPersonFactory>().To<PersonFactory>().AsSingle();
-        Container.Bind<AssetReferenceGameObject>().WithId(OtherPersons_ID).FromInstance(otherPersonsReference);
-
+        
         BindTransformCameraSystem();
         BindInputCamera();
         BindCharacterSwitch();
-        BindPrefabMyPerson();
+        BindPrefabFirstPerson();
+        BindPrefabOtherPersons();
     }
+     
     public async void Initialize()
     {
-        var personFactory = Container.Resolve<IPersonFactory>();
-        await personFactory.LoadPersonsAsync();
+        var personFactory  = Container.Resolve<SpawnFirstPerson>();
+        personFactory.SetPointSpawn(myPersonStartPoint.position);
+        personFactory.LoadPerson();
+
+        var personsFactory = Container.Resolve<IPersonFactory>(); 
+        await personsFactory.LoadPersonsAsync();
         foreach (var point in points)
         {
-            personFactory.SetPointsSpawn(point.transformPoint.position);
+            personsFactory.SetPointsSpawn(point.transformPoint.position);
         }
     }
     
@@ -77,13 +82,19 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         Container.Bind<Camera>().FromInstance(cameraLookTarget.gameObject.GetComponent<Camera>()).AsSingle();
         Container.Bind<PersonMoveControl>().FromInstance(personMoveControl).AsSingle();
     }
-
-    private void BindPrefabMyPerson()
+    private void BindPrefabOtherPersons()
     {
-        PickUpPerson myPerson = Container
-            .InstantiatePrefabForComponent<PickUpPerson>(myPersonPrefab, myPersonStartPoint.position, Quaternion.identity, null);
-        Container.Bind<PickUpPerson>().FromInstance(myPerson).AsSingle();
-        Container.Bind<Transform>().FromInstance(myPerson.transform).AsSingle(); 
+        Container.Bind<IPersonFactory>().To<PersonFactory>().AsSingle();
+        Container.Bind<AssetReferenceGameObject>().WithId(OtherPersons_ID).FromInstance(otherPersonsReference);
+    }
+
+    private void BindPrefabFirstPerson()
+    {
+        Container.Bind<AssetReferenceGameObject>().WithId(FirstPersons_ID).FromInstance(firsPersonsReference);
+        Container.BindInterfacesAndSelfTo<SpawnFirstPerson>().AsSingle().NonLazy();
+      
+        Container.Bind<PickUpPerson>().FromInstance(pickUpPerson).AsSingle();
+        Container.Bind<Transform>().FromInstance(pickUpPerson.transform).AsSingle(); 
     }
      
 }

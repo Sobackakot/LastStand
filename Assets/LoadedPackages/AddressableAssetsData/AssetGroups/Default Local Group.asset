@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0ef2132312a3adf488b716038c0b0c1d
+    m_Address: Assets/Resources_moved/Person.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2cce93dc07211ad4fb5db24241adc75a, type: 2}
   m_SchemaSet:
