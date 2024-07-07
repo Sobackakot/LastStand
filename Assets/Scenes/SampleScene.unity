@@ -21654,6 +21654,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5430d4bd32e0a4ab4043b1056b3818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherPersonsReference:
+    m_AssetGUID: c04c6d0e5d322704f879e0c5b8323704
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   raycastPointFollow: {fileID: 196373488}
   cameraLookTarget: {fileID: 7166093947692530669}
   freePoint: {fileID: 55243898}
