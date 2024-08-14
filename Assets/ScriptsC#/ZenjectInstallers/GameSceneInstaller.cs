@@ -25,6 +25,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
     [SerializeField] private GridLayoutGroupPerson gridLayoutGroupPerson;
 
     [SerializeField] private List<PersonSpawnPoint> points;
+    [SerializeField] private List<PersonDataScript> dataScripts;    
 
     private const string Raycast_ID = "raycastPoint";
     private const string LookPoint_ID = "lookFreePoint";
@@ -50,9 +51,10 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
 
         var personsFactory = Container.Resolve<IPersonFactory>(); 
         await personsFactory.LoadPersonsAsync();
-        foreach (var point in points)
+        for(int i = 0; i < points.Count; i++) 
         {
-            personsFactory.SetPointsSpawn(point.transformPoint.position);
+            if (dataScripts[i] != null)
+                personsFactory.SetPointsSpawn(points[i].transformPoint.position, dataScripts[i]);
         }
     }
     

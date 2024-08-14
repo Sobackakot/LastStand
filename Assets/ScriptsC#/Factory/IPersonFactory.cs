@@ -6,5 +6,5 @@ using UnityEngine;
 public interface IPersonFactory  
 {
     Task LoadPersonsAsync();
-    void SetPointsSpawn(Vector3 point);
+    void SetPointsSpawn(Vector3 point, PersonDataScript data);
 }

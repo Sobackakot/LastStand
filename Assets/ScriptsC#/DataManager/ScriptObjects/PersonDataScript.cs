@@ -1,5 +1,4 @@
 
-using System;
 using UnityEngine; 
 
 [CreateAssetMenu(fileName = "New Entity", menuName = "Entity/Person")]

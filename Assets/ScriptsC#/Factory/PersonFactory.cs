@@ -12,7 +12,7 @@ public class PersonFactory : IPersonFactory
     private readonly DiContainer diContainer; 
     private GameObject _otherPerson;
 
-    public PersonFactory(DiContainer diContainer, 
+    public PersonFactory(DiContainer diContainer,
         [Inject(Id = "otherPersons")]AssetReferenceGameObject otherPersonsReference)
     {
         this.diContainer = diContainer;
@@ -23,12 +23,18 @@ public class PersonFactory : IPersonFactory
         if (_otherPerson == null) return;
         Addressables.Release(_otherPerson);
     }
-    public void SetPointsSpawn(Vector3 point)
+    public void SetPointsSpawn(Vector3 point, PersonDataScript personData)
     {
         if (otherPersonOpHandle.Status == AsyncOperationStatus.Succeeded)
         {
             if(_otherPerson != null)
-                diContainer.InstantiatePrefab(_otherPerson, point, Quaternion.identity, null);
+            {
+                // Создаем экземпляр префаба в заданной точке
+                GameObject person = diContainer.InstantiatePrefab(_otherPerson, point, Quaternion.identity, null);
+                // Назначаем PersonDataScript созданному объекту
+                PickUpPerson pickPerson = person.GetComponent<PickUpPerson>(); 
+                pickPerson.personData = personData;
+            }     
         }  
     }
     public async Task LoadPersonsAsync()

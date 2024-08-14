@@ -1,11 +1,11 @@
-
+ 
 using UnityEngine; 
 using UnityEngine.EventSystems;
 using Zenject;
 
 public class PickUpPerson : MonoBehaviour, IPointerClickHandler
 {
-    [field: SerializeField] public PersonDataScript personData {  get; private set; }   
+    [field:SerializeField] public PersonDataScript personData {  get; set; }   
     private CharacterSwitchSystem characrterSwitch;
 
     public Transform pointLookTarget { get; private set; } // use for class CameraLookTarget
@@ -42,6 +42,7 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         if (!isInitialized)
         {
             isInitialized = true;
+             
             personData.data.SetNewPersonId();
             characrterSwitch?.AddPersonList(this, personData);//adds a new character to my squad list
             id = personData.data.ID; //set a unique id for a new character
@@ -52,3 +53,4 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
         return isActive = _isActive; //person component activation switch
     }
 }
+ 
