@@ -1,19 +1,21 @@
  
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class InventorySlot : MonoBehaviour, IDropHandler   
 {   
     private InventoryController inventory;
     private RectTransform transformSlot;
-    
+
+    [Inject]
+    private void Container(InventoryController inventory)
+    {
+        this.inventory = inventory; 
+    }
     private void Awake()
     {   
         transformSlot = GetComponent<RectTransform>();   
-    }
-    private void Start()
-    {
-        inventory = InventoryController.Instance;
     }
      
     public virtual void AddItemInSlot(ItemInSlot item, ItemScrObj data) //coll from class InventoryUI

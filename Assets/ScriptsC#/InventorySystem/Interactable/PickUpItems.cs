@@ -1,14 +1,17 @@
 
-using UnityEngine; 
+using System;
+using UnityEngine;
+using Zenject;
 
 public class PickUpItems : Interactable
 {   
-    [SerializeField] private ItemScrObj item; 
-    private InventoryController inventory; 
+    [SerializeField] private ItemScrObj item;
+    private InventoryController inventory;
 
-    private void Start()
+    [Inject]
+    private void Container(InventoryController inventory)
     {
-        inventory = InventoryController.Instance; 
+        this.inventory = inventory;
     }
     public override void Interaction()
     {   
@@ -18,7 +21,7 @@ public class PickUpItems : Interactable
     private void PickUpItem()
     {   
         if(!item.isDefaultItem)
-        { 
+        {
             bool isPickUp = inventory.AddItemToInventory(item);
             if (isPickUp)
             {

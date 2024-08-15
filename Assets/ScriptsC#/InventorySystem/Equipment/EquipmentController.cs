@@ -1,79 +1,57 @@
 
 using System;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections.Generic; 
+using Zenject;
 
-public class EquipmentController : MonoBehaviour
-{ 
-    public static EquipmentController Instance;
-     
-    private InventoryController inventorySystem;
-    private EquipmentPerson equipmentPerson;
+public class EquipmentController  : IInitializable, IDisposable
+{   
+    private IInventoryUI<int> equipmentUI;
 
-    public event Action<int> onSetItemByEquipmentSlot;
-    public event Action<int> onResetItemByEquipmentSlot;
-    public event Action onUpdateEquipmentSlots;
+    private EquipmentPerson equipment;
 
-    private void Awake()
+    public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI<int> equipmentUI)
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        this.equipmentUI = equipmentUI;
     }
-    private void Start()
+    public void Initialize()
     {
-        inventorySystem = InventoryController.Instance;
-        inventorySystem.onGetEquipmentPerson += GetPersonByEquipment;
-        inventorySystem.onActiveEquipmentPanel += ActiveEquipmentPanel;
-
+        equipmentUI.onSetNewItem += GetEquipmentItems;
     } 
-
-    private void OnDisable()
+    public void Dispose()
     {
-        inventorySystem.onGetEquipmentPerson -= GetPersonByEquipment;
-        inventorySystem.onActiveEquipmentPanel -= ActiveEquipmentPanel;
+        equipmentUI.onSetNewItem -= GetEquipmentItems;
     }
-    private void ActiveEquipmentPanel()
+    public void ActiveEquipmentPanel()
     {
-        onUpdateEquipmentSlots?.Invoke();
+        equipmentUI.UpdateInventorySlots();
     }
-    private void GetPersonByEquipment(PersonDataScript person) //get a link to the current character. coll from class InvectoryController
+    public void GetPersonByEquipment(PersonDataScript person) //get a link to the current character. coll from class InvectoryController
     {
-        equipmentPerson = person.equipmentPerson;
-        onUpdateEquipmentSlots?.Invoke();
+        equipment = person.equipmentPerson;
+        equipmentUI.UpdateInventorySlots();
     }
 
-    public void EquipItem(EquipmentScrObj newItem) //coll from EquipmentScrObj
+    public void EquipItem(ItemScrObj newItem) //coll from ItemInSlot
     {   
         int slotIndex = 0;
-        equipmentPerson.EquipItemOnPerson(out slotIndex,newItem);
-        onSetItemByEquipmentSlot?.Invoke(slotIndex);
+        equipment.EquipItemOnPerson(out slotIndex,newItem);
+        equipmentUI.SetNewItemByInventoryCell(slotIndex); 
+    }
+    public List<ItemScrObj> GetEquipmentItems()
+    {
+        return equipment.GetEquipmentItems();
     }
     private void UnEquipItem(int currentIndex)
     {
-        equipmentPerson.UnEquipItemFromPerson(currentIndex);
-        onResetItemByEquipmentSlot?.Invoke(currentIndex);
+        equipment.UnEquipItemFromPerson(currentIndex); 
+        equipmentUI.ResetItemByInventoryCell(currentIndex);
     }
-    private void UnEquipItemsAll()
+    private void UnEquipItemsAll() //....
     {
-       for(int i = 0; i< equipmentPerson.equipmentItem.Count; i++)
+       for(int i = 0; i< equipment.equipmentItem.Count; i++)
        {
             UnEquipItem(i);
        }
     }
-    public List<EquipmentScrObj> GetEquipmentItems()
-    {
-        return equipmentPerson.GetEquipmentItems();
-    }
-    private void LateUpdate() //......
-    {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            UnEquipItemsAll();
-        }
-    }
+
 }

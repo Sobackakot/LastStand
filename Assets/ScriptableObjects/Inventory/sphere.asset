@@ -20,3 +20,6 @@ MonoBehaviour:
   Weight: 0
   isDefaultItem: 0
   isStackable: 0
+  Armor: 0
+  Damage: 0
+  IndexOfSlot: 11

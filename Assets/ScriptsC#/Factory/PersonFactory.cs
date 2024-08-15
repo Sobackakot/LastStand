@@ -1,11 +1,12 @@
 
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using Zenject;
 
-public class PersonFactory : IPersonFactory
+public class PersonFactory : IPersonFactory, IDisposable
 {
     private AssetReferenceGameObject otherPersonsReference;
     private AsyncOperationHandle<GameObject> otherPersonOpHandle;
@@ -18,11 +19,7 @@ public class PersonFactory : IPersonFactory
         this.diContainer = diContainer;
         this.otherPersonsReference = otherPersonsReference;
     }
-    public void Dispose()
-    {
-        if (_otherPerson == null) return;
-        Addressables.Release(_otherPerson);
-    }
+   
     public void SetPointsSpawn(Vector3 point, PersonDataScript personData)
     {
         if (otherPersonOpHandle.Status == AsyncOperationStatus.Succeeded)
@@ -42,5 +39,11 @@ public class PersonFactory : IPersonFactory
         if (!otherPersonsReference.RuntimeKeyIsValid()) return;
         otherPersonOpHandle = Addressables.LoadAssetAsync<GameObject>(otherPersonsReference);
         _otherPerson = await otherPersonOpHandle.Task;
-    } 
+    }
+
+    public void Dispose()
+    {
+        if (_otherPerson == null) return;
+        Addressables.Release(_otherPerson);
+    }
 }

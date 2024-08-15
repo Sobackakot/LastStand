@@ -19,18 +19,27 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
 
     [SerializeField] private CharacterSwitchSystem characrterSwitch;
 
-    [SerializeField] private PickUpPerson pickUpPerson;
-    [SerializeField] private PickUpPersonUI pickUpPersonUI;
+    [SerializeField] private PickUpPerson pickUpPerson; 
     [SerializeField] private SelectPersonsSystem selectPersonsSystem;
     [SerializeField] private GridLayoutGroupPerson gridLayoutGroupPerson;
 
+    [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private EquipmentUI equipmentUI;  
+     
+
     [SerializeField] private List<PersonSpawnPoint> points;
-    [SerializeField] private List<PersonDataScript> dataScripts;    
+    [SerializeField] private List<PersonDataScript> dataScripts;
+
+    [SerializeField] private GameObject inventoryPanel;
 
     private const string Raycast_ID = "raycastPoint";
     private const string LookPoint_ID = "lookFreePoint";
     private const string OtherPersons_ID = "otherPersons";
     private const string FirstPersons_ID = "firstPerson";
+    private const string InventoryPanel_ID = "inventoryPanel";
+    private const string InventoryUI_ID = "inventoryUI";
+    private const string EquipmentUI_ID = "equipmentUI";
+    private const string PersonTarget_ID = "personTarget";
 
     public override void InstallBindings()
     {
@@ -41,6 +50,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         BindCharacterSwitch();
         BindPrefabFirstPerson();
         BindPrefabOtherPersons();
+        BindInventory();
     }
      
     public async void Initialize()
@@ -58,6 +68,22 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         }
     }
     
+    private void BindInventory()
+    {
+        // Bind InventoryUI with an identifier
+        Container.Bind<IInventoryUI<int>>().WithId(InventoryUI_ID).To<InventoryUI>().FromInstance(inventoryUI).AsSingle();
+
+        // Bind EquipmentUI with an identifier
+        Container.Bind<IInventoryUI<int>>().WithId(EquipmentUI_ID).To<EquipmentUI>().FromInstance(equipmentUI).AsSingle();
+
+        Container.BindInterfacesAndSelfTo<InventoryController>().FromNew().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<EquipmentController>().FromNew().AsSingle().NonLazy(); 
+        
+        Container.Bind<EquipmentPerson>().FromNew().AsTransient().NonLazy();
+        Container.Bind<InventoryPerson>().FromNew().AsTransient().NonLazy();
+         
+        Container.Bind<GameObject>().WithId(InventoryPanel_ID).FromInstance(inventoryPanel); 
+    }
 
     private void BindTransformCameraSystem()
     {
@@ -71,8 +97,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
 
     private void BindCharacterSwitch()
     { 
-        Container.Bind<PersonDataManager>().FromNew().AsSingle().NonLazy();
-        Container.Bind<PickUpPersonUI>().FromInstance(pickUpPersonUI).AsSingle();
+        Container.Bind<PersonDataManager>().FromNew().AsSingle().NonLazy(); 
         Container.Bind<SelectPersonsSystem>().FromInstance(selectPersonsSystem).AsSingle();
         Container.Bind<GridLayoutGroupPerson>().FromInstance(gridLayoutGroupPerson).AsSingle();
         Container.Bind<CharacterSwitchSystem>().FromInstance(characrterSwitch).AsSingle();
@@ -86,7 +111,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
     }
     private void BindPrefabOtherPersons()
     {
-        Container.Bind<IPersonFactory>().To<PersonFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<PersonFactory>().AsSingle().NonLazy();
         Container.Bind<AssetReferenceGameObject>().WithId(OtherPersons_ID).FromInstance(otherPersonsReference);
     }
 
@@ -95,8 +120,8 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         Container.Bind<AssetReferenceGameObject>().WithId(FirstPersons_ID).FromInstance(firsPersonsReference);
         Container.BindInterfacesAndSelfTo<SpawnFirstPerson>().AsSingle().NonLazy();
       
-        Container.Bind<PickUpPerson>().FromInstance(pickUpPerson).AsSingle();
-        Container.Bind<Transform>().FromInstance(pickUpPerson.transform).AsSingle(); 
+        Container.BindInterfacesAndSelfTo<PickUpPerson>().FromInstance(pickUpPerson).AsSingle();
+        Container.Bind<Transform>().WithId(PersonTarget_ID).FromInstance(pickUpPerson.transform).AsSingle(); 
     }
      
 }

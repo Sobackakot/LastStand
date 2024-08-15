@@ -14,14 +14,11 @@ public class ItemScrObj : ScriptableObject
     public bool isStackable;
 
     private bool isInstaled;
-    public virtual void UseItem() //coll from class ItemInSlot 
-    {
 
-    }
-    public void RemoveItemFromInventorySlot() //coll from class EquipmentScrObj
-    {
-        InventoryController.Instance.RemoveItemFromInventory(this);
-    }
+    public float Armor;
+    public float Damage;
+    public EquipItem IndexOfSlot; //slots for equipping items
+    
     public void SetIdFromNewItem()
     {
         if (isInstaled)
@@ -30,4 +27,19 @@ public class ItemScrObj : ScriptableObject
             isInstaled = true;
         }
     } 
+}
+public enum EquipItem : byte
+{    
+    Helmet,
+    T_shirt,
+    Vest,
+    Gloves,
+    Trousers,
+    Shoes,
+    Backpack,
+    Belt,
+    Shield,
+    Weapon_1,
+    Weapon_2,
+    None
 }

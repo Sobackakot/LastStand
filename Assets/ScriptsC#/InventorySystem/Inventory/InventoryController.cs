@@ -1,76 +1,76 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine; 
+using UnityEngine;
+using Zenject;
 
-public class InventoryController : MonoBehaviour
-{
-    public static InventoryController Instance;
-
-    public event Action onUpdateInventoryPerson; // event for class InventoryUI
-    public event Action<int> onResetItemByInventoryCell;// event for class InventoryUI
-    public event Action<int> onSetNewItemByInventoryCell; // event for class InventoryUI
-    public event Action<PersonDataScript> onGetEquipmentPerson; // event for class EquipmentController
-    public event Action onActiveEquipmentPanel;// event for class EquipmentController
+public class InventoryController: IInitializable, IDisposable
+{   
     public event Action onPointerExit;
 
+    private EquipmentController equipment;
+    private IInventoryUI<int> inventoryUI;
+    private GameObject panel;
+
+
     private InventoryPerson inventoryPerson;
-
-    [Header("Inventory Panel UI gameObject")]
-    [SerializeField] private GameObject inventoryPanel;
-
-    private void Awake()
+    private EquipmentPerson equipmentPerson;
+     
+    public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI<int> inventoryUI,
+        EquipmentController equipment,  [Inject(Id = "inventoryPanel")] GameObject panel)
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject); 
-    }
-    private void OnEnable()
-    { 
-        InputControlPerson.onActiveInventory += ActiveInventory;
+        this.inventoryUI = inventoryUI;
+        this.equipment = equipment;
+        this.panel = panel; 
     }
 
-    private void OnDisable()
-    { 
-        InputControlPerson.onActiveInventory -= ActiveInventory;
+    public void Initialize()
+    {
+        InputControlPerson.onActiveInventory += ActiveInventory; 
+        inventoryUI.onSetNewItem += GetCurrentInventory;
     }
+    public void Dispose()
+    {
+        InputControlPerson.onActiveInventory -= ActiveInventory;
+        equipmentPerson.onEquipItemOnPerson -= AddItemToInventory;
+        inventoryUI.onSetNewItem -= GetCurrentInventory;
+    } 
     private void ActiveInventory(bool isSwitchActive) // Called from InputControlPerson
     {
-        inventoryPanel.SetActive(isSwitchActive); // active inventory Panel  
+        panel.SetActive(isSwitchActive); // active inventory Panel  
         if (isSwitchActive)
         {
-            onUpdateInventoryPerson?.Invoke(); // update inventory for pick person
-            onActiveEquipmentPanel?.Invoke();   
+            inventoryUI.UpdateInventorySlots(); // update inventory for pick person
+            equipment.ActiveEquipmentPanel();
         }  
-        else onPointerExit.Invoke();
+        else onPointerExit?.Invoke();// если инвентарь деактивирован то включаем возможность выделять рамкой
     }
     public void GetPersonByInventory(PersonDataScript person) // coll from class CharacterSwitchSystem
     {
         inventoryPerson = person.inventoryPerson; // get pick person for inventory
-        onGetEquipmentPerson?.Invoke(person); //get person for EquipmentScrObj slots
-        onUpdateInventoryPerson?.Invoke(); // update inventory slots for new pick person 
+        equipmentPerson = person.equipmentPerson;
+        equipmentPerson.onEquipItemOnPerson += AddItemToInventory;
+        equipment.GetPersonByEquipment(person); //get person for EquipmentScrObj slots
+        inventoryUI.UpdateInventorySlots(); // update inventory slots for new pick person 
     }
+     
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
     {
         int slotIndex = 0;
         if (inventoryPerson.AddItemToInventory(out slotIndex,newItem))
         {
-            onSetNewItemByInventoryCell?.Invoke(slotIndex); // update inventory slots
+            inventoryUI.SetNewItemByInventoryCell(slotIndex); // update inventory slots
             return true;
         }
         return false;
     }
 
-    public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemScrObj
+    public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
     {
         int slotIndex = 0; 
         inventoryPerson.RemoveItemFromInventory(out slotIndex,item);
-        onResetItemByInventoryCell?.Invoke(slotIndex);// update inventory slots
+        inventoryUI.ResetItemByInventoryCell(slotIndex);// update inventory slots
     }
 
     public void SwapItemInSlot(int slotIndex, ItemScrObj newItem) // coll from class InventorySlot
@@ -80,5 +80,5 @@ public class InventoryController : MonoBehaviour
     public List<ItemScrObj> GetCurrentInventory() //get a list of items from a character's inventory
     {
         return inventoryPerson.itemsInventory;
-    }
+    } 
 }

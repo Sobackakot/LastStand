@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29c721c4a0b8a5745bce3f3ce62c0d9b, type: 3}
-  m_Name: Shoes
+  m_Script: {fileID: 11500000, guid: 503a7f364537cd94eac0d1d759e9de1a, type: 3}
+  m_Name: 2 Belt
   m_EditorClassIdentifier: 
   item:
     itemAmount: 1
     strengthPoints: 100
-  NameItem: Shoes
-  IconItem: {fileID: 21300000, guid: a4d06be3926015446a1254d42f72f569, type: 3}
+  NameItem: Belt
+  IconItem: {fileID: 21300000, guid: 839905316b03ebe4e81724e502fe964c, type: 3}
   Weight: 0
   isDefaultItem: 0
   isStackable: 0
   Armor: 0
   Damage: 0
-  IndexOfSlot: 5
+  IndexOfSlot: 7

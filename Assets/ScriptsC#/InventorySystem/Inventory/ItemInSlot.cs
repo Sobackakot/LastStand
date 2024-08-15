@@ -3,11 +3,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
 public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     public int slotIndex {  get; set; }
     public ItemScrObj dataItem { get; private set;}
+    private InventoryController inventory;
+    private EquipmentController equipment;
 
     private RectTransform pickItemTransform;
     private Transform originalParent;
@@ -17,6 +20,13 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Image itemIcon;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
+
+    [Inject]
+    private void Container(InventoryController inventory, EquipmentController equipment)
+    {
+        this.inventory = inventory;
+        this.equipment = equipment;
+    }
 
     private void Awake()
     {   
@@ -66,9 +76,13 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            dataItem?.UseItem(); //equip an item
+        if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
+        {   
+            if(dataItem.IndexOfSlot != EquipItem.None) 
+            {
+                equipment.EquipItem(dataItem);
+                inventory.RemoveItemFromInventory(dataItem);
+            }  
         }
     } 
 }

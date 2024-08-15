@@ -1,7 +1,8 @@
  
 using System;
 using System.Collections.Generic; 
-using UnityEngine; 
+using UnityEngine;
+using Zenject;
 
 public class CharacterSwitchSystem : MonoBehaviour
 {  
@@ -20,16 +21,18 @@ public class CharacterSwitchSystem : MonoBehaviour
     public event Action<PersonData> onRemoveNewDataPerson; //This Event for PersonDataManager  
     public event Action<Transform> onSetNewTargetFolowCamera; //Tith Event for FollowCamera 
     public event Action onUpdateCellSizeGrid; //this event for GridLayoutGroupPerson 
-    
+
+    [Inject]
+    private void Container(InventoryController inventory)
+    {
+        this.inventory = inventory; 
+    }
     private void Awake()
     { 
         // Automatically fill the personsUISquad list with child PickUpPersonUI components
         personsUISquad.AddRange(GetComponentsInChildren<PickUpPersonUI>(true)); 
-    }
-    private void Start()
-    {
-        inventory = InventoryController.Instance; 
-    }
+    } 
+
     public void RemovePerson(string id) // call from PickUpPersonUI
     {   
         PickUpPerson personToRemove = null;

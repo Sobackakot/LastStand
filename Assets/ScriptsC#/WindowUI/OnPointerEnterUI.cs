@@ -3,14 +3,20 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class OnPointerEnterUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 { 
     public static event Action <bool> onPointerEnterUI; // event for class PersonMoveControl,SelectPersonsSystem   
     private InventoryController inventory;
+
+    [Inject]
+    private void Container(InventoryController inventory)
+    {
+        this.inventory = inventory;
+    }
     private void Start()
     {
-        inventory = InventoryController.Instance;
         inventory.onPointerExit += OnPointerExit;
     } 
     private void OnDisable()

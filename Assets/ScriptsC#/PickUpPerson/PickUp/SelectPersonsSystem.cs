@@ -33,7 +33,7 @@ public class SelectPersonsSystem : MonoBehaviour
         OnPointerEnterUI.onPointerEnterUI -= IsPointerEnterUI;
         isPointerEnterUI = true; // Reset flage
     }
-    private void IsPointerEnterUI(bool isPointer)
+    private void IsPointerEnterUI(bool isPointer) // переключатель выделения рамкой
     {
         isPointerEnterUI = isPointer; 
     }

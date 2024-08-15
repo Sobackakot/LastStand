@@ -65,7 +65,7 @@ public class PersonMoveControl : MonoBehaviour
         LookRotationTarget(); // Rotate towards the focus target.
         FolowFocus(); // Follow the focus target.
     }
-    private void  IsPointerEnterUI(bool isEnterUi) // coll from OnPointerEnterUI
+    private void  IsPointerEnterUI(bool isEnterUi) // переключатель выделения рамкой
     {
         isPointerEnterUI = isEnterUi; // Set flage  
     }

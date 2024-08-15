@@ -1,13 +1,15 @@
 
+using System;
 using System.Collections.Generic; 
-using UnityEngine;
+using UnityEngine; 
 
 public class EquipmentUI : MonoBehaviour, IInventoryUI<int>
-{
-    private EquipmentController equipment;
+{ 
     private List<EquipmentSlot> slots = new List<EquipmentSlot>();
     private List<EquipmentItemInSlot> itemsInSlots = new List<EquipmentItemInSlot>();
 
+    public event Func<List<ItemScrObj>> onSetNewItem;
+     
     private void Awake()
     {
         slots.AddRange(GetComponentsInChildren<EquipmentSlot>(false));
@@ -19,23 +21,10 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI<int>
         {
             itemsInSlots[i].equipSlotIndex = i;
         }
-    }
-    private void OnEnable()
-    {
-        equipment = EquipmentController.Instance;
-        equipment.onSetItemByEquipmentSlot += SetNewItemByInventoryCell;
-        equipment.onResetItemByEquipmentSlot += ResetItemByInventoryCell;
-        equipment.onUpdateEquipmentSlots += UpdateInventorySlots;
-    }
-    private void OnDisable()
-    {
-        equipment.onSetItemByEquipmentSlot -= SetNewItemByInventoryCell;
-        equipment.onResetItemByEquipmentSlot -= ResetItemByInventoryCell;
-        equipment.onUpdateEquipmentSlots -= UpdateInventorySlots;
-    }
+    } 
     public void SetNewItemByInventoryCell(int slotIndex) //coll from InventoryController
     {
-        List<EquipmentScrObj> items = equipment.GetEquipmentItems();
+        List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventory user interface, those slots that have been changed
         {
             slots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], items[slotIndex]);
@@ -43,7 +32,7 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI<int>
     }
     public void ResetItemByInventoryCell(int slotIndex) //coll from InventoryController
     {
-        List<EquipmentScrObj> items = equipment.GetEquipmentItems();
+        List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slotIndex < items.Count) //updates the inventory user interface, those slots that have been changed
         {
             slots[slotIndex].RemoveItemInSlot(itemsInSlots[slotIndex]);
@@ -51,7 +40,7 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI<int>
     }
     public void UpdateInventorySlots() //coll from InventoryController
     {
-        List<EquipmentScrObj> items = equipment.GetEquipmentItems();
+        List<ItemScrObj> items = onSetNewItem?.Invoke();
         for (int i = 0; i < slots.Count; i++) //Updates the inventory UI completely when changing characters
         {
             if (itemsInSlots[i].dataItem != null)

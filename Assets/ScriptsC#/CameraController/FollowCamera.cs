@@ -15,7 +15,7 @@ public class FollowCamera : MonoBehaviour
     private Vector3 direction;
 
     [Inject]
-    private void Construct(Transform personTransform, CharacterSwitchSystem characrterSwitch, [Inject(Id = "raycastPoint")]Transform raycastPosition)
+    private void Construct([Inject(Id = "personTarget")] Transform personTransform, CharacterSwitchSystem characrterSwitch, [Inject(Id = "raycastPoint")]Transform raycastPosition)
     {
         currentTarget = personTransform;
         this.characrterSwitch = characrterSwitch;
