@@ -31,8 +31,7 @@ public class InventoryController: IInitializable, IDisposable
     }
     public void Dispose()
     {
-        InputControlPerson.onActiveInventory -= ActiveInventory;
-        equipmentPerson.onEquipItemOnPerson -= AddItemToInventory;
+        InputControlPerson.onActiveInventory -= ActiveInventory;  
         inventoryUI.onSetNewItem -= GetCurrentInventory;
     } 
     private void ActiveInventory(bool isSwitchActive) // Called from InputControlPerson
@@ -61,6 +60,7 @@ public class InventoryController: IInitializable, IDisposable
         if (inventoryPerson.AddItemToInventory(out slotIndex,newItem))
         {
             inventoryUI.SetNewItemByInventoryCell(slotIndex); // update inventory slots
+            equipmentPerson.onEquipItemOnPerson -= AddItemToInventory;
             return true;
         }
         return false;
