@@ -1,5 +1,5 @@
 
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
@@ -24,8 +24,8 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
     [SerializeField] private GridLayoutGroupPerson gridLayoutGroupPerson;
 
     [SerializeField] private InventoryUI inventoryUI;
-    [SerializeField] private EquipmentUI equipmentUI;  
-     
+    [SerializeField] private EquipmentUI equipmentUI;
+    [SerializeField] private List<OnPointerEnterUI> onPointers;
 
     [SerializeField] private List<PersonSpawnPoint> points;
     [SerializeField] private List<PersonDataScript> dataScripts;
@@ -50,7 +50,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         BindCharacterSwitch();
         BindPrefabFirstPerson();
         BindPrefabOtherPersons();
-        BindInventory();
+        BindInventory(); 
     }
      
     public async void Initialize()
@@ -82,7 +82,11 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
         Container.Bind<EquipmentPerson>().FromNew().AsTransient().NonLazy();
         Container.Bind<InventoryPerson>().FromNew().AsTransient().NonLazy();
          
-        Container.Bind<GameObject>().WithId(InventoryPanel_ID).FromInstance(inventoryPanel); 
+        Container.Bind<GameObject>().WithId(InventoryPanel_ID).FromInstance(inventoryPanel);
+        foreach (OnPointerEnterUI onPoin in onPointers)
+        {
+            Container.Inject(onPoin);
+        }
     }
 
     private void BindTransformCameraSystem()

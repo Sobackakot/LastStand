@@ -47,7 +47,7 @@ public class PersonMoveControl : MonoBehaviour
         inputControllerPerson.onRightMouseButton += MoveAgent; // Subscribe to the right mouse button event.
         inputControllerPerson.onLeftMouseButton += UpdateFocusInteract; // Subscribe to the left mouse button event.
         OnPointerEnterUI.onPointerEnterUI += IsPointerEnterUI; //checking whether the mouse cursor is on the UI
-        isPointerEnterUI = false; // Reset flage
+        isPointerEnterUI = false; // Reset flage 
     }
 
     

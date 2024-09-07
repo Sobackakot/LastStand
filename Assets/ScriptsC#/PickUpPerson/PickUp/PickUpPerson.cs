@@ -1,4 +1,4 @@
- 
+
 using UnityEngine; 
 using UnityEngine.EventSystems;
 using Zenject;
@@ -19,6 +19,14 @@ public class PickUpPerson : MonoBehaviour, IPointerClickHandler
     private void Container(CharacterSwitchSystem characrterSwitch)
     {
         this.characrterSwitch = characrterSwitch;
+    }
+    private void OnEnable()
+    {
+        personData.position = transform.position;
+    }
+    private void OnDisable()
+    {
+        transform.position = personData.position;
     }
     private void Start()
     {

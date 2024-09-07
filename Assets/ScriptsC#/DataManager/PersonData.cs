@@ -25,17 +25,14 @@ public class PersonData
             isInstalled = true; 
         } 
     }   
-    public void SavePositionPerson(ref Transform person) // coll from class PersonDataManager
+    public void SavePositionPerson(Vector3 position) // coll from class PersonDataManager
     {
-        x = person.position.x;
-        y = person.position.y;
-        z = person.position.z;
+        x = position.x;
+        y = position.y;
+        z = position.z;
     }
     public Vector3 LoadPositionPerson()// coll from class PersonDataManager
-    {
-        float _x = x;
-        float _y = y;
-        float _z = z;
-        return new Vector3(_x, _y, _z);
+    { 
+        return new Vector3(x, y, z);
     }
 }

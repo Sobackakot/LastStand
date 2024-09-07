@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Entity", menuName = "Entity/Person")]
 public class PersonDataScript : ScriptableObject
 {
-    public string namePerson; 
+    public string namePerson;
+    public Vector3 position;
 
     public Sprite spritePerson; 
 
@@ -18,5 +19,10 @@ public class PersonDataScript : ScriptableObject
             inventoryPerson = new InventoryPerson();
         if (equipmentPerson == null)
             equipmentPerson = new EquipmentPerson();
+        position = data.LoadPositionPerson();
+    }
+    private void OnDisable()
+    {
+        data.SavePositionPerson(position);
     }
 }

@@ -18,10 +18,10 @@ public class MenuScene : MonoBehaviour
     }
     public void SaveGameButton()
     {
-
+        personData.SaveData();
     } 
     public void LoadGameButton()
     { 
-
+        personData.LoadData();
     }
 }
