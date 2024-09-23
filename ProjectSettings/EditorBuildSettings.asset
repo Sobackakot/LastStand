@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Test/Menu.unity
+    guid: c957f45e5254dc243b11291c33895fcc
+  - enabled: 1
+    path: Assets/Scenes/Test/InventoryTetris.unity
+    guid: 16a8d368d4da90645bb0d39e89da0523
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 0a21dec354a676b4dbb18cc3c2381d39,
       type: 2}
