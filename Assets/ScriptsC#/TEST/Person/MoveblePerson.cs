@@ -19,4 +19,8 @@ public class MoveblePerson : ITickable
         character.Move(x,z);
         character.Jump(isKeyDown);
     }
+    public string ShowText()
+    {
+        return "Hello World";
+    }
 }
