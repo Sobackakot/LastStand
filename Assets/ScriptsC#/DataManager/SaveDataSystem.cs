@@ -1,11 +1,27 @@
 
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;  
+using System.Threading.Tasks;
+using UnityEngine;
 
-public static class SaveDataSystem  
-{ 
-    public static async Task SaveDataAsync(PersonsDataList data, string filePath) // save data from PersonDataManager
+public class SaveDataSystem  
+{
+    public SaveDataSystem(PersonsDataList personList)
+    {
+        dataList = personList;
+    }
+    private PersonsDataList dataList;
+    public async void SaveData()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, "Data.txt");
+        await SaveDataAsync(dataList, filePath);
+    }
+    public async void LoadData()
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, "Data.txt");
+        dataList = await LoadDataAsync(filePath);
+    }
+    public async Task SaveDataAsync(PersonsDataList data, string filePath) // save data from PersonDataManager
     {
         BinaryFormatter formatter = new BinaryFormatter();
         using(FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
@@ -13,7 +29,7 @@ public static class SaveDataSystem
             await Task.Run(() => formatter.Serialize(stream,data));
         }
     }
-    public static async Task<PersonsDataList> LoadDataAsync(string filePath) // load data from PersonDataManager
+    public async Task<PersonsDataList> LoadDataAsync(string filePath) // load data from PersonDataManager
     {
         if (File.Exists(filePath))
         {

@@ -5,10 +5,10 @@ using Zenject;
 
 public class MenuScene : MonoBehaviour
 {   
-    private PersonDataManager personData;
+    private SaveDataSystem personData;
 
     [Inject]
-    private void Container(PersonDataManager personData)
+    private void Container(SaveDataSystem personData)
     {
         this.personData = personData;
     }

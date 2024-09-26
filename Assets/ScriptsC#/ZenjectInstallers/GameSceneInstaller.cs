@@ -100,8 +100,7 @@ public class GameSceneInstaller : MonoInstaller, IInitializable
     }
 
     private void BindCharacterSwitch()
-    { 
-        Container.Bind<PersonDataManager>().FromNew().AsSingle().NonLazy(); 
+    {  
         Container.Bind<SelectPersonsSystem>().FromInstance(selectPersonsSystem).AsSingle();
         Container.Bind<GridLayoutGroupPerson>().FromInstance(gridLayoutGroupPerson).AsSingle();
         Container.Bind<CharacterSwitchSystem>().FromInstance(characrterSwitch).AsSingle();
