@@ -56,6 +56,6 @@ public class Interactable : MonoBehaviour
     {
         player = null;
         isFocus = false;
-        isHasInteract = false;
+        isHasInteract = true;
     }
 }
